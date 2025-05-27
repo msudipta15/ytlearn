@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const mongoose_1 = __importDefault(require("mongoose"));
+const db_1 = require("./db");
 dotenv_1.default.config();
 const app = (0, express_1.default)();
 function main() {
@@ -34,4 +35,25 @@ function main() {
     });
 }
 main();
+app.use(express_1.default.json());
+app.post("/signup", function (req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const name = req.body.name;
+        const email = req.body.email;
+        yield db_1.usermodel.create({
+            name,
+            email,
+        });
+        res.json({ msh: "done" });
+    });
+});
+app.put("/delete", function (req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const name = req.body.name;
+        yield db_1.usermodel.deleteOne({
+            name: name,
+        });
+        res.json({ msg: "deleted" });
+    });
+});
 app.listen(3000);
