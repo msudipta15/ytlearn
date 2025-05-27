@@ -13,11 +13,25 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
+const dotenv_1 = __importDefault(require("dotenv"));
+const mongoose_1 = __importDefault(require("mongoose"));
+dotenv_1.default.config();
 const app = (0, express_1.default)();
 function main() {
     return __awaiter(this, void 0, void 0, function* () {
-        app.listen(3000);
-        console.log("Listening to port: 3000");
+        if (!process.env.DB_URL) {
+            console.log("Invalid Connection String !");
+            return;
+        }
+        console.log("Connecting to database.....");
+        try {
+            yield mongoose_1.default.connect(process.env.DB_URL);
+            console.log("Connected");
+        }
+        catch (error) {
+            console.log(error);
+        }
     });
 }
 main();
+app.listen(3000);
