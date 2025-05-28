@@ -46,15 +46,20 @@ const videoSchema = new mongoose_1.Schema({
 const topicSchema = new mongoose_1.Schema({
     title: { type: String, unique: true, required: true },
     description: { type: String, unique: true },
-    videos: [videoSchema],
+    videos: { type: [videoSchema], default: [], required: false },
 });
 const courseSchema = new mongoose_1.Schema({
     title: { type: String, required: true },
     description: { type: String },
     thumbnail: { type: String, optional: true },
-    level: { type: String },
     createdAt: { type: Date, default: Date.now() },
+    difficulty: { type: String },
     topics: [topicSchema],
+});
+const adminSchema = new mongoose_1.Schema({
+    username: { type: String, unique: true },
+    password: { type: String },
+    email: { type: String, required: false },
 });
 exports.courseModel = mongoose_1.default.model("Course", courseSchema);
 exports.videoModel = mongoose_1.default.model("Video", videoSchema);

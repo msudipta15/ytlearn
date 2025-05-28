@@ -12,7 +12,7 @@ const videoSchema = new Schema({
 const topicSchema = new Schema({
   title: { type: String, unique: true, required: true },
   description: { type: String, unique: true },
-  videos: [videoSchema],
+  videos: { type: [videoSchema], default: [], required: false },
 });
 
 const courseSchema = new Schema({
@@ -24,6 +24,13 @@ const courseSchema = new Schema({
   topics: [topicSchema],
 });
 
+const adminSchema = new Schema({
+  username: { type: String, unique: true },
+  password: { type: String },
+  email: { type: String, required: false },
+});
+
 export const courseModel = mongoose.model("Course", courseSchema);
 export const videoModel = mongoose.model("Video", videoSchema);
 export const topicModel = mongoose.model("Topic", topicSchema);
+export const adminModel = mongoose.model("Admin", adminSchema);

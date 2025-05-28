@@ -15,8 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const mongoose_1 = __importDefault(require("mongoose"));
-const apicall_1 = require("./apicall");
-const db_1 = require("./models/db");
+const adminrouter_1 = require("./adminrouter");
 dotenv_1.default.config();
 const app = (0, express_1.default)();
 function main() {
@@ -37,34 +36,5 @@ function main() {
 }
 main();
 app.use(express_1.default.json());
-app.post("/api/v1/addvideo", function (req, res) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const link = req.body.link;
-        if (!link) {
-            res.json({ msg: "link needs to be a non empty string" });
-            return;
-        }
-        const { title, channelTitle, viewCount, likeCount, duration } = yield (0, apicall_1.getvideoinfo)(link);
-        try {
-            yield db_1.videoModel.create({
-                title: title,
-                channelname: channelTitle,
-                duration: duration,
-                likes: likeCount,
-                views: viewCount,
-                url: link,
-            });
-            res.status(200).json({ msg: "Video Added" });
-        }
-        catch (error) {
-            res.status(402).json({ msg: "something went wrong" });
-        }
-    });
-});
-app.get("/api/v1/videos", function (req, res) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const videos = yield db_1.videoModel.find({});
-        res.json({ videos });
-    });
-});
+app.use("/api/v1/admin", adminrouter_1.adminrouter);
 app.listen(3000);
