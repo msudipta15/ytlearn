@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { getvideoinfo } from "../apicall";
-import { videoModel } from "../models/db";
+import { topicModel, videoModel } from "../models/db";
 
 const adminrouter = Router();
 
@@ -39,6 +39,29 @@ adminrouter.post("/addvideo", async function (req, res) {
   }
 });
 
-adminrouter.post("/createtopic", async function (req, res) {});
+adminrouter.post("/createtopic", async function (req, res) {
+  const title = req.body.title;
+  const description = req.body.description;
+
+  const duplicate = await topicModel.findOne({
+    title: title,
+  });
+
+  if (duplicate) {
+    res.status(500).json({ msg: "This topic already exists" });
+    return;
+  }
+
+  try {
+    const topic = await topicModel.create({
+      title,
+      description,
+    });
+    res.status(200).json({ msg: `${topic.title} added to Topics` });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ msg: "Something went wrong" });
+  }
+});
 
 export { adminrouter };

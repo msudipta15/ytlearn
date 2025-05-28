@@ -33,7 +33,7 @@ var __importStar = (this && this.__importStar) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.topicModel = exports.videoModel = exports.courseModel = void 0;
+exports.adminModel = exports.topicModel = exports.videoModel = exports.courseModel = void 0;
 const mongoose_1 = __importStar(require("mongoose"));
 const videoSchema = new mongoose_1.Schema({
     title: { type: String, required: true },
@@ -64,3 +64,4 @@ const adminSchema = new mongoose_1.Schema({
 exports.courseModel = mongoose_1.default.model("Course", courseSchema);
 exports.videoModel = mongoose_1.default.model("Video", videoSchema);
 exports.topicModel = mongoose_1.default.model("Topic", topicSchema);
+exports.adminModel = mongoose_1.default.model("Admin", adminSchema);

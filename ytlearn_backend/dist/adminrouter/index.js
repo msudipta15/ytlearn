@@ -22,6 +22,13 @@ adminrouter.post("/addvideo", function (req, res) {
             res.json({ msg: "Invalid or empty YouTube link" });
             return;
         }
+        const duplicate = yield db_1.videoModel.findOne({
+            url: link,
+        });
+        if (duplicate) {
+            res.status(500).json({ msg: "This video already exists" });
+            return;
+        }
         const { title, channelTitle, viewCount, likeCount, duration } = yield (0, apicall_1.getvideoinfo)(link);
         try {
             yield db_1.videoModel.create({
@@ -36,6 +43,30 @@ adminrouter.post("/addvideo", function (req, res) {
         }
         catch (error) {
             res.status(402).json({ msg: "something went wrong" });
+        }
+    });
+});
+adminrouter.post("/createtopic", function (req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const title = req.body.title;
+        const description = req.body.description;
+        const duplicate = yield db_1.topicModel.findOne({
+            title: title,
+        });
+        if (duplicate) {
+            res.status(500).json({ msg: "This topic already exists" });
+            return;
+        }
+        try {
+            const topic = yield db_1.topicModel.create({
+                title,
+                description,
+            });
+            res.status(200).json({ msg: `${topic.title} added to Topics` });
+        }
+        catch (error) {
+            console.log(error);
+            res.status(500).json({ msg: "Something went wrong" });
         }
     });
 });
