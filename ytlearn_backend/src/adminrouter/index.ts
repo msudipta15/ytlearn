@@ -1,14 +1,17 @@
 import { Router } from "express";
 import { getvideoinfo } from "../apicall";
 import { topicModel, videoModel } from "../models/db";
+import { checklink } from "../utils";
 
 const adminrouter = Router();
 
 adminrouter.post("/addvideo", async function (req, res) {
   const link: string = req.body.link;
 
-  if (!link || !link.includes("youtube.com")) {
-    res.json({ msg: "Invalid or empty YouTube link" });
+  const validlink = checklink(link);
+
+  if (!validlink) {
+    res.json({ msg: "Please provide a valid youtube link" });
     return;
   }
 
@@ -73,9 +76,10 @@ adminrouter.post("/addvideo/:topic", async function (req, res) {
   const topic = req.params.topic;
   const link = req.body.link;
 
-  if (!link || !link.includes("youtube.com")) {
-    res.json({ msg: "Invalid or empty YouTube link" });
-    console.log(link);
+  const validlink = checklink(link);
+
+  if (!validlink) {
+    res.json({ msg: "Please provide a valid youtube link" });
     return;
   }
 

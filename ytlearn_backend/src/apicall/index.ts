@@ -5,10 +5,21 @@ dotenv.config();
 const api_key = process.env.YT_API_CODE;
 
 function getvideoid(url: string) {
-  const p1 = url.split("v=")[1];
-  const id = p1.split("&")[0];
-  console.log(id);
-  return id;
+  if (url.includes("youtube.com")) {
+    const p1 = url.split("v=")[1];
+    const id = p1.split("&")[0];
+    console.log(id);
+    return id;
+  }
+
+  if (url.includes("youtu.be")) {
+    const p1 = url.split("be/")[1];
+    const id = p1.split("?")[0];
+    console.log(id);
+    return id;
+  } else {
+    return;
+  }
 }
 
 interface data {
@@ -38,7 +49,3 @@ export async function getvideoinfo(url: string) {
 
   return { channelTitle, title, viewCount, likeCount, duration };
 }
-
-getvideoinfo(
-  "https://www.youtube.com/watch?v=KZ-Rdn4fFPo&ab_channel=RRajeshVlogs"
-);

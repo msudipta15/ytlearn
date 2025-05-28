@@ -13,13 +13,15 @@ exports.adminrouter = void 0;
 const express_1 = require("express");
 const apicall_1 = require("../apicall");
 const db_1 = require("../models/db");
+const utils_1 = require("../utils");
 const adminrouter = (0, express_1.Router)();
 exports.adminrouter = adminrouter;
 adminrouter.post("/addvideo", function (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const link = req.body.link;
-        if (!link || !link.includes("youtube.com")) {
-            res.json({ msg: "Invalid or empty YouTube link" });
+        const validlink = (0, utils_1.checklink)(link);
+        if (!validlink) {
+            res.json({ msg: "Please provide a valid youtube link" });
             return;
         }
         const duplicate = yield db_1.videoModel.findOne({
@@ -81,9 +83,9 @@ adminrouter.post("/addvideo/:topic", function (req, res) {
         var _a;
         const topic = req.params.topic;
         const link = req.body.link;
-        if (!link || !link.includes("youtube.com")) {
-            res.json({ msg: "Invalid or empty YouTube link" });
-            console.log(link);
+        const validlink = (0, utils_1.checklink)(link);
+        if (!validlink) {
+            res.json({ msg: "Please provide a valid youtube link" });
             return;
         }
         console.log(topic);
