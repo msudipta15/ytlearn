@@ -70,3 +70,47 @@ adminrouter.post("/createtopic", function (req, res) {
         }
     });
 });
+adminrouter.get("/gettopics", function (req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const topics = yield db_1.topicModel.find({});
+        res.status(200).json({ topics });
+    });
+});
+adminrouter.post("/addvideo/:topic", function (req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        var _a;
+        const topic = req.params.topic;
+        const link = req.body.link;
+        if (!link || !link.includes("youtube.com")) {
+            res.json({ msg: "Invalid or empty YouTube link" });
+            console.log(link);
+            return;
+        }
+        console.log(topic);
+        const findtopic = yield db_1.topicModel.findOne({
+            title: topic,
+        });
+        if (!findtopic) {
+            res.json({ msg: "No topic found" });
+            return;
+        }
+        try {
+            const videoinfo = yield (0, apicall_1.getvideoinfo)(link);
+            const newvideo = {
+                channelTitle: videoinfo.channelTitle,
+                title: videoinfo.title,
+                viewCount: videoinfo.viewCount,
+                likeCount: videoinfo.likeCount,
+                duration: videoinfo.duration,
+                url: link,
+            };
+            (_a = findtopic.videos) === null || _a === void 0 ? void 0 : _a.push(newvideo);
+            yield findtopic.save();
+            res.json({ msg: `${videoinfo.title} video added to topic : ${topic}` });
+        }
+        catch (error) {
+            console.log(error);
+            res.status(500).json({ msg: "something went wrong" });
+        }
+    });
+});

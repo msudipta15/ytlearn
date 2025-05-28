@@ -64,4 +64,53 @@ adminrouter.post("/createtopic", async function (req, res) {
   }
 });
 
+adminrouter.get("/gettopics", async function (req, res) {
+  const topics = await topicModel.find({});
+  res.status(200).json({ topics });
+});
+
+adminrouter.post("/addvideo/:topic", async function (req, res) {
+  const topic = req.params.topic;
+  const link = req.body.link;
+
+  if (!link || !link.includes("youtube.com")) {
+    res.json({ msg: "Invalid or empty YouTube link" });
+    console.log(link);
+    return;
+  }
+
+  console.log(topic);
+
+  const findtopic = await topicModel.findOne({
+    title: topic,
+  });
+
+  if (!findtopic) {
+    res.json({ msg: "No topic found" });
+    return;
+  }
+
+  try {
+    const videoinfo = await getvideoinfo(link);
+
+    const newvideo = {
+      channelTitle: videoinfo.channelTitle,
+      title: videoinfo.title,
+      viewCount: videoinfo.viewCount,
+      likeCount: videoinfo.likeCount,
+      duration: videoinfo.duration,
+      url: link,
+    };
+
+    findtopic.videos?.push(newvideo);
+
+    await findtopic.save();
+
+    res.json({ msg: `${videoinfo.title} video added to topic : ${topic}` });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ msg: "something went wrong" });
+  }
+});
+
 export { adminrouter };
