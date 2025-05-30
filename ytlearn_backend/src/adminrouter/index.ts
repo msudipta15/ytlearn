@@ -119,6 +119,25 @@ adminrouter.patch("/edittopic/:id", async function (req, res) {
   }
 });
 
+// Delete a topic by id
+adminrouter.delete("/deletetopic/:topic", async function (req, res) {
+  const id = req.params.topic;
+  const topic = await topicModel.findOne({ _id: id });
+
+  if (!topic) {
+    res.status(406).json({ msg: "Topic not found" });
+    return;
+  }
+
+  try {
+    await topicModel.deleteOne({ _id: id });
+    res.status(200).json({ msg: "Topic deleted" });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ msg: "Something went wrong" });
+  }
+});
+
 // Add video to a topic
 adminrouter.post("/addvideo/:topic", async function (req, res) {
   const topic = req.params.topic;
@@ -134,7 +153,7 @@ adminrouter.post("/addvideo/:topic", async function (req, res) {
   console.log(topic);
 
   const findtopic = await topicModel.findOne({
-    title: topic,
+    _id: topic,
   });
 
   if (!findtopic) {
@@ -165,6 +184,7 @@ adminrouter.post("/addvideo/:topic", async function (req, res) {
   }
 });
 
+// Delete video from a topic
 adminrouter.delete("/deletevideo/:topic/:video", async function (req, res) {
   const topic_id = req.params.topic;
   const video_id = req.params.video;

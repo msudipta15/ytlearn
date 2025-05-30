@@ -126,6 +126,25 @@ adminrouter.patch("/edittopic/:id", function (req, res) {
         }
     });
 });
+// Delete a topic by id
+adminrouter.delete("/deletetopic/:topic", function (req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const id = req.params.topic;
+        const topic = yield db_1.topicModel.findOne({ _id: id });
+        if (!topic) {
+            res.status(406).json({ msg: "Topic not found" });
+            return;
+        }
+        try {
+            yield db_1.topicModel.deleteOne({ _id: id });
+            res.status(200).json({ msg: "Topic deleted" });
+        }
+        catch (error) {
+            console.log(error);
+            res.status(500).json({ msg: "Something went wrong" });
+        }
+    });
+});
 // Add video to a topic
 adminrouter.post("/addvideo/:topic", function (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -139,7 +158,7 @@ adminrouter.post("/addvideo/:topic", function (req, res) {
         }
         console.log(topic);
         const findtopic = yield db_1.topicModel.findOne({
-            title: topic,
+            _id: topic,
         });
         if (!findtopic) {
             res.json({ msg: "No topic found" });
@@ -165,6 +184,7 @@ adminrouter.post("/addvideo/:topic", function (req, res) {
         }
     });
 });
+// Delete video from a topic
 adminrouter.delete("/deletevideo/:topic/:video", function (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const topic_id = req.params.topic;
