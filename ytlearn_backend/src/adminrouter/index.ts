@@ -207,6 +207,7 @@ adminrouter.delete("/deletevideo/:topic/:video", async function (req, res) {
   }
 });
 
+// Search for topic
 adminrouter.get("/topic/:q", async function (req, res) {
   const query = req.params.q;
   try {

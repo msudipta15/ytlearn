@@ -202,6 +202,7 @@ adminrouter.delete("/deletevideo/:topic/:video", function (req, res) {
         }
     });
 });
+// Search for topic
 adminrouter.get("/topic/:q", function (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const query = req.params.q;
@@ -218,6 +219,28 @@ adminrouter.get("/topic/:q", function (req, res) {
         }
         catch (error) {
             res.status(500).json({ msg: "Something went wrong" });
+        }
+    });
+});
+//Search for a video inside a topic
+adminrouter.get("/:topic/:q", function (req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const topic_id = req.params.topic;
+        const query = req.params.q;
+        const valid = yield db_1.topicModel.findOne({ _id: topic_id });
+        if (!valid) {
+            res.status(406).json({ msg: "Invalid Topic" });
+            return;
+        }
+        try {
+            const regx = new RegExp(query, "i");
+            const result = yield db_1.topicModel.find({
+                "videos.title": regx,
+            });
+            res.json({ result });
+        }
+        catch (error) {
+            return;
         }
     });
 });
