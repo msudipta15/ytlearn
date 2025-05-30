@@ -90,6 +90,35 @@ adminrouter.get("/gettopic/:id", async function (req, res) {
   res.status(200).json({ topic });
 });
 
+// Edit topic title or description
+adminrouter.patch("/edittopic/:id", async function (req, res) {
+  const id = req.params.id;
+  const title = req.body?.title;
+  const description = req.body?.description;
+
+  try {
+    const topic = await topicModel.findOne({
+      _id: id,
+    });
+    if (!topic) {
+      res.status(402).json({ msg: "No topic found" });
+      return;
+    }
+    if (title && description) {
+      await topicModel.updateOne({
+        title: title,
+        description: description,
+      });
+
+      res.status(200).json({ msg: "Topic Updated" });
+    } else {
+      res.status(500).json({ msg: "Title and description can not be empty" });
+    }
+  } catch (error) {
+    res.status(500).json({ msg: "something went wrong" });
+  }
+});
+
 // Add video to a topic
 adminrouter.post("/addvideo/:topic", async function (req, res) {
   const topic = req.params.topic;
@@ -136,30 +165,26 @@ adminrouter.post("/addvideo/:topic", async function (req, res) {
   }
 });
 
-adminrouter.patch("/edittopic/:id", async function (req, res) {
-  const id = req.params.id;
-  const title = req.body?.title;
-  const description = req.body?.description;
+adminrouter.delete("/deletevideo/:topic/:video", async function (req, res) {
+  const topic_id = req.params.topic;
+  const video_id = req.params.video;
 
   try {
-    const topic = await topicModel.findOne({
-      _id: id,
-    });
-    if (!topic) {
-      res.status(402).json({ msg: "No topic found" });
-      return;
-    }
-    if (title && description) {
-      await topicModel.updateOne({
-        title: title,
-        description: description,
-      });
+    const response = await topicModel.updateOne(
+      { _id: topic_id },
+      { $pull: { videos: { _id: video_id } } }
+    );
 
-      res.status(200).json({ msg: "Topic Updated" });
-    } else {
-      res.status(500).json({ msg: "Title and description can not be empty" });
+    console.log(response);
+
+    if (response.modifiedCount === 0) {
+      res.status(402).json({ msg: "Somethis went wrong" });
     }
-  } catch (error) {}
+
+    res.status(200).json({ msg: "Video deleted " });
+  } catch (error) {
+    res.status(500).json({ msg: "Something went wrong" });
+  }
 });
 
 export { adminrouter };

@@ -95,6 +95,37 @@ adminrouter.get("/gettopic/:id", function (req, res) {
         res.status(200).json({ topic });
     });
 });
+// Edit topic title or description
+adminrouter.patch("/edittopic/:id", function (req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        var _a, _b;
+        const id = req.params.id;
+        const title = (_a = req.body) === null || _a === void 0 ? void 0 : _a.title;
+        const description = (_b = req.body) === null || _b === void 0 ? void 0 : _b.description;
+        try {
+            const topic = yield db_1.topicModel.findOne({
+                _id: id,
+            });
+            if (!topic) {
+                res.status(402).json({ msg: "No topic found" });
+                return;
+            }
+            if (title && description) {
+                yield db_1.topicModel.updateOne({
+                    title: title,
+                    description: description,
+                });
+                res.status(200).json({ msg: "Topic Updated" });
+            }
+            else {
+                res.status(500).json({ msg: "Title and description can not be empty" });
+            }
+        }
+        catch (error) {
+            res.status(500).json({ msg: "something went wrong" });
+        }
+    });
+});
 // Add video to a topic
 adminrouter.post("/addvideo/:topic", function (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -134,31 +165,20 @@ adminrouter.post("/addvideo/:topic", function (req, res) {
         }
     });
 });
-adminrouter.patch("/edittopic/:id", function (req, res) {
+adminrouter.delete("/deletevideo/:topic/:video", function (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        var _a, _b;
-        const id = req.params.id;
-        const title = (_a = req.body) === null || _a === void 0 ? void 0 : _a.title;
-        const description = (_b = req.body) === null || _b === void 0 ? void 0 : _b.description;
+        const topic_id = req.params.topic;
+        const video_id = req.params.video;
         try {
-            const topic = yield db_1.topicModel.findOne({
-                _id: id,
-            });
-            if (!topic) {
-                res.status(402).json({ msg: "No topic found" });
-                return;
+            const response = yield db_1.topicModel.updateOne({ _id: topic_id }, { $pull: { videos: { _id: video_id } } });
+            console.log(response);
+            if (response.modifiedCount === 0) {
+                res.status(402).json({ msg: "Somethis went wrong" });
             }
-            if (title && description) {
-                yield db_1.topicModel.updateOne({
-                    title: title,
-                    description: description,
-                });
-                res.status(200).json({ msg: "Topic Updated" });
-            }
-            else {
-                res.status(500).json({ msg: "Title and description can not be empty" });
-            }
+            res.status(200).json({ msg: "Video deleted " });
         }
-        catch (error) { }
+        catch (error) {
+            res.status(500).json({ msg: "Something went wrong" });
+        }
     });
 });
