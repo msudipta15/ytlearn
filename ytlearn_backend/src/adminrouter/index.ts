@@ -5,6 +5,7 @@ import { checklink } from "../utils";
 
 const adminrouter = Router();
 
+// Add a video
 adminrouter.post("/addvideo", async function (req, res) {
   const link: string = req.body.link;
 
@@ -42,6 +43,7 @@ adminrouter.post("/addvideo", async function (req, res) {
   }
 });
 
+// Create a new topic
 adminrouter.post("/createtopic", async function (req, res) {
   const title = req.body.title;
   const description = req.body.description;
@@ -67,11 +69,27 @@ adminrouter.post("/createtopic", async function (req, res) {
   }
 });
 
+// Get all existing topics
 adminrouter.get("/gettopics", async function (req, res) {
   const topics = await topicModel.find({});
   res.status(200).json({ topics });
 });
 
+adminrouter.get("/gettopic/:id", async function (req, res) {
+  const id = req.params.id;
+  const topic = await topicModel.findOne({
+    _id: id,
+  });
+
+  if (!topic) {
+    res.status(406).json({ msg: "No topic found" });
+    return;
+  }
+
+  res.status(200).json({ topic });
+});
+
+// Add video to a topic
 adminrouter.post("/addvideo/:topic", async function (req, res) {
   const topic = req.params.topic;
   const link = req.body.link;

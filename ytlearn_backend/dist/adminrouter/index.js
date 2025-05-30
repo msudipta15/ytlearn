@@ -16,6 +16,7 @@ const db_1 = require("../models/db");
 const utils_1 = require("../utils");
 const adminrouter = (0, express_1.Router)();
 exports.adminrouter = adminrouter;
+// Add a video
 adminrouter.post("/addvideo", function (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const link = req.body.link;
@@ -48,6 +49,7 @@ adminrouter.post("/addvideo", function (req, res) {
         }
     });
 });
+// Create a new topic
 adminrouter.post("/createtopic", function (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const title = req.body.title;
@@ -72,12 +74,27 @@ adminrouter.post("/createtopic", function (req, res) {
         }
     });
 });
+// Get all existing topics
 adminrouter.get("/gettopics", function (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const topics = yield db_1.topicModel.find({});
         res.status(200).json({ topics });
     });
 });
+adminrouter.get("/gettopic/:id", function (req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const id = req.params.id;
+        const topic = yield db_1.topicModel.findOne({
+            _id: id,
+        });
+        if (!topic) {
+            res.status(406).json({ msg: "No topic found" });
+            return;
+        }
+        res.status(200).json({ topic });
+    });
+});
+// Add video to a topic
 adminrouter.post("/addvideo/:topic", function (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         var _a;
