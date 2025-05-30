@@ -75,6 +75,7 @@ adminrouter.get("/gettopics", async function (req, res) {
   res.status(200).json({ topics });
 });
 
+// Get topic by id
 adminrouter.get("/gettopic/:id", async function (req, res) {
   const id = req.params.id;
   const topic = await topicModel.findOne({
@@ -133,6 +134,32 @@ adminrouter.post("/addvideo/:topic", async function (req, res) {
     console.log(error);
     res.status(500).json({ msg: "something went wrong" });
   }
+});
+
+adminrouter.patch("/edittopic/:id", async function (req, res) {
+  const id = req.params.id;
+  const title = req.body?.title;
+  const description = req.body?.description;
+
+  try {
+    const topic = await topicModel.findOne({
+      _id: id,
+    });
+    if (!topic) {
+      res.status(402).json({ msg: "No topic found" });
+      return;
+    }
+    if (title && description) {
+      await topicModel.updateOne({
+        title: title,
+        description: description,
+      });
+
+      res.status(200).json({ msg: "Topic Updated" });
+    } else {
+      res.status(500).json({ msg: "Title and description can not be empty" });
+    }
+  } catch (error) {}
 });
 
 export { adminrouter };

@@ -81,6 +81,7 @@ adminrouter.get("/gettopics", function (req, res) {
         res.status(200).json({ topics });
     });
 });
+// Get topic by id
 adminrouter.get("/gettopic/:id", function (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const id = req.params.id;
@@ -131,5 +132,33 @@ adminrouter.post("/addvideo/:topic", function (req, res) {
             console.log(error);
             res.status(500).json({ msg: "something went wrong" });
         }
+    });
+});
+adminrouter.patch("/edittopic/:id", function (req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        var _a, _b;
+        const id = req.params.id;
+        const title = (_a = req.body) === null || _a === void 0 ? void 0 : _a.title;
+        const description = (_b = req.body) === null || _b === void 0 ? void 0 : _b.description;
+        try {
+            const topic = yield db_1.topicModel.findOne({
+                _id: id,
+            });
+            if (!topic) {
+                res.status(402).json({ msg: "No topic found" });
+                return;
+            }
+            if (title && description) {
+                yield db_1.topicModel.updateOne({
+                    title: title,
+                    description: description,
+                });
+                res.status(200).json({ msg: "Topic Updated" });
+            }
+            else {
+                res.status(500).json({ msg: "Title and description can not be empty" });
+            }
+        }
+        catch (error) { }
     });
 });
