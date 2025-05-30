@@ -202,3 +202,22 @@ adminrouter.delete("/deletevideo/:topic/:video", function (req, res) {
         }
     });
 });
+adminrouter.get("/topic/:q", function (req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const query = req.params.q;
+        try {
+            const regx = new RegExp(query, "i");
+            const topics = yield db_1.topicModel.find({
+                $or: [{ title: regx }, { description: regx }],
+            });
+            if (topics.length === 0) {
+                res.status(402).json({ msg: "No topic found" });
+                return;
+            }
+            res.status(200).json({ topics });
+        }
+        catch (error) {
+            res.status(500).json({ msg: "Something went wrong" });
+        }
+    });
+});

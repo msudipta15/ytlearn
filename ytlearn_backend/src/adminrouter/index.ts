@@ -207,4 +207,24 @@ adminrouter.delete("/deletevideo/:topic/:video", async function (req, res) {
   }
 });
 
+adminrouter.get("/topic/:q", async function (req, res) {
+  const query = req.params.q;
+  try {
+    const regx = new RegExp(query, "i");
+
+    const topics = await topicModel.find({
+      $or: [{ title: regx }, { description: regx }],
+    });
+
+    if (topics.length === 0) {
+      res.status(402).json({ msg: "No topic found" });
+      return;
+    }
+
+    res.status(200).json({ topics });
+  } catch (error) {
+    res.status(500).json({ msg: "Something went wrong" });
+  }
+});
+
 export { adminrouter };
