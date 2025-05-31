@@ -1,3 +1,5 @@
+import { SigninButton } from "@/components/admin/signinbutton";
+import { Button } from "@/components/ui/button";
 import { SparklesCore } from "@/components/ui/sparkles";
 
 export default function AdminHome() {
@@ -9,10 +11,12 @@ export default function AdminHome() {
       {/* Foreground content */}
       <div className="absolute inset-0 z-10 flex flex-col justify-center items-center text-white">
         <h1 className="text-4xl font-bold mb-4">YT Learn Admin</h1>
-        <p className="text-lg">Manage your videos and topics with ease</p>
-        <button className="mt-6 px-6 py-2 bg-white text-black rounded-lg hover:bg-gray-200">
-          Get Started
-        </button>
+
+        <p className="text-lg font-medium">
+          Manage your videos and topics with ease
+        </p>
+        <br />
+        <SigninButton />
       </div>
     </div>
   );
