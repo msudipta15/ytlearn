@@ -1,9 +1,76 @@
 import { Router } from "express";
 import { getvideoinfo } from "../apicall";
-import { topicModel, videoModel } from "../models/db";
+import { adminModel, topicModel, videoModel } from "../models/db";
 import { checklink } from "../utils";
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+
+dotenv.config();
+
+const JWT_KEY = process.env.JWT_KEY;
 
 const adminrouter = Router();
+
+// Admin signup
+adminrouter.post("/signup", async function (req, res) {
+  const username = req.body.username;
+  const password = req.body.password;
+
+  const hashpassword = await bcrypt.hash(password, 10);
+
+  const checkuser = await adminModel.findOne({
+    username: username,
+  });
+
+  if (checkuser) {
+    res.status(406).json({ msg: "username already exists" });
+    return;
+  }
+
+  try {
+    await adminModel.create({ username: username, password: hashpassword });
+    res.status(200).json({ msg: "Admin Sign up Successfull" });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ msg: "Something went wrong" });
+  }
+});
+
+// Admin Signin
+adminrouter.post("/signin", async function (req, res) {
+  const username = req.body.username;
+  const password = req.body.password;
+
+  if (!JWT_KEY) {
+    console.log({ JWT_KEY: JWT_KEY });
+    return;
+  }
+
+  const finduser = await adminModel.findOne({
+    username: username,
+  });
+
+  if (!finduser) {
+    res.status(406).json({ msg: "username not found" });
+    return;
+  }
+
+  const validpassword = await bcrypt.compare(password, finduser.password!);
+
+  if (!validpassword) {
+    res.status(402).json({ msg: "Invalid Password" });
+    return;
+  }
+
+  try {
+    const token = jwt.sign({ id: finduser._id.toString() }, JWT_KEY);
+    res.status(200).json({ token: token });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ msg: "Something went wrong " });
+  }
+});
 
 // Add a video
 adminrouter.post("/addvideo", async function (req, res) {

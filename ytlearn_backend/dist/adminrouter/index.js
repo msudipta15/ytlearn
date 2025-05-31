@@ -8,14 +8,69 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.adminrouter = void 0;
 const express_1 = require("express");
 const apicall_1 = require("../apicall");
 const db_1 = require("../models/db");
 const utils_1 = require("../utils");
+const bcrypt_1 = __importDefault(require("bcrypt"));
+const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
+const dotenv_1 = __importDefault(require("dotenv"));
+dotenv_1.default.config();
+const JWT_KEY = process.env.JWT_KEY;
+console.log(JWT_KEY);
 const adminrouter = (0, express_1.Router)();
 exports.adminrouter = adminrouter;
+// Admin signup
+adminrouter.post("/signup", function (req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const username = req.body.username;
+        const password = req.body.password;
+        const hashpassword = yield bcrypt_1.default.hash(password, 10);
+        const checkuser = yield db_1.adminModel.findOne({
+            username: username,
+        });
+        if (checkuser) {
+            res.status(406).json({ msg: "username already exists" });
+            return;
+        }
+        try {
+            yield db_1.adminModel.create({ username: username, password: hashpassword });
+            res.status(200).json({ msg: "Admin Sign up Successfull" });
+        }
+        catch (error) {
+            console.log(error);
+            res.status(500).json({ msg: "Something went wrong" });
+        }
+    });
+});
+// Admin Signin
+adminrouter.post("/signin", function (req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const username = req.body.username;
+        const password = req.body.password;
+        const finduser = yield db_1.adminModel.findOne({
+            username: username,
+        });
+        if (!finduser) {
+            res.status(406).json({ msg: "username not found" });
+            return;
+        }
+        const validpassword = yield bcrypt_1.default.compare(password, finduser.password);
+        if (!validpassword) {
+            res.status(402).json({ msg: "Invalid Password" });
+            return;
+        }
+        try {
+            const token = jsonwebtoken_1.default.sign(finduser._id.toString(), "id");
+        }
+        catch (error) { }
+    });
+});
 // Add a video
 adminrouter.post("/addvideo", function (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -219,28 +274,6 @@ adminrouter.get("/topic/:q", function (req, res) {
         }
         catch (error) {
             res.status(500).json({ msg: "Something went wrong" });
-        }
-    });
-});
-//Search for a video inside a topic
-adminrouter.get("/:topic/:q", function (req, res) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const topic_id = req.params.topic;
-        const query = req.params.q;
-        const valid = yield db_1.topicModel.findOne({ _id: topic_id });
-        if (!valid) {
-            res.status(406).json({ msg: "Invalid Topic" });
-            return;
-        }
-        try {
-            const regx = new RegExp(query, "i");
-            const result = yield db_1.topicModel.find({
-                "videos.title": regx,
-            });
-            res.json({ result });
-        }
-        catch (error) {
-            return;
         }
     });
 });
