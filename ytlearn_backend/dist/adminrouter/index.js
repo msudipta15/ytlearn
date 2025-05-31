@@ -22,7 +22,6 @@ const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 const JWT_KEY = process.env.JWT_KEY;
-console.log(JWT_KEY);
 const adminrouter = (0, express_1.Router)();
 exports.adminrouter = adminrouter;
 // Admin signup
@@ -53,6 +52,10 @@ adminrouter.post("/signin", function (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const username = req.body.username;
         const password = req.body.password;
+        if (!JWT_KEY) {
+            console.log({ JWT_KEY: JWT_KEY });
+            return;
+        }
         const finduser = yield db_1.adminModel.findOne({
             username: username,
         });
@@ -66,9 +69,13 @@ adminrouter.post("/signin", function (req, res) {
             return;
         }
         try {
-            const token = jsonwebtoken_1.default.sign(finduser._id.toString(), "id");
+            const token = jsonwebtoken_1.default.sign({ id: finduser._id.toString() }, JWT_KEY);
+            res.status(200).json({ token: token });
         }
-        catch (error) { }
+        catch (error) {
+            console.log(error);
+            res.status(500).json({ msg: "Something went wrong " });
+        }
     });
 });
 // Add a video

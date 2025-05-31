@@ -68,7 +68,7 @@ adminrouter.post("/signin", async function (req, res) {
     res.status(200).json({ token: token });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ msg: "Something went wrong " });
+    res.status(500).json({ msg: "Something went wrong !" });
   }
 });
 
