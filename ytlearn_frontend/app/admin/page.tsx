@@ -1,4 +1,3 @@
-import { SigninButton } from "@/components/admin/signinbutton";
 import { Button } from "@/components/ui/button";
 import { SparklesCore } from "@/components/ui/sparkles";
 
@@ -16,7 +15,6 @@ export default function AdminHome() {
           Manage your videos and topics with ease
         </p>
         <br />
-        <SigninButton />
       </div>
     </div>
   );
