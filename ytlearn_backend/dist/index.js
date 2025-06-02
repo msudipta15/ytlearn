@@ -16,8 +16,10 @@ const express_1 = __importDefault(require("express"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const adminrouter_1 = require("./adminrouter");
+const cors_1 = __importDefault(require("cors"));
 dotenv_1.default.config();
 const app = (0, express_1.default)();
+app.use((0, cors_1.default)());
 function main() {
     return __awaiter(this, void 0, void 0, function* () {
         if (!process.env.DB_URL) {
@@ -37,4 +39,4 @@ function main() {
 main();
 app.use(express_1.default.json());
 app.use("/api/v1/admin", adminrouter_1.adminrouter);
-app.listen(3000);
+app.listen(3001);

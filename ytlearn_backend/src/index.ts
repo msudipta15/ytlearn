@@ -2,10 +2,13 @@ import express from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 import { adminrouter } from "./adminrouter";
+import cors from "cors";
 
 dotenv.config();
 
 const app = express();
+
+app.use(cors());
 
 async function main() {
   if (!process.env.DB_URL) {
@@ -27,4 +30,4 @@ app.use(express.json());
 
 app.use("/api/v1/admin", adminrouter);
 
-app.listen(3000);
+app.listen(3001);

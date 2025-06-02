@@ -74,7 +74,7 @@ adminrouter.post("/signin", function (req, res) {
         }
         catch (error) {
             console.log(error);
-            res.status(500).json({ msg: "Something went wrong " });
+            res.status(500).json({ msg: "Something went wrong !" });
         }
     });
 });
