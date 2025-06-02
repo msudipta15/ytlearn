@@ -1,14 +1,11 @@
+import { BackgroundLines } from "@/components/ui/background-lines";
 import { Button } from "@/components/ui/button";
 import { SparklesCore } from "@/components/ui/sparkles";
 
 export default function AdminHome() {
   return (
-    <div className="relative h-screen w-full overflow-hidden">
-      {/* Background gradient */}
-      <SparklesCore />
-
-      {/* Foreground content */}
-      <div className="absolute inset-0 z-10 flex flex-col justify-center items-center text-white">
+    <BackgroundLines>
+      <div className="absolute inset-0 z-10 flex flex-col justify-center text-black items-center">
         <h1 className="text-4xl font-bold mb-4">YT Learn Admin</h1>
 
         <p className="text-lg font-medium">
@@ -16,6 +13,6 @@ export default function AdminHome() {
         </p>
         <br />
       </div>
-    </div>
+    </BackgroundLines>
   );
 }
