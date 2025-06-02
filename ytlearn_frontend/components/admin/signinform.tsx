@@ -49,7 +49,7 @@ export function SigninForm() {
   return (
     <div className=" p-3  w-full items-center">
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
           <FormField
             control={form.control}
             name="username"
@@ -61,9 +61,17 @@ export function SigninForm() {
                 </FormControl>
                 <FormDescription>Enter your username</FormDescription>
                 <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="password"
+            render={({ field }) => (
+              <FormItem>
                 <FormLabel>Password</FormLabel>
                 <FormControl>
-                  <Input placeholder="*****" {...field} />
+                  <Input type="password" placeholder="*****" {...field} />
                 </FormControl>
                 <FormDescription>Enter your password</FormDescription>
                 <FormMessage />
