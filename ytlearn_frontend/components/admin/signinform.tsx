@@ -3,7 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-
+import { Loader2Icon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -17,6 +17,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { signin } from "@/actions/admin/signin";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
   username: z
@@ -36,6 +37,8 @@ export function SigninForm() {
   const [error, seterror] = useState("");
   const [issubmit, setissubmit] = useState(false);
 
+  const route = useRouter();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -46,10 +49,20 @@ export function SigninForm() {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setissubmit(true);
-    const response = await signin(values);
-    setissubmit(false);
-    if (response?.error) {
-      seterror(response.error);
+    try {
+      const response = await signin(values);
+      if (response?.success) {
+        route.push("/admin/dashboard");
+        return;
+      }
+      if (response?.error) {
+        seterror(response.error);
+        return;
+      }
+    } catch (error) {
+      seterror("something went wrong");
+    } finally {
+      setissubmit(false);
     }
   }
 
@@ -92,6 +105,7 @@ export function SigninForm() {
           )}
 
           <Button className="w-full" type="submit" disabled={issubmit}>
+            {issubmit && <Loader2Icon className="animate-spin" />}
             Submit
           </Button>
         </form>
