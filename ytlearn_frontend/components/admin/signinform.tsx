@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { signin } from "@/actions/admin/signin";
+import { useState } from "react";
 
 const formSchema = z.object({
   username: z
@@ -32,6 +33,9 @@ const formSchema = z.object({
 });
 
 export function SigninForm() {
+  const [error, seterror] = useState("");
+  const [issubmit, setissubmit] = useState(false);
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -40,9 +44,13 @@ export function SigninForm() {
     },
   });
 
-  // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    signin(values);
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    setissubmit(true);
+    const response = await signin(values);
+    setissubmit(false);
+    if (response?.error) {
+      seterror(response.error);
+    }
   }
 
   return (
@@ -77,7 +85,13 @@ export function SigninForm() {
               </FormItem>
             )}
           />
-          <Button className="w-full" type="submit">
+          {error && (
+            <div className="bg-red-100 px-2 py-1.5 rounded-md text-red-950">
+              {error}
+            </div>
+          )}
+
+          <Button className="w-full" type="submit" disabled={issubmit}>
             Submit
           </Button>
         </form>
