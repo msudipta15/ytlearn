@@ -25,7 +25,7 @@ export function SidebarAdmin() {
           🎥 Add Video
         </a>
         <a
-          href="/admin/addvideo"
+          href="/admin/manage"
           className="flex items-center gap-2 hover:text-blue-700"
         >
           🗂️ Manage Content
