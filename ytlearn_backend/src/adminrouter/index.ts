@@ -5,6 +5,7 @@ import { checklink } from "../utils";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
+import { adminauth } from "../middlewares/adminauth";
 
 dotenv.config();
 
@@ -73,7 +74,7 @@ adminrouter.post("/signin", async function (req, res) {
 });
 
 // Add a video
-adminrouter.post("/addvideo", async function (req, res) {
+adminrouter.post("/addvideo", adminauth, async function (req, res) {
   const link: string = req.body.link;
 
   const validlink = checklink(link);
@@ -111,7 +112,7 @@ adminrouter.post("/addvideo", async function (req, res) {
 });
 
 // Create a new topic
-adminrouter.post("/createtopic", async function (req, res) {
+adminrouter.post("/createtopic", adminauth, async function (req, res) {
   const title = req.body.title;
   const description = req.body.description;
 
@@ -137,13 +138,13 @@ adminrouter.post("/createtopic", async function (req, res) {
 });
 
 // Get all existing topics
-adminrouter.get("/gettopics", async function (req, res) {
+adminrouter.get("/gettopics", adminauth, async function (req, res) {
   const topics = await topicModel.find({});
   res.status(200).json({ topics });
 });
 
 // Get topic by id
-adminrouter.get("/gettopic/:id", async function (req, res) {
+adminrouter.get("/gettopic/:id", adminauth, async function (req, res) {
   const id = req.params.id;
   const topic = await topicModel.findOne({
     _id: id,
@@ -158,7 +159,7 @@ adminrouter.get("/gettopic/:id", async function (req, res) {
 });
 
 // Edit topic title or description
-adminrouter.patch("/edittopic/:id", async function (req, res) {
+adminrouter.patch("/edittopic/:id", adminauth, async function (req, res) {
   const id = req.params.id;
   const title = req.body?.title;
   const description = req.body?.description;
@@ -187,7 +188,7 @@ adminrouter.patch("/edittopic/:id", async function (req, res) {
 });
 
 // Delete a topic by id
-adminrouter.delete("/deletetopic/:topic", async function (req, res) {
+adminrouter.delete("/deletetopic/:topic", adminauth, async function (req, res) {
   const id = req.params.topic;
   const topic = await topicModel.findOne({ _id: id });
 
@@ -206,7 +207,7 @@ adminrouter.delete("/deletetopic/:topic", async function (req, res) {
 });
 
 // Add video to a topic
-adminrouter.post("/addvideo/:topic", async function (req, res) {
+adminrouter.post("/addvideo/:topic", adminauth, async function (req, res) {
   const topic = req.params.topic;
   const link = req.body.link;
 
@@ -252,30 +253,34 @@ adminrouter.post("/addvideo/:topic", async function (req, res) {
 });
 
 // Delete video from a topic
-adminrouter.delete("/deletevideo/:topic/:video", async function (req, res) {
-  const topic_id = req.params.topic;
-  const video_id = req.params.video;
+adminrouter.delete(
+  "/deletevideo/:topic/:video",
+  adminauth,
+  async function (req, res) {
+    const topic_id = req.params.topic;
+    const video_id = req.params.video;
 
-  try {
-    const response = await topicModel.updateOne(
-      { _id: topic_id },
-      { $pull: { videos: { _id: video_id } } }
-    );
+    try {
+      const response = await topicModel.updateOne(
+        { _id: topic_id },
+        { $pull: { videos: { _id: video_id } } }
+      );
 
-    console.log(response);
+      console.log(response);
 
-    if (response.modifiedCount === 0) {
-      res.status(402).json({ msg: "Somethis went wrong" });
+      if (response.modifiedCount === 0) {
+        res.status(402).json({ msg: "Somethis went wrong" });
+      }
+
+      res.status(200).json({ msg: "Video deleted " });
+    } catch (error) {
+      res.status(500).json({ msg: "Something went wrong" });
     }
-
-    res.status(200).json({ msg: "Video deleted " });
-  } catch (error) {
-    res.status(500).json({ msg: "Something went wrong" });
   }
-});
+);
 
 // Search for topic
-adminrouter.get("/topic/:q", async function (req, res) {
+adminrouter.get("/topic/:q", adminauth, async function (req, res) {
   const query = req.params.q;
   try {
     const regx = new RegExp(query, "i");

@@ -20,6 +20,7 @@ const utils_1 = require("../utils");
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const dotenv_1 = __importDefault(require("dotenv"));
+const adminauth_1 = require("../middlewares/adminauth");
 dotenv_1.default.config();
 const JWT_KEY = process.env.JWT_KEY;
 const adminrouter = (0, express_1.Router)();
@@ -79,19 +80,19 @@ adminrouter.post("/signin", function (req, res) {
     });
 });
 // Add a video
-adminrouter.post("/addvideo", function (req, res) {
+adminrouter.post("/addvideo", adminauth_1.adminauth, function (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const link = req.body.link;
         const validlink = (0, utils_1.checklink)(link);
         if (!validlink) {
-            res.json({ msg: "Please provide a valid youtube link" });
+            res.status(406).json({ msg: "Please provide a valid youtube link" });
             return;
         }
         const duplicate = yield db_1.videoModel.findOne({
             url: link,
         });
         if (duplicate) {
-            res.status(500).json({ msg: "This video already exists" });
+            res.status(402).json({ msg: "This video already exists" });
             return;
         }
         const { title, channelTitle, viewCount, likeCount, duration } = yield (0, apicall_1.getvideoinfo)(link);
@@ -104,7 +105,7 @@ adminrouter.post("/addvideo", function (req, res) {
                 views: viewCount,
                 url: link,
             });
-            res.status(200).json({ msg: "Video Added" });
+            res.status(200).json({ msg: `"${title}" video added` });
         }
         catch (error) {
             res.status(402).json({ msg: "something went wrong" });
@@ -112,7 +113,7 @@ adminrouter.post("/addvideo", function (req, res) {
     });
 });
 // Create a new topic
-adminrouter.post("/createtopic", function (req, res) {
+adminrouter.post("/createtopic", adminauth_1.adminauth, function (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const title = req.body.title;
         const description = req.body.description;
@@ -137,14 +138,14 @@ adminrouter.post("/createtopic", function (req, res) {
     });
 });
 // Get all existing topics
-adminrouter.get("/gettopics", function (req, res) {
+adminrouter.get("/gettopics", adminauth_1.adminauth, function (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const topics = yield db_1.topicModel.find({});
         res.status(200).json({ topics });
     });
 });
 // Get topic by id
-adminrouter.get("/gettopic/:id", function (req, res) {
+adminrouter.get("/gettopic/:id", adminauth_1.adminauth, function (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const id = req.params.id;
         const topic = yield db_1.topicModel.findOne({
@@ -158,7 +159,7 @@ adminrouter.get("/gettopic/:id", function (req, res) {
     });
 });
 // Edit topic title or description
-adminrouter.patch("/edittopic/:id", function (req, res) {
+adminrouter.patch("/edittopic/:id", adminauth_1.adminauth, function (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         var _a, _b;
         const id = req.params.id;
@@ -189,7 +190,7 @@ adminrouter.patch("/edittopic/:id", function (req, res) {
     });
 });
 // Delete a topic by id
-adminrouter.delete("/deletetopic/:topic", function (req, res) {
+adminrouter.delete("/deletetopic/:topic", adminauth_1.adminauth, function (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const id = req.params.topic;
         const topic = yield db_1.topicModel.findOne({ _id: id });
@@ -208,7 +209,7 @@ adminrouter.delete("/deletetopic/:topic", function (req, res) {
     });
 });
 // Add video to a topic
-adminrouter.post("/addvideo/:topic", function (req, res) {
+adminrouter.post("/addvideo/:topic", adminauth_1.adminauth, function (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         var _a;
         const topic = req.params.topic;
@@ -247,7 +248,7 @@ adminrouter.post("/addvideo/:topic", function (req, res) {
     });
 });
 // Delete video from a topic
-adminrouter.delete("/deletevideo/:topic/:video", function (req, res) {
+adminrouter.delete("/deletevideo/:topic/:video", adminauth_1.adminauth, function (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const topic_id = req.params.topic;
         const video_id = req.params.video;
@@ -265,7 +266,7 @@ adminrouter.delete("/deletevideo/:topic/:video", function (req, res) {
     });
 });
 // Search for topic
-adminrouter.get("/topic/:q", function (req, res) {
+adminrouter.get("/topic/:q", adminauth_1.adminauth, function (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const query = req.params.q;
         try {
