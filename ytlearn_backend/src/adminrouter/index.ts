@@ -112,7 +112,7 @@ adminrouter.post("/addvideo", adminauth, async function (req, res) {
 });
 
 // Create a new topic
-adminrouter.post("/createtopic", adminauth, async function (req, res) {
+adminrouter.post("/addtopic", adminauth, async function (req, res) {
   const title = req.body.title;
   const description = req.body.description;
 
