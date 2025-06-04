@@ -79,7 +79,7 @@ adminrouter.post("/addvideo", async function (req, res) {
   const validlink = checklink(link);
 
   if (!validlink) {
-    res.json({ msg: "Please provide a valid youtube link" });
+    res.status(406).json({ msg: "Please provide a valid youtube link" });
     return;
   }
 
@@ -88,7 +88,7 @@ adminrouter.post("/addvideo", async function (req, res) {
   });
 
   if (duplicate) {
-    res.status(500).json({ msg: "This video already exists" });
+    res.status(402).json({ msg: "This video already exists" });
     return;
   }
 
@@ -104,7 +104,7 @@ adminrouter.post("/addvideo", async function (req, res) {
       views: viewCount,
       url: link,
     });
-    res.status(200).json({ msg: "Video Added" });
+    res.status(200).json({ msg: `"${title}" video added` });
   } catch (error) {
     res.status(402).json({ msg: "something went wrong" });
   }

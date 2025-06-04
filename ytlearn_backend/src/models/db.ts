@@ -7,6 +7,7 @@ const videoSchema = new Schema({
   duration: { type: String, optional: true },
   likes: { type: String, optional: true },
   views: { type: String, optional: true },
+  date: { type: Date, default: Date.now() },
 });
 
 const topicSchema = new Schema({

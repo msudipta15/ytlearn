@@ -25,6 +25,8 @@ export async function signin(values: values) {
       console.log(error.response.data.msg);
 
       return { error: error.response.data.msg };
+    } else {
+      return { error: "something went wrong" };
     }
   }
 }
