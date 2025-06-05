@@ -9,10 +9,14 @@ export async function addtopic(values: values) {
   const title = values.title;
   const description = values.description;
 
-  const response = await axios.post(
-    `${process.env.BACKEND_URL}admin/addtopic`,
-    { title, description }
-  );
+  try {
+    const response = await axios.post(
+      `${process.env.BACKEND_URL}admin/addtopic`,
+      { title, description }
+    );
 
-  console.log(response);
+    console.log(response);
+  } catch (error) {
+    console.log(error);
+  }
 }

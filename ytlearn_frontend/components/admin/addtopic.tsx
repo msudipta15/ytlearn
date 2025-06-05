@@ -1,6 +1,21 @@
+"use client";
+import { useRef } from "react";
 import { Button } from "../ui/button";
+import { addtopic } from "@/actions/admin/addtopic";
 
 export async function AddTopicAdmin() {
+  const titleref = useRef<HTMLInputElement>(null);
+  const descriptionref = useRef<HTMLTextAreaElement>(null);
+
+  async function onsubmit(titleref: string, descriptionref: string) {
+
+    const values = {title:}
+
+    try {
+      const response = await addtopic();
+    } catch (error) {}
+  }
+
   return (
     <div className="py-6 px-10 w-4/5  ">
       <div>
@@ -12,6 +27,7 @@ export async function AddTopicAdmin() {
               type="text"
               className="w-full mt-1 p-2 border rounded"
               placeholder="e.g. React JS"
+              ref={titleref}
             />
           </div>
           <div>
@@ -20,6 +36,7 @@ export async function AddTopicAdmin() {
               className="w-full mt-1 p-2 border rounded"
               rows={4}
               placeholder="A short description"
+              ref={descriptionref}
             />
           </div>
           <Button
