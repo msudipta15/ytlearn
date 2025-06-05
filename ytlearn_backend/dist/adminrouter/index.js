@@ -113,7 +113,7 @@ adminrouter.post("/addvideo", adminauth_1.adminauth, function (req, res) {
     });
 });
 // Create a new topic
-adminrouter.post("/createtopic", adminauth_1.adminauth, function (req, res) {
+adminrouter.post("/addtopic", adminauth_1.adminauth, function (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const title = req.body.title;
         const description = req.body.description;

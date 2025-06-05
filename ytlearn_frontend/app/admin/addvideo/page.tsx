@@ -1,4 +1,5 @@
 import { SidebarAdmin } from "@/components/admin/sidebar";
+import { Button } from "@/components/ui/button";
 
 export default function AddVideo() {
   return (
@@ -26,9 +27,13 @@ export default function AddVideo() {
               {/* Populate with dynamic topic list */}
             </select>
           </div>
-          <button className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
+          <Button
+            variant={"default"}
+            size={"lg"}
+            className="bg-green-500 hover:bg-green-800"
+          >
             Add Video
-          </button>
+          </Button>
         </form>
       </div>
     </div>
