@@ -1,22 +1,14 @@
 import axios from "axios";
 
-interface values {
-  title: string;
-  description: string;
-}
-
-export async function addtopic(values: values) {
-  const title = values.title;
-  const description = values.description;
-
+export async function addtopic(title: string, description: string) {
   try {
     const response = await axios.post(
-      `${process.env.BACKEND_URL}admin/addtopic`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}admin/addtopic`,
       { title, description }
     );
 
-    console.log(response);
+    return response.data;
   } catch (error) {
-    console.log(error);
+    return error;
   }
 }
