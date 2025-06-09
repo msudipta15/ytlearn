@@ -65,9 +65,7 @@ adminrouter.post("/signin", async function (req, res) {
   }
 
   try {
-    const token = jwt.sign({ id: finduser._id.toString() }, JWT_KEY, {
-      expiresIn: "1d",
-    });
+    const token = jwt.sign({ id: finduser._id.toString() }, JWT_KEY);
     res.status(200).json({ token: token });
   } catch (error) {
     console.log(error);
