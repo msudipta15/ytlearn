@@ -1,6 +1,15 @@
+"use client";
+
+import { useRouter } from "next/navigation";
 import { Button } from "../ui/button";
 
 export function SidebarAdmin() {
+  const router = useRouter();
+  function logout() {
+    localStorage.removeItem("token");
+    router.push("/admin");
+  }
+
   return (
     <aside className="w-1/5 bg-gray-100 min-h-screen p-6">
       <h1 className="text-2xl font-bold mb-6 ">YT Learn Admin</h1>
@@ -34,6 +43,7 @@ export function SidebarAdmin() {
           variant={"destructive"}
           size={"lg"}
           className="mt-5 w-1/3 flex "
+          onClick={() => logout()}
         >
           Log out
         </Button>

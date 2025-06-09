@@ -14,7 +14,7 @@ export function adminauth(
 ) {
   const token = req.headers.token;
   if (!token) {
-    res.status(406).json({ msg: "You are not signed in" });
+    res.status(406).json({ msg: "You are not signed in !" });
     return;
   }
   const jwt_secret = process.env.JWT_KEY;
