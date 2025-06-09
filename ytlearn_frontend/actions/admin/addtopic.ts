@@ -8,7 +8,11 @@ export async function addtopic(title: string, description: string) {
     );
 
     return response.data;
-  } catch (error) {
-    return error;
+  } catch (error: any) {
+    if (error.response && error.response.data && error.response.data.msg) {
+      return { error: error.response.data.msg };
+    } else {
+      return { error: "Something went wrong" };
+    }
   }
 }

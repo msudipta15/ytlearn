@@ -3,6 +3,7 @@
 import { FormEvent, useState } from "react";
 import { Button } from "../ui/button";
 import { addtopic } from "@/actions/admin/addtopic";
+import { string } from "zod";
 
 export function AddTopicAdmin() {
   const [title, settitle] = useState("");
@@ -13,8 +14,15 @@ export function AddTopicAdmin() {
 
   async function handlesubmit(e: FormEvent) {
     e.preventDefault();
-    const response = await addtopic(title, description);
-    console.log(response);
+
+    try {
+      const response: any = await addtopic(title, description);
+      if (response.error) {
+        seterror(response.error);
+      }
+    } catch (error) {
+      console.log("failed");
+    }
   }
 
   return (
@@ -51,6 +59,11 @@ export function AddTopicAdmin() {
           >
             Add Topic
           </Button>
+          {error && (
+            <div className="bg-red-200 text-red-700 font-medium w-full p-2 rounded-lg">
+              {error}
+            </div>
+          )}
         </form>
       </div>
     </div>
