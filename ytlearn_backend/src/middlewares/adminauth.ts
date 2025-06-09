@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import jwt, { JwtPayload } from "jsonwebtoken";
+
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -12,7 +13,7 @@ export function adminauth(
   res: Response,
   next: NextFunction
 ) {
-  const token = req.headers.token;
+  const token = req.cookies.token;
   if (!token) {
     res.status(406).json({ msg: "You are not signed in !" });
     return;

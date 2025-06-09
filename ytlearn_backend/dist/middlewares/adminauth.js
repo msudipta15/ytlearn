@@ -8,7 +8,7 @@ const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 function adminauth(req, res, next) {
-    const token = req.headers.token;
+    const token = req.cookies.token;
     if (!token) {
         res.status(406).json({ msg: "You are not signed in !" });
         return;

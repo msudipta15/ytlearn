@@ -61,12 +61,19 @@ adminrouter.post("/signin", async function (req, res) {
 
   if (!validpassword) {
     res.status(402).json({ msg: "Invalid Password" });
-    return;
   }
 
   try {
     const token = jwt.sign({ id: finduser._id.toString() }, JWT_KEY);
-    res.status(200).json({ token: token });
+    res
+      .cookie("token", token, {
+        httpOnly: true,
+        maxAge: 60 * 60 * 24 * 1000,
+        path: "/",
+        sameSite: "lax",
+      })
+      .status(200)
+      .json({ success: true });
   } catch (error) {
     console.log(error);
     res.status(500).json({ msg: "Something went wrong !" });

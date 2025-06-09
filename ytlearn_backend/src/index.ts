@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import mongoose from "mongoose";
 import { adminrouter } from "./adminrouter";
 import cors from "cors";
+import cookieParser from "cookie-parser";
 
 dotenv.config();
 
@@ -27,6 +28,8 @@ async function main() {
 main();
 
 app.use(express.json());
+
+app.use(cookieParser());
 
 app.use("/api/v1/admin", adminrouter);
 
