@@ -52,9 +52,10 @@ export function SigninForm() {
     try {
       const response = await signin(values);
 
-      if (response?.success) {
-        route.push("/admin/dashboard");
+      console.log(response);
 
+      if (response?.success) {
+        window.location.href = "/admin/dashboard";
         return;
       }
       if (response?.error) {

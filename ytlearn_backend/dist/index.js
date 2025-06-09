@@ -20,7 +20,10 @@ const cors_1 = __importDefault(require("cors"));
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
 dotenv_1.default.config();
 const app = (0, express_1.default)();
-app.use((0, cors_1.default)());
+app.use((0, cors_1.default)({
+    origin: "http://localhost:3000",
+    credentials: true,
+}));
 function main() {
     return __awaiter(this, void 0, void 0, function* () {
         if (!process.env.DB_URL) {

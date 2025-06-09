@@ -14,10 +14,11 @@ export async function signin(values: values) {
       {
         username: username,
         password: password,
-      }
+      },
+      { withCredentials: true }
     );
 
-    localStorage.setItem("token", response.data.token);
+    console.log(response);
 
     return { success: "Sign in successfull" };
   } catch (error: any) {

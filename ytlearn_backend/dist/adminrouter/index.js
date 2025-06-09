@@ -67,6 +67,7 @@ adminrouter.post("/signin", function (req, res) {
         const validpassword = yield bcrypt_1.default.compare(password, finduser.password);
         if (!validpassword) {
             res.status(402).json({ msg: "Invalid Password" });
+            return;
         }
         try {
             const token = jsonwebtoken_1.default.sign({ id: finduser._id.toString() }, JWT_KEY);

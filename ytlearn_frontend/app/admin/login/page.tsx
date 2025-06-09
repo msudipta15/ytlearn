@@ -1,6 +1,5 @@
 import { SigninForm } from "@/components/admin/signinform";
 import { BackgroundLines } from "@/components/ui/background-lines";
-import { Button } from "@/components/ui/button";
 
 export default function AdminHome() {
   return (

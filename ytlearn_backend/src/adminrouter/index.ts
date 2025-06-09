@@ -61,6 +61,7 @@ adminrouter.post("/signin", async function (req, res) {
 
   if (!validpassword) {
     res.status(402).json({ msg: "Invalid Password" });
+    return;
   }
 
   try {
