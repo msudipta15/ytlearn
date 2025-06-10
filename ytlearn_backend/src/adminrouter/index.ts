@@ -81,6 +81,16 @@ adminrouter.post("/signin", async function (req, res) {
   }
 });
 
+adminrouter.post("/logout", async function (req, res) {
+  try {
+    res.clearCookie("token", { path: "/", httpOnly: true, sameSite: "lax" });
+    res.status(200).json({ msg: "Logout Successfull" });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ msg: "Something went wrong !" });
+  }
+});
+
 // Add a video
 adminrouter.post("/addvideo", adminauth, async function (req, res) {
   const link: string = req.body.link;

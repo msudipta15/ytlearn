@@ -87,6 +87,18 @@ adminrouter.post("/signin", function (req, res) {
         }
     });
 });
+adminrouter.post("/logout", function (req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            res.clearCookie("token", { path: "/", httpOnly: true, sameSite: "lax" });
+            res.status(200).json({ msg: "Logout Successfull" });
+        }
+        catch (error) {
+            console.log(error);
+            res.status(500).json({ msg: "Something went wrong !" });
+        }
+    });
+});
 // Add a video
 adminrouter.post("/addvideo", adminauth_1.adminauth, function (req, res) {
     return __awaiter(this, void 0, void 0, function* () {

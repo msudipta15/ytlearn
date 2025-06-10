@@ -2,11 +2,13 @@
 
 import { useRouter } from "next/navigation";
 import { Button } from "../ui/button";
+import { logout } from "@/actions/admin/logout";
 
 export function SidebarAdmin() {
   const router = useRouter();
-  function logout() {
-    router.push("/admin/login");
+
+  async function calllogout() {
+    const response = await logout();
   }
 
   return (
@@ -42,7 +44,7 @@ export function SidebarAdmin() {
           variant={"destructive"}
           size={"lg"}
           className="mt-5 w-1/3 flex "
-          onClick={() => logout()}
+          onClick={() => calllogout()}
         >
           Log out
         </Button>
