@@ -55,7 +55,7 @@ export function SigninForm() {
       console.log(response);
 
       if (response?.success) {
-        window.location.href = "/admin/dashboard";
+        route.push("/admin/dashboard");
         return;
       }
       if (response?.error) {
