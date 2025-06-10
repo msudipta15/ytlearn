@@ -41,11 +41,6 @@ export function AddTopicAdmin() {
     }
 
     try {
-      const token = localStorage.getItem("token");
-      if (!token) {
-        seterror("You are not signed in ! Please sign in to proceed");
-        return;
-      }
       const response: any = await addtopic(title, description);
       if (response.error) {
         seterror(response.error);

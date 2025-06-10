@@ -38,7 +38,7 @@ const mongoose_1 = __importStar(require("mongoose"));
 const videoSchema = new mongoose_1.Schema({
     title: { type: String, required: true },
     channelname: { type: String },
-    url: { type: String, unique: true, required: true },
+    url: { type: String, required: true },
     duration: { type: String, optional: true },
     likes: { type: String, optional: true },
     views: { type: String, optional: true },
@@ -46,7 +46,7 @@ const videoSchema = new mongoose_1.Schema({
 });
 const topicSchema = new mongoose_1.Schema({
     title: { type: String, unique: true, required: true },
-    description: { type: String, unique: true },
+    description: { type: String },
     videos: { type: [videoSchema], default: [], required: false },
 });
 const courseSchema = new mongoose_1.Schema({

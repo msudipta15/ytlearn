@@ -30,5 +30,6 @@ export function adminauth(
     next();
   } else {
     res.status(406).json({ msg: "You are not signed in" });
+    return;
   }
 }

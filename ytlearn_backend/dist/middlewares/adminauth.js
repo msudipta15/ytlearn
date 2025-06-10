@@ -25,5 +25,6 @@ function adminauth(req, res, next) {
     }
     else {
         res.status(406).json({ msg: "You are not signed in" });
+        return;
     }
 }
