@@ -6,8 +6,7 @@ import { Button } from "../ui/button";
 export function SidebarAdmin() {
   const router = useRouter();
   function logout() {
-    localStorage.removeItem("token");
-    router.push("/admin");
+    router.push("/admin/login");
   }
 
   return (
