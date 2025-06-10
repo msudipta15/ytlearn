@@ -3,12 +3,18 @@
 import { useRouter } from "next/navigation";
 import { Button } from "../ui/button";
 import { logout } from "@/actions/admin/logout";
+import { Loader2Icon } from "lucide-react";
+import { useState } from "react";
 
 export function SidebarAdmin() {
   const router = useRouter();
+  const [loading, setloading] = useState(false);
 
   async function calllogout() {
+    setloading(true);
     const response = await logout();
+    setloading(false);
+    router.push("/admin/login");
   }
 
   return (
@@ -46,6 +52,7 @@ export function SidebarAdmin() {
           className="mt-5 w-1/3 flex "
           onClick={() => calllogout()}
         >
+          {loading && <Loader2Icon className="animate-spin" />}
           Log out
         </Button>
       </nav>
