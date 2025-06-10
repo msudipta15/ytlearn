@@ -1,34 +1,40 @@
 import { NextRequest, NextResponse } from "next/server";
-import jwt from "jsonwebtoken";
+import { jwtVerify } from "jose";
+
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
+  // Allow access to /admin/login without token verification
   if (pathname === "/admin/login") {
     return NextResponse.next();
   }
 
   const token = request.cookies.get("token")?.value;
-  const jwtsecret = process.env.NEXT_PUBLIC_JWT_KEY;
+  const jwtSecret = process.env.JWT_KEY;
+  console.log(jwtSecret);
 
+  // Check if JWT secret is defined
+  if (!jwtSecret) {
+    console.error("JWT_SECRET is not defined in environment variables");
+    return NextResponse.redirect(new URL("/login", request.url));
+  }
+
+  // Check if token exists
   if (!token) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
 
-  if (!jwtsecret) {
-    console.log("Invalid jwtsecret !");
-    return;
-  }
-
+  // Verify the token
   try {
-    const validtoken = jwt.verify(token.toString(), jwtsecret);
+    const secret = new TextEncoder().encode(jwtSecret);
+    await jwtVerify(token, secret);
     return NextResponse.next();
   } catch (err) {
-    console.error(err);
+    console.error("Token verification failed:", err);
     return NextResponse.redirect(new URL("/login", request.url));
   }
 }
 
 export const config = {
-  middleware,
   matcher: ["/admin/:path*"],
 };
