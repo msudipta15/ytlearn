@@ -3,7 +3,7 @@ import axios from "axios";
 export async function addtopic(title: string, description: string) {
   try {
     const response = await axios.post(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}admin/addtopic`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}user/addtopic`,
       { title, description },
       { withCredentials: true }
     );

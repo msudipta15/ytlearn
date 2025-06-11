@@ -1,7 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
-import { adminrouter } from "./adminrouter";
+import { userrouter } from "./userrouter";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 
@@ -36,6 +36,6 @@ app.use(express.json());
 
 app.use(cookieParser());
 
-app.use("/api/v1/admin", adminrouter);
+app.use("/api/v1", userrouter);
 
 app.listen(3001);

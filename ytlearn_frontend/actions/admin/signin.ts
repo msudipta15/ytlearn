@@ -10,7 +10,7 @@ export async function signin(values: values) {
   const password = values.password;
   try {
     const response = await axios.post<{ token: string }>(
-      "http://localhost:3001/api/v1/admin/signin",
+      "http://localhost:3001/api/v1/user/signin",
       {
         username: username,
         password: password,

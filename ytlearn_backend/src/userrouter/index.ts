@@ -11,10 +11,10 @@ dotenv.config();
 
 const JWT_KEY = process.env.JWT_KEY;
 
-const adminrouter = Router();
+const userrouter = Router();
 
 // Admin signup
-adminrouter.post("/signup", async function (req, res) {
+userrouter.post("/signup", async function (req, res) {
   const username = req.body.username;
   const password = req.body.password;
 
@@ -39,7 +39,7 @@ adminrouter.post("/signup", async function (req, res) {
 });
 
 // Admin Signin
-adminrouter.post("/signin", async function (req, res) {
+userrouter.post("/signin", async function (req, res) {
   const username = req.body.username;
   const password = req.body.password;
 
@@ -81,7 +81,7 @@ adminrouter.post("/signin", async function (req, res) {
   }
 });
 
-adminrouter.post("/logout", async function (req, res) {
+userrouter.post("/logout", async function (req, res) {
   try {
     res.clearCookie("token", { path: "/", httpOnly: true, sameSite: "lax" });
     res.status(200).json({ msg: "Logout Successfull" });
@@ -92,7 +92,7 @@ adminrouter.post("/logout", async function (req, res) {
 });
 
 // Add a video
-adminrouter.post("/addvideo", adminauth, async function (req, res) {
+userrouter.post("/addvideo", adminauth, async function (req, res) {
   const link: string = req.body.link;
 
   const validlink = checklink(link);
@@ -130,7 +130,7 @@ adminrouter.post("/addvideo", adminauth, async function (req, res) {
 });
 
 // Create a new topic
-adminrouter.post("/addtopic", adminauth, async function (req, res) {
+userrouter.post("/addtopic", adminauth, async function (req, res) {
   const title = req.body.title;
   const description = req.body.description;
 
@@ -156,13 +156,13 @@ adminrouter.post("/addtopic", adminauth, async function (req, res) {
 });
 
 // Get all existing topics
-adminrouter.get("/gettopics", adminauth, async function (req, res) {
+userrouter.get("/gettopics", adminauth, async function (req, res) {
   const topics = await topicModel.find({});
   res.status(200).json({ topics });
 });
 
 // Get topic by id
-adminrouter.get("/gettopic/:id", adminauth, async function (req, res) {
+userrouter.get("/gettopic/:id", adminauth, async function (req, res) {
   const id = req.params.id;
   const topic = await topicModel.findOne({
     _id: id,
@@ -177,7 +177,7 @@ adminrouter.get("/gettopic/:id", adminauth, async function (req, res) {
 });
 
 // Edit topic title or description
-adminrouter.patch("/edittopic/:id", adminauth, async function (req, res) {
+userrouter.patch("/edittopic/:id", adminauth, async function (req, res) {
   const id = req.params.id;
   const title = req.body?.title;
   const description = req.body?.description;
@@ -206,7 +206,7 @@ adminrouter.patch("/edittopic/:id", adminauth, async function (req, res) {
 });
 
 // Delete a topic by id
-adminrouter.delete("/deletetopic/:topic", adminauth, async function (req, res) {
+userrouter.delete("/deletetopic/:topic", adminauth, async function (req, res) {
   const id = req.params.topic;
   const topic = await topicModel.findOne({ _id: id });
 
@@ -225,7 +225,7 @@ adminrouter.delete("/deletetopic/:topic", adminauth, async function (req, res) {
 });
 
 // Add video to a topic
-adminrouter.post("/addvideo/:topic", adminauth, async function (req, res) {
+userrouter.post("/addvideo/:topic", adminauth, async function (req, res) {
   const topic = req.params.topic;
   const link = req.body.link;
 
@@ -271,7 +271,7 @@ adminrouter.post("/addvideo/:topic", adminauth, async function (req, res) {
 });
 
 // Delete video from a topic
-adminrouter.delete(
+userrouter.delete(
   "/deletevideo/:topic/:video",
   adminauth,
   async function (req, res) {
@@ -298,7 +298,7 @@ adminrouter.delete(
 );
 
 // Search for topic
-adminrouter.get("/topic/:q", adminauth, async function (req, res) {
+userrouter.get("/topic/:q", adminauth, async function (req, res) {
   const query = req.params.q;
   try {
     const regx = new RegExp(query, "i");
@@ -318,4 +318,4 @@ adminrouter.get("/topic/:q", adminauth, async function (req, res) {
   }
 });
 
-export { adminrouter };
+export { userrouter };
