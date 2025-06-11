@@ -44,6 +44,8 @@ export function AddTopicAdmin() {
       const response: any = await addtopic(title, description);
       if (response.error) {
         seterror(response.error);
+      } else {
+        setsuccess(response.msg);
       }
     } catch (error) {
       console.log("failed");
@@ -87,6 +89,11 @@ export function AddTopicAdmin() {
           {error && (
             <div className="bg-red-200 text-red-700 font-medium w-full p-2 rounded-lg">
               {error}
+            </div>
+          )}
+          {success && (
+            <div className="bg-green-200 text-green-700 font-medium w-full p-2 rounded-lg">
+              {success}
             </div>
           )}
         </form>
