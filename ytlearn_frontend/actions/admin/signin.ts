@@ -1,18 +1,18 @@
 import axios from "axios";
 
 interface values {
-  username: string;
+  email: string;
   password: string;
 }
 
 export async function signin(values: values) {
-  const username = values.username;
+  const email = values.email;
   const password = values.password;
   try {
     const response = await axios.post<{ token: string }>(
       "http://localhost:3001/api/v1/user/signin",
       {
-        username: username,
+        email: email,
         password: password,
       },
       { withCredentials: true }

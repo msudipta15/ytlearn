@@ -20,8 +20,9 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
-  username: z
+  email: z
     .string()
+    .email({ message: "Please provide a valid email address !" })
     .min(2, {
       message: "Username must be at least 2 characters.",
     })
@@ -42,7 +43,7 @@ export function SigninForm() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      username: "",
+      email: "",
       password: "",
     },
   });
@@ -75,14 +76,14 @@ export function SigninForm() {
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
           <FormField
             control={form.control}
-            name="username"
+            name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Username</FormLabel>
+                <FormLabel>Email</FormLabel>
                 <FormControl>
-                  <Input placeholder="johndoe" {...field} />
+                  <Input placeholder="johndoe@exmaple.com" {...field} />
                 </FormControl>
-                <FormDescription>Enter your username</FormDescription>
+                <FormDescription>Enter your email</FormDescription>
                 <FormMessage />
               </FormItem>
             )}
