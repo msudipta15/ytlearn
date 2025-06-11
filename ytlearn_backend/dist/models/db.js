@@ -51,9 +51,9 @@ const topicSchema = new mongoose_1.Schema({
     userid: { type: mongoose_1.default.Types.ObjectId, required: true, ref: "User" },
 });
 const userSchema = new mongoose_1.Schema({
-    name: { type: String },
-    email: { type: String },
-    password: { type: String },
+    name: { type: String, required: true },
+    email: { type: String, required: true },
+    password: { type: String, required: true },
     image: { type: String, optional: true },
 });
 exports.videoModel = mongoose_1.default.model("Video", videoSchema);

@@ -28,18 +28,20 @@ exports.userrouter = userrouter;
 // Admin signup
 userrouter.post("/signup", function (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        const username = req.body.username;
+        const name = req.body.name;
+        const email = req.body.email;
         const password = req.body.password;
+        const image = req.body.image;
         const hashpassword = yield bcrypt_1.default.hash(password, 10);
         const checkuser = yield db_1.userModel.findOne({
-            username: username,
+            email: email,
         });
         if (checkuser) {
             res.status(406).json({ msg: "username already exists" });
             return;
         }
         try {
-            yield db_1.userModel.create({ username: username, password: hashpassword });
+            yield db_1.userModel.create({ email, name, image, password: hashpassword });
             res.status(200).json({ msg: "Admin Sign up Successfull" });
         }
         catch (error) {
@@ -51,22 +53,22 @@ userrouter.post("/signup", function (req, res) {
 // Admin Signin
 userrouter.post("/signin", function (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        const username = req.body.username;
+        const email = req.body.email;
         const password = req.body.password;
         if (!JWT_KEY) {
             console.log({ JWT_KEY: JWT_KEY });
             return;
         }
         const finduser = yield db_1.userModel.findOne({
-            username: username,
+            email,
         });
         if (!finduser) {
-            res.status(406).json({ msg: "username not found" });
+            res.status(406).json({ msg: "Email not found !" });
             return;
         }
         const validpassword = yield bcrypt_1.default.compare(password, finduser.password);
         if (!validpassword) {
-            res.status(402).json({ msg: "Invalid Password" });
+            res.status(402).json({ msg: "Invalid Password !" });
             return;
         }
         try {

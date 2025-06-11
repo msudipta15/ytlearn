@@ -15,13 +15,15 @@ const userrouter = Router();
 
 // Admin signup
 userrouter.post("/signup", async function (req, res) {
-  const username = req.body.username;
+  const name = req.body.name;
+  const email = req.body.email;
   const password = req.body.password;
+  const image = req.body.image;
 
   const hashpassword = await bcrypt.hash(password, 10);
 
   const checkuser = await userModel.findOne({
-    username: username,
+    email: email,
   });
 
   if (checkuser) {
@@ -30,7 +32,7 @@ userrouter.post("/signup", async function (req, res) {
   }
 
   try {
-    await userModel.create({ username: username, password: hashpassword });
+    await userModel.create({ email, name, image, password: hashpassword });
     res.status(200).json({ msg: "Admin Sign up Successfull" });
   } catch (error) {
     console.log(error);
@@ -40,7 +42,7 @@ userrouter.post("/signup", async function (req, res) {
 
 // Admin Signin
 userrouter.post("/signin", async function (req, res) {
-  const username = req.body.username;
+  const email = req.body.email;
   const password = req.body.password;
 
   if (!JWT_KEY) {
@@ -49,18 +51,18 @@ userrouter.post("/signin", async function (req, res) {
   }
 
   const finduser = await userModel.findOne({
-    username: username,
+    email,
   });
 
   if (!finduser) {
-    res.status(406).json({ msg: "username not found" });
+    res.status(406).json({ msg: "Email not found !" });
     return;
   }
 
   const validpassword = await bcrypt.compare(password, finduser.password!);
 
   if (!validpassword) {
-    res.status(402).json({ msg: "Invalid Password" });
+    res.status(402).json({ msg: "Invalid Password !" });
     return;
   }
 
