@@ -14,24 +14,16 @@ const topicSchema = new Schema({
   title: { type: String, unique: true, required: true },
   description: { type: String },
   videos: { type: [videoSchema], default: [], required: false },
+  userid: { type: mongoose.Types.ObjectId, required: true, ref: "User" },
 });
 
-const courseSchema = new Schema({
-  title: { type: String, required: true },
-  description: { type: String },
-  thumbnail: { type: String, optional: true },
-  createdAt: { type: Date, default: Date.now() },
-  difficulty: { type: String },
-  topics: [topicSchema],
-});
-
-const adminSchema = new Schema({
-  username: { type: String, unique: true },
+const userSchema = new Schema({
+  name: { type: String },
+  email: { type: String },
   password: { type: String },
-  email: { type: String, required: false },
+  image: { type: String, optional: true },
 });
 
-export const courseModel = mongoose.model("Course", courseSchema);
 export const videoModel = mongoose.model("Video", videoSchema);
 export const topicModel = mongoose.model("Topic", topicSchema);
-export const adminModel = mongoose.model("Admin", adminSchema);
+export const userModel = mongoose.model("User", userSchema);

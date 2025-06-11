@@ -1,1 +1,1 @@
-{"root":["./src/index.ts","./src/adminrouter/index.ts","./src/apicall/index.ts","./src/middlewares/adminauth.ts","./src/models/db.ts","./src/utils/index.ts"],"version":"5.8.3"}
+{"root":["./src/index.ts","./src/apicall/index.ts","./src/middlewares/adminauth.ts","./src/models/db.ts","./src/userrouter/index.ts","./src/utils/index.ts"],"version":"5.8.3"}

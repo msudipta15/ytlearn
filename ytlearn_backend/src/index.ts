@@ -36,6 +36,6 @@ app.use(express.json());
 
 app.use(cookieParser());
 
-app.use("/api/v1", userrouter);
+app.use("/api/v1/user", userrouter);
 
 app.listen(3001);

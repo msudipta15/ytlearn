@@ -33,7 +33,7 @@ var __importStar = (this && this.__importStar) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.adminModel = exports.topicModel = exports.videoModel = exports.courseModel = void 0;
+exports.userModel = exports.topicModel = exports.videoModel = void 0;
 const mongoose_1 = __importStar(require("mongoose"));
 const videoSchema = new mongoose_1.Schema({
     title: { type: String, required: true },
@@ -48,21 +48,14 @@ const topicSchema = new mongoose_1.Schema({
     title: { type: String, unique: true, required: true },
     description: { type: String },
     videos: { type: [videoSchema], default: [], required: false },
+    userid: { type: mongoose_1.default.Types.ObjectId, required: true, ref: "User" },
 });
-const courseSchema = new mongoose_1.Schema({
-    title: { type: String, required: true },
-    description: { type: String },
-    thumbnail: { type: String, optional: true },
-    createdAt: { type: Date, default: Date.now() },
-    difficulty: { type: String },
-    topics: [topicSchema],
-});
-const adminSchema = new mongoose_1.Schema({
-    username: { type: String, unique: true },
+const userSchema = new mongoose_1.Schema({
+    name: { type: String },
+    email: { type: String },
     password: { type: String },
-    email: { type: String, required: false },
+    image: { type: String, optional: true },
 });
-exports.courseModel = mongoose_1.default.model("Course", courseSchema);
 exports.videoModel = mongoose_1.default.model("Video", videoSchema);
 exports.topicModel = mongoose_1.default.model("Topic", topicSchema);
-exports.adminModel = mongoose_1.default.model("Admin", adminSchema);
+exports.userModel = mongoose_1.default.model("User", userSchema);

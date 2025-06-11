@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { getvideoinfo } from "../apicall";
-import { adminModel, topicModel, videoModel } from "../models/db";
+import { userModel, topicModel, videoModel } from "../models/db";
 import { checklink } from "../utils";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
@@ -20,7 +20,7 @@ userrouter.post("/signup", async function (req, res) {
 
   const hashpassword = await bcrypt.hash(password, 10);
 
-  const checkuser = await adminModel.findOne({
+  const checkuser = await userModel.findOne({
     username: username,
   });
 
@@ -30,7 +30,7 @@ userrouter.post("/signup", async function (req, res) {
   }
 
   try {
-    await adminModel.create({ username: username, password: hashpassword });
+    await userModel.create({ username: username, password: hashpassword });
     res.status(200).json({ msg: "Admin Sign up Successfull" });
   } catch (error) {
     console.log(error);
@@ -48,7 +48,7 @@ userrouter.post("/signin", async function (req, res) {
     return;
   }
 
-  const finduser = await adminModel.findOne({
+  const finduser = await userModel.findOne({
     username: username,
   });
 
