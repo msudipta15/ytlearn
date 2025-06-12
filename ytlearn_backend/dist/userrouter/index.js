@@ -42,7 +42,7 @@ userrouter.post("/signup", function (req, res) {
         }
         try {
             yield db_1.userModel.create({ email, name, image, password: hashpassword });
-            res.status(200).json({ msg: "Admin Sign up Successfull" });
+            res.status(200).json({ msg: "Sign up Successfull" });
         }
         catch (error) {
             console.log(error);
@@ -165,8 +165,17 @@ userrouter.post("/addtopic", adminauth_1.adminauth, function (req, res) {
 // Get all existing topics
 userrouter.get("/gettopics", adminauth_1.adminauth, function (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        const topics = yield db_1.topicModel.find({});
-        res.status(200).json({ topics: topics });
+        const userid = req.id;
+        try {
+            const topics = yield db_1.topicModel.find({ userid });
+            if (topics.length === 0) {
+                res.status(405).json({ msg: "You do not have any topic added" });
+            }
+            res.status(200).json({ topics: topics });
+        }
+        catch (error) {
+            res.status(500).json({ msg: "Something went wrong !" });
+        }
     });
 });
 // Get topic by id
