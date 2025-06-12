@@ -10,7 +10,7 @@ dotenv_1.default.config();
 function adminauth(req, res, next) {
     const token = req.cookies.token;
     if (!token) {
-        res.status(406).json({ msg: "You are not signed in !" });
+        res.status(401).json({ msg: "You are not signed in !" });
         return;
     }
     const jwt_secret = process.env.JWT_KEY;
@@ -24,7 +24,7 @@ function adminauth(req, res, next) {
         next();
     }
     else {
-        res.status(406).json({ msg: "You are not signed in" });
+        res.status(401).json({ msg: "You are not signed in" });
         return;
     }
 }

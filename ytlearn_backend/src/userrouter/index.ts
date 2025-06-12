@@ -81,6 +81,7 @@ userrouter.post("/signin", async function (req, res) {
         maxAge: 60 * 60 * 24 * 1000,
         path: "/",
         sameSite: "lax",
+        secure: false,
       })
       .status(200)
       .json({ success: true });
@@ -170,7 +171,7 @@ userrouter.post("/addtopic", adminauth, async function (req, res) {
 // Get all existing topics
 userrouter.get("/gettopics", adminauth, async function (req, res) {
   const topics = await topicModel.find({});
-  res.status(200).json({ topics });
+  res.status(200).json({ topics: topics });
 });
 
 // Get topic by id

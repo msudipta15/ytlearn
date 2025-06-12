@@ -79,6 +79,7 @@ userrouter.post("/signin", function (req, res) {
                 maxAge: 60 * 60 * 24 * 1000,
                 path: "/",
                 sameSite: "lax",
+                secure: false,
             })
                 .status(200)
                 .json({ success: true });
@@ -165,7 +166,7 @@ userrouter.post("/addtopic", adminauth_1.adminauth, function (req, res) {
 userrouter.get("/gettopics", adminauth_1.adminauth, function (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const topics = yield db_1.topicModel.find({});
-        res.status(200).json({ topics });
+        res.status(200).json({ topics: topics });
     });
 });
 // Get topic by id

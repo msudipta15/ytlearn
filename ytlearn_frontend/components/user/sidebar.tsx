@@ -36,10 +36,10 @@ export function SidebarAdmin() {
         </a>
 
         <a
-          href="/manage"
+          href="/topics"
           className="flex items-center gap-2 hover:text-blue-700"
         >
-          🗂️ Manage Content
+          🗂️ All Topics
         </a>
         <Button
           variant={"destructive"}

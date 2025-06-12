@@ -15,7 +15,7 @@ export function adminauth(
 ) {
   const token = req.cookies.token;
   if (!token) {
-    res.status(406).json({ msg: "You are not signed in !" });
+    res.status(401).json({ msg: "You are not signed in !" });
     return;
   }
   const jwt_secret = process.env.JWT_KEY;
@@ -29,7 +29,7 @@ export function adminauth(
     req.id = validate.id;
     next();
   } else {
-    res.status(406).json({ msg: "You are not signed in" });
+    res.status(401).json({ msg: "You are not signed in" });
     return;
   }
 }
