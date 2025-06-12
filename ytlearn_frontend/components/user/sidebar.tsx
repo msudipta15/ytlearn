@@ -5,6 +5,8 @@ import { Button } from "../ui/button";
 import { Loader2Icon } from "lucide-react";
 import { useState } from "react";
 import { logout } from "@/actions/user/logout";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { FiEdit } from "react-icons/fi";
 
 export function SidebarAdmin() {
   const router = useRouter();
@@ -18,38 +20,20 @@ export function SidebarAdmin() {
   }
 
   return (
-    <aside className="w-1/5 bg-gray-100 min-h-screen p-6">
-      <h1 className="text-2xl font-bold mb-6 ">YT Learn Admin</h1>
-      <nav className="flex flex-col gap-6 text-lg font-medium">
-        <a
-          href="/dashboard"
-          className="flex items-center gap-2 hover:text-blue-700"
-        >
-          {" "}
-          🏠 Dashboard
-        </a>
-        <a
-          href="/addtopic"
-          className="flex items-center gap-2 hover:text-blue-700"
-        >
-          ➕ Add Topic
-        </a>
+    <aside className="w-1/6 bg-gray-50 min-h-screen max-h-screen  p-4">
+      <div className="flex items-center gap-2">
+        <Avatar>
+          <AvatarImage src="" />
+          <AvatarFallback>T</AvatarFallback>
+        </Avatar>
+        <h1 className=" text-lg font-medium hover:shadow ">
+          techtv70@gmail.com
+        </h1>
 
-        <a
-          href="/topics"
-          className="flex items-center gap-2 hover:text-blue-700"
-        >
-          🗂️ All Topics
-        </a>
-        <Button
-          variant={"destructive"}
-          size={"lg"}
-          className="mt-5 w-1/3 flex "
-          onClick={() => calllogout()}
-        >
-          {loading && <Loader2Icon className="animate-spin" />}
-          Log out
-        </Button>
+        <FiEdit className="text-xl ml-3 hover:bg-gray-300 cursor-pointer" />
+      </div>
+      <nav className="flex flex-col gap-2 text-lg mt-5 font-medium">
+        <div className="w-full  px-4 py-1 rounded-md hover:shadow">hello</div>
       </nav>
     </aside>
   );
