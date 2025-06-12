@@ -15,7 +15,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { signin } from "@/actions/admin/signin";
+import { signin } from "@/actions/user/signin";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 

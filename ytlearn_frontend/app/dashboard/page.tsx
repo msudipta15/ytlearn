@@ -1,5 +1,5 @@
-import { DashboardAdmin } from "@/components/admin/dashboard";
-import { SidebarAdmin } from "@/components/admin/sidebar";
+import { DashboardAdmin } from "@/components/user/dashboard";
+import { SidebarAdmin } from "@/components/user/sidebar";
 
 export default function () {
   return (

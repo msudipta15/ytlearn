@@ -1,5 +1,5 @@
-import { AddTopicAdmin } from "@/components/admin/addtopic";
-import { SidebarAdmin } from "@/components/admin/sidebar";
+import { AddTopicAdmin } from "@/components/user/addtopic";
+import { SidebarAdmin } from "@/components/user/sidebar";
 
 export default function AddTopic() {
   return (

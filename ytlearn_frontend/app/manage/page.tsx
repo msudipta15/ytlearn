@@ -1,5 +1,5 @@
-import { SidebarAdmin } from "@/components/admin/sidebar";
-import { TopiccardAdmin } from "@/components/admin/topiccard";
+import { SidebarAdmin } from "@/components/user/sidebar";
+import { TopiccardAdmin } from "@/components/user/topiccard";
 
 export default function ManageContent() {
   return (

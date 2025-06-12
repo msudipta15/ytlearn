@@ -13,7 +13,6 @@ export async function middleware(request: NextRequest) {
 
   const token = request.cookies.get("token")?.value;
   const jwtSecret = process.env.JWT_KEY;
-  console.log(jwtSecret);
 
   // Check if JWT secret is defined
   if (!jwtSecret) {

@@ -2,9 +2,9 @@
 
 import { useRouter } from "next/navigation";
 import { Button } from "../ui/button";
-import { logout } from "@/actions/admin/logout";
 import { Loader2Icon } from "lucide-react";
 import { useState } from "react";
+import { logout } from "@/actions/user/logout";
 
 export function SidebarAdmin() {
   const router = useRouter();

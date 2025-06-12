@@ -1,4 +1,4 @@
-import { SidebarAdmin } from "@/components/admin/sidebar";
+import { SidebarAdmin } from "@/components/user/sidebar";
 import { Button } from "@/components/ui/button";
 
 export default function AddVideo() {

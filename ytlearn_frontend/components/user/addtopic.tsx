@@ -2,7 +2,7 @@
 
 import { FormEvent, useState } from "react";
 import { Button } from "../ui/button";
-import { addtopic } from "@/actions/admin/addtopic";
+import { addtopic } from "@/actions/user/addtopic";
 import { z } from "zod";
 import { topicSchema } from "@/schema/admin/addtopic";
 

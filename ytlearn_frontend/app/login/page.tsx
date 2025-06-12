@@ -1,4 +1,4 @@
-import { SigninForm } from "@/components/admin/signinform";
+import { SigninForm } from "@/components/user/signinform";
 import { BackgroundLines } from "@/components/ui/background-lines";
 
 export default function AdminHome() {
