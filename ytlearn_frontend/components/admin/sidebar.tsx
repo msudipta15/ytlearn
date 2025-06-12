@@ -14,7 +14,7 @@ export function SidebarAdmin() {
     setloading(true);
     const response = await logout();
     setloading(false);
-    router.push("/admin/login");
+    router.push("/login");
   }
 
   return (
@@ -22,26 +22,21 @@ export function SidebarAdmin() {
       <h1 className="text-2xl font-bold mb-6 ">YT Learn Admin</h1>
       <nav className="flex flex-col gap-6 text-lg font-medium">
         <a
-          href="/admin/dashboard"
+          href="/dashboard"
           className="flex items-center gap-2 hover:text-blue-700"
         >
           {" "}
           🏠 Dashboard
         </a>
         <a
-          href="/admin/addtopic"
+          href="/addtopic"
           className="flex items-center gap-2 hover:text-blue-700"
         >
           ➕ Add Topic
         </a>
+
         <a
-          href="/admin/addvideo"
-          className="flex items-center gap-2 hover:text-blue-700"
-        >
-          🎥 Add Video
-        </a>
-        <a
-          href="/admin/manage"
+          href="/manage"
           className="flex items-center gap-2 hover:text-blue-700"
         >
           🗂️ Manage Content

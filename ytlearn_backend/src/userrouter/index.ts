@@ -1,4 +1,4 @@
-import { Router } from "express";
+import { Router, Request } from "express";
 import { getvideoinfo } from "../apicall";
 import { userModel, topicModel, videoModel } from "../models/db";
 import { checklink } from "../utils";
@@ -6,6 +6,13 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import { adminauth } from "../middlewares/adminauth";
+
+// Extend Express Request interface to include 'id'
+declare module "express-serve-static-core" {
+  interface Request {
+    id?: string;
+  }
+}
 
 dotenv.config();
 
@@ -132,9 +139,11 @@ userrouter.post("/addvideo", adminauth, async function (req, res) {
 });
 
 // Create a new topic
+
 userrouter.post("/addtopic", adminauth, async function (req, res) {
   const title = req.body.title;
   const description = req.body.description;
+  const userid = req.id;
 
   const duplicate = await topicModel.findOne({
     title: title,
@@ -149,6 +158,7 @@ userrouter.post("/addtopic", adminauth, async function (req, res) {
     const topic = await topicModel.create({
       title,
       description,
+      userid,
     });
     res.status(200).json({ msg: `${topic.title} added to Topics` });
   } catch (error) {

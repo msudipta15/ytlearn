@@ -139,6 +139,7 @@ userrouter.post("/addtopic", adminauth_1.adminauth, function (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const title = req.body.title;
         const description = req.body.description;
+        const userid = req.id;
         const duplicate = yield db_1.topicModel.findOne({
             title: title,
         });
@@ -150,6 +151,7 @@ userrouter.post("/addtopic", adminauth_1.adminauth, function (req, res) {
             const topic = yield db_1.topicModel.create({
                 title,
                 description,
+                userid,
             });
             res.status(200).json({ msg: `${topic.title} added to Topics` });
         }
