@@ -1,12 +1,17 @@
 import { Button } from "../ui/button";
 
-export function TopiccardAdmin() {
-  return (
-    <div className="bg-white h-fit w-[500px] shadow rounded-xl p-5">
-      <h2 className="text-2xl font-bold">React JS</h2>
-      <p className="text-sm text-gray-500">Topic description goes here...</p>
+interface TopiccardAdminProps {
+  title: string;
+  description: string;
+}
 
-      <div className="mt-4 flex gap-2">
+export function TopiccardAdmin({ title, description }: TopiccardAdminProps) {
+  return (
+    <div className="bg-white h-fit w-[400px] shadow rounded-xl p-4">
+      <h2 className="text-2xl font-bold">{title}</h2>
+      <p className="text-sm text-gray-500 mb-0.5">{description}</p>
+
+      <div className="mt-3 flex gap-2">
         <Button variant={"default"} className="px-5">
           Open
         </Button>

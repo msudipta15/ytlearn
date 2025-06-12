@@ -2,16 +2,24 @@
 
 import axios from "axios";
 import { TopiccardAdmin } from "./topiccard";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export function TopicList() {
+  type Topic = {
+    _id: string;
+    title: string;
+    description: string;
+    userid: string;
+  };
+
+  const [topics, settopics] = useState<Topic[]>([]);
+
   async function gettopics() {
-    const response = await axios.get(
+    const response = await axios.get<{ topics: Topic[] }>(
       `${process.env.NEXT_PUBLIC_BACKEND_URL}user/gettopics`,
       { withCredentials: true }
     );
-
-    console.log(response);
+    settopics(response.data.topics);
   }
 
   useEffect(() => {
@@ -19,8 +27,24 @@ export function TopicList() {
   }, []);
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 h-screen  overflow-y-auto pr-2 pl-2 pt-2">
-      <TopiccardAdmin />
-    </div>
+    <>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 h-screen  overflow-y-auto pr-2 pl-2 pt-2">
+        {topics.length !== 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 h-screen  overflow-y-auto pr-2 pl-2 pt-2">
+            {topics.map((topic) => (
+              <TopiccardAdmin
+                key={topic._id}
+                title={topic.title}
+                description={topic.description}
+              />
+            ))}
+          </div>
+        ) : (
+          <div className="text-center mt-30 text-xl">
+            You do not have any topics.
+          </div>
+        )}
+      </div>
+    </>
   );
 }
