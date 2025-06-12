@@ -28,23 +28,22 @@ export function TopicList() {
 
   return (
     <>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 h-screen  overflow-y-auto pr-2 pl-2 pt-2">
-        {topics.length !== 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 h-screen  overflow-y-auto pr-2 pl-2 pt-2">
-            {topics.map((topic) => (
-              <TopiccardAdmin
-                key={topic._id}
-                title={topic.title}
-                description={topic.description}
-              />
-            ))}
-          </div>
-        ) : (
-          <div className="text-center mt-30 text-xl">
-            You do not have any topics.
-          </div>
-        )}
-      </div>
+      {topics.length !== 0 ? (
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 h-screen  overflow-y-auto pr-2 pl-2 pt-2">
+          {topics.map((topic) => (
+            <TopiccardAdmin
+              key={topic._id}
+              id={topic._id}
+              title={topic.title}
+              description={topic.description}
+            />
+          ))}
+        </div>
+      ) : (
+        <div className="text-center mt-30 text-xl">
+          You do not have any topics.
+        </div>
+      )}
     </>
   );
 }
