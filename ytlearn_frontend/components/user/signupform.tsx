@@ -20,7 +20,10 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
-  name: z.string().max(50, { message: "Name can not exceed 50 characters" }),
+  name: z
+    .string()
+    .min(1, { message: "Please enter your name" })
+    .max(50, { message: "Name can not exceed 50 characters" }),
   email: z
     .string()
     .email({ message: "Please provide a valid email address !" })
@@ -130,6 +133,12 @@ export function SignupForm() {
           </Button>
         </form>
       </Form>
+      <p className="py-2 text-center">
+        Alreadt have an account?{" "}
+        <a className="hover:text-blue-600" href="/login">
+          Log In
+        </a>
+      </p>
     </div>
   );
 }

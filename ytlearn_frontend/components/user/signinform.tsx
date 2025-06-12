@@ -114,6 +114,12 @@ export function SigninForm() {
           </Button>
         </form>
       </Form>
+      <p className="py-2 text-center">
+        Don't have an account?{" "}
+        <a className="hover:text-blue-600" href="/signup">
+          Sign up
+        </a>
+      </p>
     </div>
   );
 }
