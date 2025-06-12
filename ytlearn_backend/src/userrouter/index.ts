@@ -34,7 +34,7 @@ userrouter.post("/signup", async function (req, res) {
   });
 
   if (checkuser) {
-    res.status(406).json({ msg: "username already exists" });
+    res.status(406).json({ msg: "Email already exists" });
     return;
   }
 

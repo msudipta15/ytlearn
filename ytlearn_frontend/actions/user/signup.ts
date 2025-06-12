@@ -1,26 +1,28 @@
 import axios from "axios";
 
 interface values {
+  name: string;
   email: string;
   password: string;
 }
 
-export async function signin(values: values) {
+export async function signup(values: values) {
   const email = values.email;
   const password = values.password;
+  const name = values.name;
   try {
     const response = await axios.post<{ token: string }>(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}user/signin`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}user/signup`,
       {
         email: email,
         password: password,
-      },
-      { withCredentials: true }
+        name: name,
+      }
     );
 
     console.log(response);
 
-    return { success: "Sign in successfull" };
+    return { success: "Sign up successfull" };
   } catch (error: any) {
     if (error.response && error.response.data && error.response.data.msg) {
       console.log(error.response.data.msg);
