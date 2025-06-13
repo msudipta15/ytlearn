@@ -1,6 +1,10 @@
+"use client";
+
+import { useRouter } from "next/navigation";
 import { Button } from "../ui/button";
 
 export function DashboardCards() {
+  const router = useRouter();
   return (
     <div className="flex flex-col">
       <div className="p-4 px-8 mb-3 border gap-2 flex justify-between rounded-lg shadow-lg  sm:w-[300px] md:w-[800px] md:h-[170px]   items-center  mx-auto">
@@ -11,7 +15,8 @@ export function DashboardCards() {
         <div>
           <Button
             size={"lg"}
-            className="bg-white text-black shadow-xl border hover:bg-red-600 hover:text-white cursor-pointer"
+            className="bg-white px-5 text-black shadow-xl border hover:bg-red-600 hover:text-white cursor-pointer"
+            onClick={() => router.push("/addtopic")}
           >
             Go to Topics
           </Button>
@@ -25,7 +30,8 @@ export function DashboardCards() {
         <div>
           <Button
             size={"lg"}
-            className="bg-white text-black shadow-xl border hover:bg-red-600 hover:text-white cursor-pointer"
+            onClick={() => router.push("/addvideo")}
+            className="bg-white text-black shadow-xl px-7 border hover:bg-red-600 hover:text-white cursor-pointer"
           >
             Add video
           </Button>
@@ -39,7 +45,8 @@ export function DashboardCards() {
         <div>
           <Button
             size={"lg"}
-            className="bg-white text-black shadow-xl border hover:bg-red-600 hover:text-white cursor-pointer"
+            onClick={() => router.push("/bookmarks")}
+            className="bg-white text-black px-11 shadow-xl border hover:bg-red-600 hover:text-white cursor-pointer"
           >
             Open
           </Button>
