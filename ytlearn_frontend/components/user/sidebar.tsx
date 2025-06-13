@@ -3,9 +3,8 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { logout } from "@/actions/user/logout";
-import { MdDashboard } from "react-icons/md";
+import { MdDashboard, MdAllInbox } from "react-icons/md";
 import { AiFillYoutube } from "react-icons/ai";
-import { MdAllInbox } from "react-icons/md";
 import { IoIosCreate } from "react-icons/io";
 import { FaBars } from "react-icons/fa";
 import { motion } from "framer-motion";
@@ -30,64 +29,53 @@ export function Sidebar() {
   ];
 
   return (
-    <aside
-      className={`w-1/7 bg-gray-50 min-h-screen fixed max-h-screen  p-4 transition-all duration-100
-        ${modelclose ? "w-24" : "w-64"}`}
-    >
-      <div className="flex items-center justify-between ">
-        <div className="ml-2 mb-5">
-          <motion.div
-            animate={{
-              scale: modelclose ? 0.8 : 1,
-              rotate: modelclose ? 0 : 180,
-            }}
-            transition={{ duration: 0.4 }}
-            className="min-w-[24px] flex justify-center"
-          >
-            <FaBars
-              size={24}
-              onClick={() => setmodelclose(!modelclose)}
-              className="text-xl cursor-pointer"
-            />
-          </motion.div>
-        </div>
-        <h1
-          className={`text-2xl px-4 font-bold ${
-            modelclose ? "hidden" : "block"
-          }`}
-        ></h1>
+    <>
+      <div className="fixed top-4 left-4 z-50">
+        <motion.div
+          animate={{ rotate: modelclose ? 0 : 180 }}
+          transition={{ duration: 0.4 }}
+          className=" p-2 rounded-md  cursor-pointer"
+          onClick={() => setmodelclose(!modelclose)}
+        >
+          <FaBars size={20} />
+        </motion.div>
       </div>
 
-      <nav className="flex flex-col gap-4">
-        {menuitems.map((item, index) => (
-          <div
-            key={index}
-            className="flex items-center  min-w-[24px] gap-3 cursor-pointer p-2 rounded-md hover:bg-gray-200 transition"
-          >
-            <motion.div
-              animate={{
-                scale: modelclose ? 0.8 : 1,
-              }}
-              transition={{ duration: 0.6 }}
-              className="min-w-[24px] flex justify-center"
-            >
-              {item.icon}
-            </motion.div>
-            {!modelclose && (
-              <motion.span
-                initial={{ opacity: 0, x: -20 }}
-                animate={{
-                  opacity: modelclose ? 0 : 1,
-                  x: modelclose ? -20 : 0,
-                }}
-                transition={{ duration: 0.3 }}
+      {modelclose ? null : (
+        <motion.aside
+          initial={{ x: -300 }}
+          animate={{ x: 0 }}
+          exit={{ x: -300 }}
+          transition={{ duration: 0.4 }}
+          className="w-64 bg-gray-50 min-h-screen fixed top-0 left-0 z-40 p-4 shadow-md"
+        >
+          <h1 className="text-2xl px-4 font-bold mb-10"></h1>
+
+          <nav className="flex flex-col  gap-4">
+            {menuitems.map((item, index) => (
+              <div
+                key={index}
+                className="flex items-center gap-3 cursor-pointer p-2 rounded-md hover:bg-gray-200 transition"
               >
-                {item.label}
-              </motion.span>
-            )}
-          </div>
-        ))}
-      </nav>
-    </aside>
+                <motion.div
+                  animate={{ scale: 1 }}
+                  transition={{ duration: 0.3 }}
+                  className="min-w-[24px] flex justify-center"
+                >
+                  {item.icon}
+                </motion.div>
+                <motion.span
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.3, delay: 0.1 }}
+                >
+                  {item.label}
+                </motion.span>
+              </div>
+            ))}
+          </nav>
+        </motion.aside>
+      )}
+    </>
   );
 }

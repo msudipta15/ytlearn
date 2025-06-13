@@ -1,10 +1,10 @@
-import { SidebarAdmin } from "@/components/user/sidebar";
+import { Sidebar } from "@/components/user/sidebar";
 import { Button } from "@/components/ui/button";
 
 export default function AddVideo() {
   return (
     <div className="flex">
-      <SidebarAdmin />
+      <Sidebar />
       <div className="p-8 w-4/5">
         <h1 className="text-2xl font-semibold mb-6">🎥 Add New Video</h1>
         <form className="space-y-4 max-w-md">
