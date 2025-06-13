@@ -11,7 +11,7 @@ export function DashboardAdmin() {
         <h1 className="text-3xl font-medium">Hello, Sudipta Mondal</h1>
       </div>
       <div className="flex justify-center mt-3 w-full h-screen p-4">
-        <div className="p-5 w-2xl h-[400px] rounded-xl mt-10  shadow-2xl  ">
+        <div className="p-5 w-2xl h-[400px] max-h-full rounded-xl mt-10  shadow-2xl  ">
           <div className="flex flex-col gap-2 mt-3 justify-center items-center ">
             <p className="text-6xl">👋 </p>
             <h1 className="text-3xl mt-1 font-semibold ">
