@@ -8,6 +8,7 @@ import { AiFillYoutube } from "react-icons/ai";
 import { IoIosCreate } from "react-icons/io";
 import { FaBars } from "react-icons/fa";
 import { motion } from "framer-motion";
+import { RiLogoutBoxRLine } from "react-icons/ri";
 
 export function Sidebar() {
   const router = useRouter();
@@ -22,10 +23,26 @@ export function Sidebar() {
   }
 
   const menuitems = [
-    { icon: <MdDashboard size={24} />, label: "Dashboard" },
-    { icon: <IoIosCreate size={24} />, label: "Add Topic" },
-    { icon: <AiFillYoutube size={24} />, label: "Add Video" },
-    { icon: <MdAllInbox size={24} />, label: "Manage Topics" },
+    {
+      icon: <MdDashboard size={24} />,
+      label: "Dashboard",
+      onclick: () => router.push("/dashboard"),
+    },
+    {
+      icon: <IoIosCreate size={24} />,
+      label: "Add Topic",
+      onclick: () => router.push("/addtopic"),
+    },
+    {
+      icon: <AiFillYoutube size={24} />,
+      label: "Add Video",
+      onclick: () => router.push("/addvideo"),
+    },
+    {
+      icon: <MdAllInbox size={24} />,
+      label: "Manage Topics",
+      onclick: () => router.push("/managetopic"),
+    },
   ];
 
   return (
@@ -47,7 +64,7 @@ export function Sidebar() {
           animate={{ x: 0 }}
           exit={{ x: -300 }}
           transition={{ duration: 0.4 }}
-          className="w-64 bg-gray-50 min-h-screen fixed top-0 left-0 z-40 p-4 shadow-md"
+          className="w-64 bg-[#EDEFF2] text-gray-800 font-medium  min-h-screen fixed top-0 left-0 z-40 p-4 shadow-md"
         >
           <h1 className="text-2xl px-4 font-bold mb-10"></h1>
 
@@ -55,7 +72,7 @@ export function Sidebar() {
             {menuitems.map((item, index) => (
               <div
                 key={index}
-                className="flex items-center gap-3 cursor-pointer p-2 rounded-md hover:bg-gray-200 transition"
+                className="flex  items-center gap-3 cursor-pointer p-2 rounded-md hover:bg-blue-400 hover:text-white transition"
               >
                 <motion.div
                   animate={{ scale: 1 }}
@@ -68,11 +85,16 @@ export function Sidebar() {
                   initial={{ opacity: 0, x: -10 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.3, delay: 0.1 }}
+                  onClick={item.onclick}
                 >
                   {item.label}
                 </motion.span>
               </div>
             ))}
+            <div className="flex mt-10  items-center gap-3 cursor-pointer p-2 rounded-md hover:bg-red-600 hover:text-white transition">
+              <RiLogoutBoxRLine size={26} />
+              <a href="/login">Logout</a>
+            </div>
           </nav>
         </motion.aside>
       )}
