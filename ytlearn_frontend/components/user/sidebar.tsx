@@ -1,14 +1,14 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { Button } from "../ui/button";
-import { Loader2Icon } from "lucide-react";
 import { useState } from "react";
 import { logout } from "@/actions/user/logout";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { FiEdit } from "react-icons/fi";
+import { MdDashboard } from "react-icons/md";
+import { AiFillYoutube } from "react-icons/ai";
+import { MdAllInbox } from "react-icons/md";
+import { IoIosCreate } from "react-icons/io";
 
-export function SidebarAdmin() {
+export function Sidebar() {
   const router = useRouter();
   const [loading, setloading] = useState(false);
 
@@ -20,20 +20,25 @@ export function SidebarAdmin() {
   }
 
   return (
-    <aside className="w-1/6 bg-gray-50 min-h-screen max-h-screen  p-4">
-      <div className="flex items-center gap-2">
-        <Avatar>
-          <AvatarImage src="" />
-          <AvatarFallback>T</AvatarFallback>
-        </Avatar>
-        <h1 className=" text-lg font-medium hover:shadow ">
-          techtv70@gmail.com
-        </h1>
-
-        <FiEdit className="text-xl ml-3 hover:bg-gray-300 cursor-pointer" />
-      </div>
+    <aside className="w-1/7 bg-gray-50 min-h-screen fixe max-h-screen  p-4">
+      <h1 className="text-2xl px-4 font-bold">YT Learn</h1>
       <nav className="flex flex-col gap-2 text-lg mt-5 font-medium">
-        <div className="w-full  px-4 py-1 rounded-md hover:shadow">hello</div>
+        <div className="w-full flex items-center gap-2 cursor-pointer  px-4 py-1 rounded-md hover:shadow">
+          <MdDashboard />
+          Dashboard
+        </div>
+        <div className="w-full flex items-center gap-2 cursor-pointer  px-4 py-1 rounded-md hover:shadow">
+          <IoIosCreate />
+          Add Topic
+        </div>
+        <div className="w-full flex items-center gap-2 cursor-pointer  px-4 py-1 rounded-md hover:shadow">
+          <AiFillYoutube />
+          Add Video
+        </div>
+        <div className="w-full flex items-center gap-2 cursor-pointer  px-4 py-1 rounded-md hover:shadow">
+          <MdAllInbox />
+          Manage Topics
+        </div>
       </nav>
     </aside>
   );
