@@ -6,7 +6,7 @@ import { FaDotCircle } from "react-icons/fa";
 export default function WelcomeSection({ name }: { name: string }) {
   return (
     <motion.div
-      className="p-4 rounded-lg shadow-lg  sm:w-[300px] md:w-[700px] md:h-[400px] flex flex-col justify-center items-center  mx-auto"
+      className="p-4 rounded-lg shadow-lg  sm:w-[300px] md:w-[700px] md:h-[400px] flex flex-col justify-center bg-gradient-to-r from-red-600 to-red-400 text-white items-center  mx-auto"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}

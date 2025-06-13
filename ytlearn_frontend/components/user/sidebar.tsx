@@ -64,7 +64,7 @@ export function Sidebar() {
           animate={{ x: 0 }}
           exit={{ x: -300 }}
           transition={{ duration: 0.4 }}
-          className="w-64 bg-[#EDEFF2] text-gray-800 font-medium  min-h-screen fixed top-0 left-0 z-40 p-4 shadow-md"
+          className="w-64 bg-white text-gray-800 font-medium  min-h-screen fixed top-0 left-0 z-40 p-4 shadow-md"
         >
           <h1 className="text-2xl px-4 font-bold mb-10"></h1>
 
@@ -72,7 +72,7 @@ export function Sidebar() {
             {menuitems.map((item, index) => (
               <div
                 key={index}
-                className="flex  items-center gap-3 cursor-pointer p-2 rounded-md hover:bg-blue-400 hover:text-white transition"
+                className="flex  items-center gap-3 cursor-pointer p-2 rounded-md hover:bg-red-500 hover:text-white transition"
               >
                 <motion.div
                   animate={{ scale: 1 }}
