@@ -11,8 +11,8 @@ const videoSchema = new Schema({
 });
 
 const topicSchema = new Schema({
-  title: { type: String, unique: true, required: true },
-  description: { type: String },
+  title: { type: String, required: true },
+  description: { type: String, default: "Watch the best videos from Youtube" },
   videos: { type: [videoSchema], default: [], required: false },
   userid: { type: mongoose.Types.ObjectId, required: true, ref: "User" },
 });

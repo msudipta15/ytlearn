@@ -148,6 +148,7 @@ userrouter.post("/addtopic", adminauth, async function (req, res) {
 
   const duplicate = await topicModel.findOne({
     title: title,
+    userid: userid,
   });
 
   if (duplicate) {

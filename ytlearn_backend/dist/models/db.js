@@ -45,8 +45,8 @@ const videoSchema = new mongoose_1.Schema({
     date: { type: Date, default: Date.now() },
 });
 const topicSchema = new mongoose_1.Schema({
-    title: { type: String, unique: true, required: true },
-    description: { type: String },
+    title: { type: String, required: true },
+    description: { type: String, default: "Watch the best videos from Youtube" },
     videos: { type: [videoSchema], default: [], required: false },
     userid: { type: mongoose_1.default.Types.ObjectId, required: true, ref: "User" },
 });

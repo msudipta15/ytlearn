@@ -143,6 +143,7 @@ userrouter.post("/addtopic", adminauth_1.adminauth, function (req, res) {
         const userid = req.id;
         const duplicate = yield db_1.topicModel.findOne({
             title: title,
+            userid: userid,
         });
         if (duplicate) {
             res.status(500).json({ msg: "This topic already exists" });

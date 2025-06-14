@@ -13,7 +13,7 @@ import { RiLogoutBoxRLine } from "react-icons/ri";
 export function Sidebar() {
   const router = useRouter();
   const [loading, setloading] = useState(false);
-  const [modelclose, setmodelclose] = useState(true);
+  const [modelclose, setmodelclose] = useState(false);
 
   async function calllogout() {
     setloading(true);
