@@ -33,9 +33,6 @@ export function AddTopicAdmin() {
   const [loading, setloading] = useState(false);
   const [success, setsuccess] = useState("");
   const [error, seterror] = useState("");
-  const [topics, settopics] = useState<Topic[]>([]);
-  const [message, setmessage] = useState("");
-  const [topicloading, settopicloading] = useState(false);
 
   const form = useForm<z.infer<typeof topicSchema>>({
     resolver: zodResolver(topicSchema),
@@ -70,26 +67,6 @@ export function AddTopicAdmin() {
       setloading(false);
     }
   }
-
-  async function gettopics() {
-    try {
-      settopicloading(true);
-      const response = await axios.get<{ topics: Topic[] }>(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}user/gettopics`,
-        { withCredentials: true }
-      );
-      settopics(response.data.topics);
-    } catch (error: any) {
-      const message = error.response?.data?.msg;
-      setmessage(message);
-    } finally {
-      settopicloading(false);
-    }
-  }
-
-  useEffect(() => {
-    gettopics();
-  }, []);
 
   return (
     <div className="py-6 px-10 w-full   ">
