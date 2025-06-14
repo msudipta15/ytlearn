@@ -20,7 +20,7 @@ import { useForm } from "react-hook-form";
 import { Textarea } from "../ui/textarea";
 import { Loader2Icon } from "lucide-react";
 import { motion } from "framer-motion";
-import { TopicList } from "./topiclist";
+import { IoMdArrowForward } from "react-icons/io";
 
 type Topic = {
   _id: string;
@@ -92,12 +92,12 @@ export function AddTopicAdmin() {
   }, []);
 
   return (
-    <div className="py-6 px-10 w-full  ">
-      <div className="p-4 rounded-lg gap-3 shadow-lg border  sm:w-[300px] md:w-[800px] md:h-[500px] flex flex-col justify-center  items-center  mx-auto">
+    <div className="py-6 px-10 w-full   ">
+      <div className="p-4  mt-20 rounded-lg gap-3 shadow-lg border   md:w-[800px] md:h-[500px] flex flex-col justify-center  items-center  mx-auto">
         <div className="">
           <h1 className="text-3xl text-center font-bold">Add Topic</h1>
         </div>
-        <div className="w-1/2">
+        <div className="w-full sm:w-[400px]">
           <div className=" p-3  w-full items-center">
             <Form {...form}>
               <form
@@ -175,11 +175,15 @@ export function AddTopicAdmin() {
           </div>
         </div>
       </div>
-      <div className="p-4 mt-4 rounded-lg gap-3 shadow-lg border  sm:w-[300px] md:w-[800px] md:min-h-screen md:max-h-full flex flex-col  items-center  mx-auto">
-        <h1 className="text-4xl font-bold">Your Topics</h1>
-        <div>
-          <TopicList />
-        </div>
+      <div className="p-4 flex justify-center mt-10  ">
+        <Button
+          variant={"ghost"}
+          size={"lg"}
+          className="text-xl cursor-pointer hover:bg-green-600 hover:text-white"
+        >
+          <IoMdArrowForward />
+          Go to Topics
+        </Button>
       </div>
     </div>
   );
