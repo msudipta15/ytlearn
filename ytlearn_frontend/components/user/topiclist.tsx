@@ -45,7 +45,7 @@ export function TopicList() {
           <p className="text-2xl p-2 text-gray-600">Loading...</p>
         </div>
       ) : topics.length !== 0 ? (
-        <div className="grid grid-cols-1 grid-rows-5 gap-5 md:grid-cols-2 h-screen overflow-y-auto pr-2 pl-2 pt-2">
+        <div className="grid grid-cols-1 gap-5 md:grid-cols-2 h-screen overflow-y-auto pr-2 pl-2 pt-2">
           {topics.map((topic) => (
             <TopiccardAdmin
               key={topic._id}

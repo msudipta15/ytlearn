@@ -16,7 +16,7 @@ export function TopiccardAdmin({
 }: TopiccardAdminProps) {
   const router = useRouter();
   return (
-    <div className=" bg-white h-fit sm:w-[300px] sm:h-[150px] flex flex-col justify-center border shadow-xl rounded-xl p-4">
+    <div className="bg-white h-fit w-[300px] shadow rounded-xl p-4">
       <h2 className="text-2xl font-bold">{title}</h2>
       <p className="text-sm text-gray-500 mb-0.5">{description}</p>
 
