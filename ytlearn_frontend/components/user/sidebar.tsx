@@ -72,6 +72,7 @@ export function Sidebar() {
             {menuitems.map((item, index) => (
               <div
                 key={index}
+                onClick={item.onclick}
                 className="flex  items-center gap-3 cursor-pointer p-2 rounded-md hover:bg-red-500 hover:text-white transition"
               >
                 <motion.div
