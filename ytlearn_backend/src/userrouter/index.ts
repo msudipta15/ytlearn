@@ -244,7 +244,7 @@ userrouter.post("/addvideo", adminauth, async function (req, res) {
   });
 
   if (duplicatevideo) {
-    res.status(405).json({ msg: "Video already exists !" });
+    res.status(409).json({ msg: "Video already exists !" });
     return;
   }
 

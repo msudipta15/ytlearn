@@ -73,6 +73,8 @@ export function Addvideo() {
 
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof formSchema>) {
+    seterror("");
+    setsuccess("");
     setloading(true);
     const topic = values.topic;
     const link = values.link;
@@ -80,7 +82,7 @@ export function Addvideo() {
     try {
       const response: any = await addvideo({ link, topic });
       if (response.error) {
-        seterror(error);
+        seterror(response.error.response.data.msg);
       } else {
         setsuccess(response.msg);
       }

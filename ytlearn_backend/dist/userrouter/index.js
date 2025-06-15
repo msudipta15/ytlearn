@@ -241,7 +241,7 @@ userrouter.post("/addvideo", adminauth_1.adminauth, function (req, res) {
             return newvideoid === existingvideoid;
         });
         if (duplicatevideo) {
-            res.status(405).json({ msg: "Video already exists !" });
+            res.status(409).json({ msg: "Video already exists !" });
             return;
         }
         try {
