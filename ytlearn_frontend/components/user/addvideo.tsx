@@ -24,6 +24,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { IoMdArrowForward } from "react-icons/io";
+import { addvideo } from "@/actions/user/addvideo";
 
 const formSchema = z.object({
   link: z
@@ -34,7 +35,7 @@ const formSchema = z.object({
     .refine((val) => val.includes("youtube.com") || val.includes("youtu.be"), {
       message: "Please provide a valid youtube link",
     }),
-  topic: z.string(),
+  topic: z.string().min(1),
 });
 
 interface Topic {
@@ -65,8 +66,12 @@ export function Addvideo() {
   });
 
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    const topic = values.topic;
+    const link = values.link;
+
+    const response = await addvideo({ link, topic });
+    console.log(response);
   }
 
   useEffect(() => {
@@ -112,13 +117,13 @@ export function Addvideo() {
                     <FormItem>
                       <FormLabel>Topic</FormLabel>
                       <FormControl>
-                        <Select>
-                          <SelectTrigger className="sm:w-[380px]" {...field}>
+                        <Select onValueChange={field.onChange}>
+                          <SelectTrigger className="sm:w-[380px]">
                             <SelectValue placeholder="Topic" />
                           </SelectTrigger>
                           <SelectContent>
                             {topics.map((topic, key) => (
-                              <SelectItem value={topic.title} key={topic._id}>
+                              <SelectItem value={topic._id} key={topic._id}>
                                 {topic.title}
                               </SelectItem>
                             ))}

@@ -122,7 +122,13 @@ userrouter.post("/addvideo", adminauth, async function (req, res) {
   }
 
   const { title, channelTitle, viewCount, likeCount, duration } =
-    await getvideoinfo(link);
+    (await getvideoinfo(link)) as {
+      title: string;
+      channelTitle: string;
+      viewCount: number;
+      likeCount: number;
+      duration: string;
+    };
 
   try {
     await videoModel.create({
@@ -252,8 +258,8 @@ userrouter.delete("/deletetopic/:topic", adminauth, async function (req, res) {
 });
 
 // Add video to a topic
-userrouter.post("/addvideo/:topic", adminauth, async function (req, res) {
-  const topic = req.params.topic;
+userrouter.post("/addvideo", adminauth, async function (req, res) {
+  const topic = req.body.topic;
   const link = req.body.link;
   const userid = req.id;
 
@@ -275,7 +281,7 @@ userrouter.post("/addvideo/:topic", adminauth, async function (req, res) {
   }
 
   try {
-    const videoinfo = await getvideoinfo(link);
+    const videoinfo: any = await getvideoinfo(link);
 
     const newvideo = {
       channelTitle: videoinfo.channelTitle,

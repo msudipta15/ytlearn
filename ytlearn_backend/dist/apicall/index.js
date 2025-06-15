@@ -38,13 +38,18 @@ function getvideoinfo(url) {
     return __awaiter(this, void 0, void 0, function* () {
         const video_id = getvideoid(url);
         const link = `https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails,statistics&id=${video_id}&key=${api_key}`;
-        const response = yield axios_1.default.get(link);
-        const data = response.data;
-        const channelTitle = data.items[0].snippet.channelTitle;
-        const title = data.items[0].snippet.title;
-        const viewCount = data.items[0].statistics.viewCount;
-        const likeCount = data.items[0].statistics.likeCount;
-        const duration = data.items[0].contentDetails.duration;
-        return { channelTitle, title, viewCount, likeCount, duration };
+        try {
+            const response = yield axios_1.default.get(link);
+            const data = response.data;
+            const channelTitle = data.items[0].snippet.channelTitle;
+            const title = data.items[0].snippet.title;
+            const viewCount = data.items[0].statistics.viewCount;
+            const likeCount = data.items[0].statistics.likeCount;
+            const duration = data.items[0].contentDetails.duration;
+            return { channelTitle, title, viewCount, likeCount, duration };
+        }
+        catch (error) {
+            return error;
+        }
     });
 }

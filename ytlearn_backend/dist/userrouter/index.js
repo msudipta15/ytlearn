@@ -118,7 +118,7 @@ userrouter.post("/addvideo", adminauth_1.adminauth, function (req, res) {
             res.status(402).json({ msg: "This video already exists" });
             return;
         }
-        const { title, channelTitle, viewCount, likeCount, duration } = yield (0, apicall_1.getvideoinfo)(link);
+        const { title, channelTitle, viewCount, likeCount, duration } = (yield (0, apicall_1.getvideoinfo)(link));
         try {
             yield db_1.videoModel.create({
                 title: title,
@@ -183,8 +183,10 @@ userrouter.get("/gettopics", adminauth_1.adminauth, function (req, res) {
 userrouter.get("/gettopic/:id", adminauth_1.adminauth, function (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const id = req.params.id;
+        const userid = req.id;
         const topic = yield db_1.topicModel.findOne({
             _id: id,
+            userid: userid,
         });
         if (!topic) {
             res.status(406).json({ msg: "No topic found" });
@@ -200,9 +202,11 @@ userrouter.patch("/edittopic/:id", adminauth_1.adminauth, function (req, res) {
         const id = req.params.id;
         const title = (_a = req.body) === null || _a === void 0 ? void 0 : _a.title;
         const description = (_b = req.body) === null || _b === void 0 ? void 0 : _b.description;
+        const userid = req.id;
         try {
             const topic = yield db_1.topicModel.findOne({
                 _id: id,
+                userid: userid,
             });
             if (!topic) {
                 res.status(402).json({ msg: "No topic found" });
@@ -228,13 +232,14 @@ userrouter.patch("/edittopic/:id", adminauth_1.adminauth, function (req, res) {
 userrouter.delete("/deletetopic/:topic", adminauth_1.adminauth, function (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const id = req.params.topic;
-        const topic = yield db_1.topicModel.findOne({ _id: id });
+        const userid = req.id;
+        const topic = yield db_1.topicModel.findOne({ _id: id, userid: userid });
         if (!topic) {
             res.status(406).json({ msg: "Topic not found" });
             return;
         }
         try {
-            yield db_1.topicModel.deleteOne({ _id: id });
+            yield db_1.topicModel.deleteOne({ _id: id, userid: userid });
             res.status(200).json({ msg: "Topic deleted" });
         }
         catch (error) {
@@ -244,22 +249,23 @@ userrouter.delete("/deletetopic/:topic", adminauth_1.adminauth, function (req, r
     });
 });
 // Add video to a topic
-userrouter.post("/addvideo/:topic", adminauth_1.adminauth, function (req, res) {
+userrouter.post("/addvideo", adminauth_1.adminauth, function (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         var _a;
-        const topic = req.params.topic;
+        const topic = req.body.topic;
         const link = req.body.link;
+        const userid = req.id;
         const validlink = (0, utils_1.checklink)(link);
         if (!validlink) {
-            res.json({ msg: "Please provide a valid youtube link" });
+            res.status(405).json({ msg: "Please provide a valid youtube link" });
             return;
         }
-        console.log(topic);
         const findtopic = yield db_1.topicModel.findOne({
             _id: topic,
+            userid: userid,
         });
         if (!findtopic) {
-            res.json({ msg: "No topic found" });
+            res.status(405).json({ msg: "No topic found" });
             return;
         }
         try {
@@ -274,7 +280,9 @@ userrouter.post("/addvideo/:topic", adminauth_1.adminauth, function (req, res) {
             };
             (_a = findtopic.videos) === null || _a === void 0 ? void 0 : _a.push(newvideo);
             yield findtopic.save();
-            res.json({ msg: `${videoinfo.title} video added to topic : ${topic}` });
+            res
+                .status(200)
+                .json({ msg: `${videoinfo.title} video added to topic : ${topic}` });
         }
         catch (error) {
             console.log(error);
@@ -287,13 +295,14 @@ userrouter.delete("/deletevideo/:topic/:video", adminauth_1.adminauth, function 
     return __awaiter(this, void 0, void 0, function* () {
         const topic_id = req.params.topic;
         const video_id = req.params.video;
+        const userid = req.id;
         try {
-            const response = yield db_1.topicModel.updateOne({ _id: topic_id }, { $pull: { videos: { _id: video_id } } });
-            console.log(response);
+            const response = yield db_1.topicModel.updateOne({ _id: topic_id, userid: userid }, { $pull: { videos: { _id: video_id } } });
             if (response.modifiedCount === 0) {
                 res.status(402).json({ msg: "Somethis went wrong" });
+                return;
             }
-            res.status(200).json({ msg: "Video deleted " });
+            res.status(200).json({ msg: "Video deleted ! " });
         }
         catch (error) {
             res.status(500).json({ msg: "Something went wrong" });
