@@ -23,6 +23,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { IoMdArrowForward } from "react-icons/io";
 
 const formSchema = z.object({
   link: z
@@ -73,57 +74,82 @@ export function Addvideo() {
   }, []);
 
   return (
-    <div className="p-4  mt-20 rounded-lg gap-3 shadow-lg border   md:w-[800px] md:h-[500px] flex flex-col justify-center  items-center  mx-auto">
-      <div>
-        <h1 className="text-3xl text-center font-bold">Add video</h1>
+    <div className="py-6 px-10 w-full ">
+      <div className="p-4  mt-20 rounded-lg gap-3 shadow-lg border   md:w-[800px] md:h-[500px] flex flex-col justify-center  items-center  mx-auto">
+        <div>
+          <h1 className="text-3xl text-center font-bold">Add video</h1>
+        </div>
+        <div className="w-full sm:w-[400px]">
+          <div className="p-3  w-full items-center">
+            <Form {...form}>
+              <form
+                onSubmit={form.handleSubmit(onSubmit)}
+                className="space-y-8"
+              >
+                <FormField
+                  control={form.control}
+                  name="link"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Link</FormLabel>
+                      <FormControl>
+                        <Input
+                          placeholder="youtube.com/example..."
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormDescription>
+                        Enter youtube link of the video
+                      </FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="topic"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Topic</FormLabel>
+                      <FormControl>
+                        <Select>
+                          <SelectTrigger className="sm:w-[380px]" {...field}>
+                            <SelectValue placeholder="Topic" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {topics.map((topic, key) => (
+                              <SelectItem value={topic.title} key={topic._id}>
+                                {topic.title}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </FormControl>
+                      <FormDescription>Select the topic</FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <Button
+                  className="w-full bg-red-500 text-white hover:bg-red-600 hover:text-white"
+                  type="submit"
+                >
+                  Submit
+                </Button>
+              </form>
+            </Form>
+          </div>
+        </div>
       </div>
-      <div>
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-            <FormField
-              control={form.control}
-              name="link"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Link</FormLabel>
-                  <FormControl>
-                    <Input placeholder="shadcn" {...field} />
-                  </FormControl>
-                  <FormDescription>
-                    Enter youtube link of the video
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="topic"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Topic</FormLabel>
-                  <FormControl>
-                    <Select>
-                      <SelectTrigger className="w-[180px]" {...field}>
-                        <SelectValue placeholder="Topic" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {topics.map((topic, key) => (
-                          <SelectItem value={topic.title} key={topic._id}>
-                            {topic.title}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </FormControl>
-                  <FormDescription>Select the topic</FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <Button type="submit">Submit</Button>
-          </form>
-        </Form>
+      <div className="p-4 flex justify-center mt-10  ">
+        <Button
+          variant={"ghost"}
+          size={"lg"}
+          className="text-xl cursor-pointer hover:bg-green-600 hover:text-white"
+        >
+          <IoMdArrowForward />
+          Go to Topics
+        </Button>
       </div>
     </div>
   );
