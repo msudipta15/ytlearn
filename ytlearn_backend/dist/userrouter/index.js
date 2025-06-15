@@ -102,39 +102,6 @@ userrouter.post("/logout", function (req, res) {
         }
     });
 });
-// Add a video
-userrouter.post("/addvideo", adminauth_1.adminauth, function (req, res) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const link = req.body.link;
-        const validlink = (0, utils_1.checklink)(link);
-        if (!validlink) {
-            res.status(406).json({ msg: "Please provide a valid youtube link" });
-            return;
-        }
-        const duplicate = yield db_1.videoModel.findOne({
-            url: link,
-        });
-        if (duplicate) {
-            res.status(402).json({ msg: "This video already exists" });
-            return;
-        }
-        const { title, channelTitle, viewCount, likeCount, duration } = (yield (0, apicall_1.getvideoinfo)(link));
-        try {
-            yield db_1.videoModel.create({
-                title: title,
-                channelname: channelTitle,
-                duration: duration,
-                likes: likeCount,
-                views: viewCount,
-                url: link,
-            });
-            res.status(200).json({ msg: `"${title}" video added` });
-        }
-        catch (error) {
-            res.status(402).json({ msg: "something went wrong" });
-        }
-    });
-});
 // Create a new topic
 userrouter.post("/addtopic", adminauth_1.adminauth, function (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -251,7 +218,7 @@ userrouter.delete("/deletetopic/:topic", adminauth_1.adminauth, function (req, r
 // Add video to a topic
 userrouter.post("/addvideo", adminauth_1.adminauth, function (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        var _a;
+        var _a, _b;
         const topic = req.body.topic;
         const link = req.body.link;
         const userid = req.id;
@@ -268,6 +235,15 @@ userrouter.post("/addvideo", adminauth_1.adminauth, function (req, res) {
             res.status(405).json({ msg: "No topic found" });
             return;
         }
+        const newvideoid = (0, apicall_1.getvideoid)(link);
+        const duplicatevideo = (_a = findtopic.videos) === null || _a === void 0 ? void 0 : _a.some((video) => {
+            const existingvideoid = (0, apicall_1.getvideoid)(video.url);
+            return newvideoid === existingvideoid;
+        });
+        if (duplicatevideo) {
+            res.status(405).json({ msg: "Video already exists !" });
+            return;
+        }
         try {
             const videoinfo = yield (0, apicall_1.getvideoinfo)(link);
             const newvideo = {
@@ -278,7 +254,7 @@ userrouter.post("/addvideo", adminauth_1.adminauth, function (req, res) {
                 duration: videoinfo.duration,
                 url: link,
             };
-            (_a = findtopic.videos) === null || _a === void 0 ? void 0 : _a.push(newvideo);
+            (_b = findtopic.videos) === null || _b === void 0 ? void 0 : _b.push(newvideo);
             yield findtopic.save();
             res
                 .status(200)

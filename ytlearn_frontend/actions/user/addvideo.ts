@@ -15,8 +15,12 @@ export async function addvideo({ link, topic }: addvideoprops) {
       },
       { withCredentials: true }
     );
-    return response;
-  } catch (error) {
-    return error;
+    return response.data;
+  } catch (error: any) {
+    if (error.msg) {
+      return { error: error.msg };
+    } else {
+      return { error: "Something went wrong" };
+    }
   }
 }

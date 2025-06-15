@@ -1,5 +1,5 @@
 import { Router, Request } from "express";
-import { getvideoinfo } from "../apicall";
+import { getvideoid, getvideoinfo } from "../apicall";
 import { userModel, topicModel, videoModel } from "../models/db";
 import { checklink } from "../utils";
 import bcrypt from "bcrypt";
@@ -98,50 +98,6 @@ userrouter.post("/logout", async function (req, res) {
   } catch (error) {
     console.log(error);
     res.status(500).json({ msg: "Something went wrong !" });
-  }
-});
-
-// Add a video
-userrouter.post("/addvideo", adminauth, async function (req, res) {
-  const link: string = req.body.link;
-
-  const validlink = checklink(link);
-
-  if (!validlink) {
-    res.status(406).json({ msg: "Please provide a valid youtube link" });
-    return;
-  }
-
-  const duplicate = await videoModel.findOne({
-    url: link,
-  });
-
-  if (duplicate) {
-    res.status(402).json({ msg: "This video already exists" });
-    return;
-  }
-
-  const { title, channelTitle, viewCount, likeCount, duration } =
-    (await getvideoinfo(link)) as {
-      title: string;
-      channelTitle: string;
-      viewCount: number;
-      likeCount: number;
-      duration: string;
-    };
-
-  try {
-    await videoModel.create({
-      title: title,
-      channelname: channelTitle,
-      duration: duration,
-      likes: likeCount,
-      views: viewCount,
-      url: link,
-    });
-    res.status(200).json({ msg: `"${title}" video added` });
-  } catch (error) {
-    res.status(402).json({ msg: "something went wrong" });
   }
 });
 
@@ -277,6 +233,18 @@ userrouter.post("/addvideo", adminauth, async function (req, res) {
 
   if (!findtopic) {
     res.status(405).json({ msg: "No topic found" });
+    return;
+  }
+
+  const newvideoid = getvideoid(link);
+
+  const duplicatevideo = findtopic.videos?.some((video) => {
+    const existingvideoid = getvideoid(video.url);
+    return newvideoid === existingvideoid;
+  });
+
+  if (duplicatevideo) {
+    res.status(405).json({ msg: "Video already exists !" });
     return;
   }
 

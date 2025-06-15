@@ -25,6 +25,8 @@ import {
 } from "@/components/ui/select";
 import { IoMdArrowForward } from "react-icons/io";
 import { addvideo } from "@/actions/user/addvideo";
+import { motion } from "framer-motion";
+import { Loader2Icon } from "lucide-react";
 
 const formSchema = z.object({
   link: z
@@ -47,6 +49,10 @@ interface Topic {
 
 export function Addvideo() {
   const [topics, settopics] = useState<Topic[]>([]);
+  const [loading, setloading] = useState(false);
+  const [error, seterror] = useState("");
+  const [success, setsuccess] = useState("");
+
   async function fetchtopics() {
     try {
       const response = await gettopics();
@@ -67,11 +73,23 @@ export function Addvideo() {
 
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof formSchema>) {
+    setloading(true);
     const topic = values.topic;
     const link = values.link;
 
-    const response = await addvideo({ link, topic });
-    console.log(response);
+    try {
+      const response: any = await addvideo({ link, topic });
+      if (response.error) {
+        seterror(error);
+      } else {
+        setsuccess(response.msg);
+      }
+    } catch (error) {
+      console.log(error);
+      seterror("Something went wrong, Please verify the link !");
+    } finally {
+      setloading(false);
+    }
   }
 
   useEffect(() => {
@@ -135,10 +153,37 @@ export function Addvideo() {
                     </FormItem>
                   )}
                 />
+                {error && (
+                  <div className=" px-2 py-1.5 rounded-md text-red-600 text-lg text-center font-medium">
+                    <motion.span
+                      initial={{ opacity: 0, y: -20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -20 }}
+                      transition={{ duration: 0.5 }}
+                    >
+                      {error}
+                    </motion.span>
+                  </div>
+                )}
+                {success && (
+                  <div className=" text-green-600 text-lg font-medium text-center px-2 py-1.5 rounded-md ">
+                    <motion.span
+                      initial={{ opacity: 0, y: -20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -20 }}
+                      transition={{ duration: 0.5 }}
+                    >
+                      {success}
+                    </motion.span>
+                  </div>
+                )}
+
                 <Button
                   className="w-full bg-red-500 text-white hover:bg-red-600 hover:text-white"
                   type="submit"
+                  disabled={loading}
                 >
+                  {loading && <Loader2Icon className="animate-spin" />}
                   Submit
                 </Button>
               </form>

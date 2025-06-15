@@ -4,7 +4,7 @@ import axios from "axios";
 dotenv.config();
 const api_key = process.env.YT_API_CODE;
 
-function getvideoid(url: string) {
+export function getvideoid(url: string) {
   if (url.includes("youtube.com")) {
     const p1 = url.split("v=")[1];
     const id = p1.split("&")[0];
