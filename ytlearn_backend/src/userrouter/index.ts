@@ -186,8 +186,10 @@ userrouter.get("/gettopics", adminauth, async function (req, res) {
 // Get topic by id
 userrouter.get("/gettopic/:id", adminauth, async function (req, res) {
   const id = req.params.id;
+  const userid = req.id;
   const topic = await topicModel.findOne({
     _id: id,
+    userid: userid,
   });
 
   if (!topic) {
@@ -203,10 +205,12 @@ userrouter.patch("/edittopic/:id", adminauth, async function (req, res) {
   const id = req.params.id;
   const title = req.body?.title;
   const description = req.body?.description;
+  const userid = req.id;
 
   try {
     const topic = await topicModel.findOne({
       _id: id,
+      userid: userid,
     });
     if (!topic) {
       res.status(402).json({ msg: "No topic found" });
@@ -230,7 +234,8 @@ userrouter.patch("/edittopic/:id", adminauth, async function (req, res) {
 // Delete a topic by id
 userrouter.delete("/deletetopic/:topic", adminauth, async function (req, res) {
   const id = req.params.topic;
-  const topic = await topicModel.findOne({ _id: id });
+  const userid = req.id;
+  const topic = await topicModel.findOne({ _id: id, userid: userid });
 
   if (!topic) {
     res.status(406).json({ msg: "Topic not found" });
@@ -238,7 +243,7 @@ userrouter.delete("/deletetopic/:topic", adminauth, async function (req, res) {
   }
 
   try {
-    await topicModel.deleteOne({ _id: id });
+    await topicModel.deleteOne({ _id: id, userid: userid });
     res.status(200).json({ msg: "Topic deleted" });
   } catch (error) {
     console.log(error);
@@ -250,22 +255,22 @@ userrouter.delete("/deletetopic/:topic", adminauth, async function (req, res) {
 userrouter.post("/addvideo/:topic", adminauth, async function (req, res) {
   const topic = req.params.topic;
   const link = req.body.link;
+  const userid = req.id;
 
   const validlink = checklink(link);
 
   if (!validlink) {
-    res.json({ msg: "Please provide a valid youtube link" });
+    res.status(405).json({ msg: "Please provide a valid youtube link" });
     return;
   }
 
-  console.log(topic);
-
   const findtopic = await topicModel.findOne({
     _id: topic,
+    userid: userid,
   });
 
   if (!findtopic) {
-    res.json({ msg: "No topic found" });
+    res.status(405).json({ msg: "No topic found" });
     return;
   }
 
@@ -285,7 +290,9 @@ userrouter.post("/addvideo/:topic", adminauth, async function (req, res) {
 
     await findtopic.save();
 
-    res.json({ msg: `${videoinfo.title} video added to topic : ${topic}` });
+    res
+      .status(200)
+      .json({ msg: `${videoinfo.title} video added to topic : ${topic}` });
   } catch (error) {
     console.log(error);
     res.status(500).json({ msg: "something went wrong" });
@@ -299,20 +306,20 @@ userrouter.delete(
   async function (req, res) {
     const topic_id = req.params.topic;
     const video_id = req.params.video;
+    const userid = req.id;
 
     try {
       const response = await topicModel.updateOne(
-        { _id: topic_id },
+        { _id: topic_id, userid: userid },
         { $pull: { videos: { _id: video_id } } }
       );
 
-      console.log(response);
-
       if (response.modifiedCount === 0) {
         res.status(402).json({ msg: "Somethis went wrong" });
+        return;
       }
 
-      res.status(200).json({ msg: "Video deleted " });
+      res.status(200).json({ msg: "Video deleted ! " });
     } catch (error) {
       res.status(500).json({ msg: "Something went wrong" });
     }
