@@ -145,6 +145,8 @@ userrouter.post("/addtopic", adminauth_1.adminauth, function (req, res) {
 userrouter.get("/gettopics", adminauth_1.adminauth, function (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const userid = req.id;
+        console.log("req.id:", req.id);
+        console.log("req.cookies:", req.cookies);
         try {
             const topics = yield db_1.topicModel.find({ userid });
             if (topics.length === 0) {

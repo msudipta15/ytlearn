@@ -145,6 +145,8 @@ userrouter.post("/addtopic", adminauth, async function (req, res) {
 // Get all existing topics
 userrouter.get("/gettopics", adminauth, async function (req, res) {
   const userid = req.id;
+  console.log("req.id:", req.id);
+  console.log("req.cookies:", req.cookies);
   try {
     const topics = await topicModel.find({ userid });
     if (topics.length === 0) {

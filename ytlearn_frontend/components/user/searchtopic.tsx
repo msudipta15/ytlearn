@@ -6,16 +6,18 @@ import { Input } from "../ui/input";
 import { searchtopic } from "@/actions/user/searchtopic";
 import { useState } from "react";
 
-export function SearchTopic() {
+interface searchprop {
+  onsearch: (title: string) => void;
+}
+
+export function SearchTopic({ onsearch }: searchprop) {
   const [title, settitle] = useState("");
 
-  async function search() {
-    try {
-      const response = await searchtopic(title);
-      console.log(response);
-    } catch (error) {
-      console.log(error);
+  function search() {
+    if (title.trim() === "") {
+      return;
     }
+    onsearch(title);
   }
 
   return (

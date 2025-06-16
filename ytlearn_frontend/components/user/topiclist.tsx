@@ -1,8 +1,6 @@
 "use client";
 
-import axios from "axios";
 import { TopiccardAdmin } from "./topiccard";
-import { useEffect, useState } from "react";
 import { Loader2Icon } from "lucide-react";
 
 type Topic = {
@@ -12,30 +10,14 @@ type Topic = {
   userid: string;
 };
 
-export function TopicList() {
-  const [topics, settopics] = useState<Topic[]>([]);
-  const [loading, setloading] = useState(false);
-  const [message, setmessage] = useState("");
+interface topiclistprops {
+  topics: Topic[];
+  loading: boolean;
+  message: string;
+}
 
-  async function gettopics() {
-    try {
-      setloading(true);
-      const response = await axios.get<{ topics: Topic[] }>(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}user/gettopics`,
-        { withCredentials: true }
-      );
-      settopics(response.data.topics);
-    } catch (error: any) {
-      const message = error.response?.data?.msg;
-      setmessage(message);
-    } finally {
-      setloading(false);
-    }
-  }
-
-  useEffect(() => {
-    gettopics();
-  }, []);
+export function TopicList({ topics, loading, message }: topiclistprops) {
+  console.log(topics);
 
   return (
     <div className="p-4">
