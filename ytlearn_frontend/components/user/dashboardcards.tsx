@@ -39,13 +39,13 @@ export function DashboardCards() {
       </div>
       <div className="p-4 border px-8 gap-2 mb-3 flex justify-between rounded-lg shadow-lg  sm:w-[300px] md:w-[800px] md:h-[170px]   items-center  mx-auto">
         <div className="flex flex-col  justify-center h-full">
-          <h1 className="sm:text-5xl font-bold mb-2">Bookmarks</h1>
-          <p>Watch your Bookmarked videos and Topics</p>
+          <h1 className="sm:text-5xl font-bold mb-2">Topics</h1>
+          <p>See all of the topics you created. </p>
         </div>
         <div>
           <Button
             size={"lg"}
-            onClick={() => router.push("/bookmarks")}
+            onClick={() => router.push("/topics")}
             className="bg-white text-black px-11 shadow-xl border hover:bg-red-600 hover:text-white cursor-pointer"
           >
             Open

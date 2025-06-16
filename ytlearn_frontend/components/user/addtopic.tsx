@@ -21,6 +21,7 @@ import { Textarea } from "../ui/textarea";
 import { Loader2Icon } from "lucide-react";
 import { motion } from "framer-motion";
 import { IoMdArrowForward } from "react-icons/io";
+import { useRouter } from "next/navigation";
 
 type Topic = {
   _id: string;
@@ -33,6 +34,8 @@ export function AddTopicAdmin() {
   const [loading, setloading] = useState(false);
   const [success, setsuccess] = useState("");
   const [error, seterror] = useState("");
+
+  const router = useRouter();
 
   const form = useForm<z.infer<typeof topicSchema>>({
     resolver: zodResolver(topicSchema),
@@ -157,6 +160,7 @@ export function AddTopicAdmin() {
           variant={"ghost"}
           size={"lg"}
           className="text-xl cursor-pointer hover:bg-green-600 hover:text-white"
+          onClick={() => router.push("/topics")}
         >
           <IoMdArrowForward />
           Go to Topics

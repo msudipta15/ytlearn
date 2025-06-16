@@ -8,9 +8,10 @@ import { useState } from "react";
 
 interface searchprop {
   onsearch: (title: string) => void;
+  onclear: () => void;
 }
 
-export function SearchTopic({ onsearch }: searchprop) {
+export function SearchTopic({ onsearch, onclear }: searchprop) {
   const [title, settitle] = useState("");
 
   function search() {
@@ -20,9 +21,14 @@ export function SearchTopic({ onsearch }: searchprop) {
     onsearch(title);
   }
 
+  function clear() {
+    onclear();
+    settitle("");
+  }
+
   return (
     <div className=" w-full mt-10 flex justify-center ">
-      <div className="w-1/3 flex  gap-1 justify-center items-center">
+      <div className="md:w-1/3 flex  gap-1 justify-center items-center">
         <Input
           type="text"
           placeholder="Enter topic name eg: HTML, CSS"
@@ -39,6 +45,15 @@ export function SearchTopic({ onsearch }: searchprop) {
           <IoSearchSharp />
           Search
         </Button>
+        {title && (
+          <Button
+            variant={"link"}
+            className="cursor-pointer"
+            onClick={() => clear()}
+          >
+            Clear
+          </Button>
+        )}
       </div>
     </div>
   );

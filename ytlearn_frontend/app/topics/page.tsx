@@ -57,11 +57,15 @@ export default function ManageContent() {
     gettopics();
   }, []);
 
+  async function handleonclear() {
+    gettopics();
+  }
+
   return (
     <div className="flex">
       <Sidebar />
       <div className="p-8 w-full gap-10 flex flex-col  ">
-        <SearchTopic onsearch={handlesearch} />
+        <SearchTopic onsearch={handlesearch} onclear={handleonclear} />
         <TopicList topics={topics} message={message} loading={loading} />
       </div>
     </div>

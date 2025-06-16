@@ -27,6 +27,7 @@ import { IoMdArrowForward } from "react-icons/io";
 import { addvideo } from "@/actions/user/addvideo";
 import { motion } from "framer-motion";
 import { Loader2Icon } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
   link: z
@@ -52,6 +53,8 @@ export function Addvideo() {
   const [loading, setloading] = useState(false);
   const [error, seterror] = useState("");
   const [success, setsuccess] = useState("");
+
+  const router = useRouter();
 
   async function fetchtopics() {
     try {
@@ -198,6 +201,7 @@ export function Addvideo() {
           variant={"ghost"}
           size={"lg"}
           className="text-xl cursor-pointer hover:bg-green-600 hover:text-white"
+          onClick={() => router.push("/topics")}
         >
           <IoMdArrowForward />
           Go to Topics
