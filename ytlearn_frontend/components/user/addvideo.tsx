@@ -57,7 +57,7 @@ export function Addvideo() {
     try {
       const response = await gettopics();
       console.log(response);
-      settopics(response);
+      settopics(response.topics);
     } catch (error) {
       console.log(error);
     }

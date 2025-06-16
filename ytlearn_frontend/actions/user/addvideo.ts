@@ -17,6 +17,6 @@ export async function addvideo({ link, topic }: addvideoprops) {
     );
     return response.data;
   } catch (error) {
-    return { error: error };
+    return error;
   }
 }

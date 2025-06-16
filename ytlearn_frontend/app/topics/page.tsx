@@ -22,14 +22,16 @@ export default function ManageContent() {
   async function handlesearch(title: string) {
     setloading(true);
     try {
-      const response: any = await searchtopic(title);
-      settopics(response.data.topics);
-    } catch (error: any) {
-      if (error.response.data.msg) {
-        setmessage(error.response.data.msg);
-      } else {
-        setmessage("something went wrong !");
+      const { topic, error } = await searchtopic(title);
+      if (error) {
+        settopics([]);
+        setmessage(error);
       }
+      if (topic) {
+        settopics(topic);
+      }
+    } catch (error: any) {
+      console.log(error);
     } finally {
       setloading(false);
     }
