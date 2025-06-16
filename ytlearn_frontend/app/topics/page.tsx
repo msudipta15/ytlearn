@@ -1,4 +1,4 @@
-import { SidebarAdmin } from "@/components/user/sidebar";
+import { Sidebar } from "@/components/user/sidebar";
 import { TopicList } from "@/components/user/topiclist";
 import axios from "axios";
 
@@ -13,9 +13,8 @@ export default function ManageContent() {
 
   return (
     <div className="flex">
-      <SidebarAdmin />
-      <div className="p-8 w-4/5  ">
-        <h1 className="text-2xl font-semibold mb-6">🗂️ Your Topics</h1>
+      <Sidebar />
+      <div className="p-8 w-full  ">
         <TopicList />
       </div>
     </div>

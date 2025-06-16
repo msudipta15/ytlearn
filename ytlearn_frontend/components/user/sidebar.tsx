@@ -40,8 +40,8 @@ export function Sidebar() {
     },
     {
       icon: <MdAllInbox size={24} />,
-      label: "Manage Topics",
-      onclick: () => router.push("/managetopic"),
+      label: "All Topics",
+      onclick: () => router.push("/topics"),
     },
   ];
 

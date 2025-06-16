@@ -38,14 +38,14 @@ export function TopicList() {
   }, []);
 
   return (
-    <>
+    <div className="p-4">
       {loading ? (
         <div className="flex justify-center items-center h-64">
           <Loader2Icon className="animate-spin size-10 text-gray-600" />
           <p className="text-2xl p-2 text-gray-600">Loading...</p>
         </div>
       ) : topics.length !== 0 ? (
-        <div className="flex flex-wrap gap-3 h-screen overflow-y-auto pr-2 pl-8 pt-2">
+        <div className="grid bg-amber-50 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 gap-y-5 max-h-screen overflow-y-auto p-10">
           {topics.map((topic) => (
             <TopiccardAdmin
               key={topic._id}
@@ -56,8 +56,10 @@ export function TopicList() {
           ))}
         </div>
       ) : (
-        <div className="text-center mt-30 text-xl">{message}</div>
+        <div className="flex justify-center items-center h-64 text-xl text-gray-600">
+          {message}
+        </div>
       )}
-    </>
+    </div>
   );
 }
