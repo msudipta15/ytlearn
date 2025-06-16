@@ -297,13 +297,15 @@ userrouter.delete("/deletevideo/:topic/:video", adminauth_1.adminauth, function 
     });
 });
 // Search for topic
-userrouter.get("/topic/:q", adminauth_1.adminauth, function (req, res) {
+userrouter.get("/topic/:title", adminauth_1.adminauth, function (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        const query = req.params.q;
+        const query = req.params.title;
+        const id = req.id;
         try {
             const regx = new RegExp(query, "i");
             const topics = yield db_1.topicModel.find({
                 $or: [{ title: regx }, { description: regx }],
+                userid: id,
             });
             if (topics.length === 0) {
                 res.status(402).json({ msg: "No topic found" });

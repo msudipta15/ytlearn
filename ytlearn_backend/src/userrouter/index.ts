@@ -312,13 +312,15 @@ userrouter.delete(
 );
 
 // Search for topic
-userrouter.get("/topic/:q", adminauth, async function (req, res) {
-  const query = req.params.q;
+userrouter.get("/topic/:title", adminauth, async function (req, res) {
+  const query = req.params.title;
+  const id = req.id;
   try {
     const regx = new RegExp(query, "i");
 
     const topics = await topicModel.find({
       $or: [{ title: regx }, { description: regx }],
+      userid: id,
     });
 
     if (topics.length === 0) {
