@@ -102,6 +102,17 @@ userrouter.post("/logout", function (req, res) {
         }
     });
 });
+userrouter.get("/info", adminauth_1.adminauth, function (req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const id = req.id;
+        const user = yield db_1.userModel.findOne({ _id: id });
+        if (!user) {
+            res.status(402).json({ msg: "User not found" });
+            return;
+        }
+        res.status(200).json({ user });
+    });
+});
 // Create a new topic
 userrouter.post("/addtopic", adminauth_1.adminauth, function (req, res) {
     return __awaiter(this, void 0, void 0, function* () {

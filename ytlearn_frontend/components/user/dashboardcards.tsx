@@ -10,7 +10,7 @@ export function DashboardCards() {
       <div className="p-4 px-8 mb-3 border gap-2 flex justify-between rounded-lg shadow-lg  sm:w-[300px] md:w-[800px] md:h-[170px]   items-center  mx-auto">
         <div className="flex flex-col  justify-center h-full">
           <h1 className="sm:text-5xl font-bold mb-2">Topics</h1>
-          <p>See your topics or Create new topics to add videos.</p>
+          <p>Create new topics to add videos.</p>
         </div>
         <div>
           <Button
@@ -18,7 +18,7 @@ export function DashboardCards() {
             className="bg-white px-5 text-black shadow-xl border hover:bg-red-600 hover:text-white cursor-pointer"
             onClick={() => router.push("/addtopic")}
           >
-            Go to Topics
+            Add Topic
           </Button>
         </div>
       </div>

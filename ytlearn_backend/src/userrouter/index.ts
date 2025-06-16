@@ -101,6 +101,17 @@ userrouter.post("/logout", async function (req, res) {
   }
 });
 
+userrouter.get("/info", adminauth, async function (req, res) {
+  const id = req.id;
+  const user = await userModel.findOne({ _id: id });
+  if (!user) {
+    res.status(402).json({ msg: "User not found" });
+    return;
+  }
+
+  res.status(200).json({ user });
+});
+
 // Create a new topic
 
 userrouter.post("/addtopic", adminauth, async function (req, res) {

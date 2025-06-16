@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { FaDotCircle } from "react-icons/fa";
+import { BsPersonCircle } from "react-icons/bs";
 
 export default function WelcomeSection({ name }: { name: string }) {
   return (
@@ -11,7 +12,10 @@ export default function WelcomeSection({ name }: { name: string }) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
     >
-      <h1 className="text-2xl   font-bold mb-4">Hello, {name}</h1>
+      <div>
+        <BsPersonCircle size={36} />
+      </div>
+      <h1 className="text-2xl mt-2   font-bold mb-4">Hello, {name}</h1>
       <h2 className="text-xl font-semibold mb-2">Welcome to YT Learn!</h2>
       <ul className="space-y-2 text-md ">
         <li className="flex items-center mb-2 mt-2">
