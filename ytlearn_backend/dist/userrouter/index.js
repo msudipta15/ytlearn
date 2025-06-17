@@ -142,7 +142,7 @@ userrouter.post("/addtopic", adminauth_1.adminauth, function (req, res) {
     });
 });
 // Get all existing topics
-userrouter.get("/gettopics", adminauth_1.adminauth, function (req, res) {
+userrouter.get("/topics", adminauth_1.adminauth, function (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const userid = req.id;
         try {
@@ -317,6 +317,25 @@ userrouter.get("/topic/:title", adminauth_1.adminauth, function (req, res) {
         }
         catch (error) {
             res.status(500).json({ msg: "Something went wrong" });
+        }
+    });
+});
+userrouter.get("/topics/:topic", adminauth_1.adminauth, function (req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const topicid = req.params.topic;
+        const id = req.id;
+        try {
+            const topic = yield db_1.topicModel.findOne({ _id: topicid, userid: id });
+            if (!topic) {
+                res.status(402).json({ msg: "No topic found" });
+                return;
+            }
+            const videos = topic.videos;
+            res.status(200).json({ videos });
+        }
+        catch (error) {
+            console.log(error);
+            res.status(500).json({ msg: "something went wrong !" });
         }
     });
 });

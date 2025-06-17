@@ -10,7 +10,7 @@ interface Topic {
 export async function gettopics() {
   try {
     const response = await axios.get<{ topics: Topic[] }>(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}user/gettopics`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}user/topics`,
       { withCredentials: true }
     );
     return { topics: response.data.topics };

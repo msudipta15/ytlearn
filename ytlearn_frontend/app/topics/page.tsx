@@ -41,7 +41,7 @@ export default function ManageContent() {
     try {
       setloading(true);
       const response = await axios.get<{ topics: Topic[] }>(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}user/gettopics`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}user/topics`,
         { withCredentials: true }
       );
       settopics(response.data.topics);
@@ -62,11 +62,11 @@ export default function ManageContent() {
   }, []);
 
   async function handleonclear() {
-    await gettopics();
+    gettopics();
   }
 
   async function refresh() {
-    await gettopics();
+    gettopics();
   }
 
   return (

@@ -143,7 +143,7 @@ userrouter.post("/addtopic", adminauth, async function (req, res) {
 });
 
 // Get all existing topics
-userrouter.get("/gettopics", adminauth, async function (req, res) {
+userrouter.get("/topics", adminauth, async function (req, res) {
   const userid = req.id;
 
   try {
@@ -334,6 +334,27 @@ userrouter.get("/topic/:title", adminauth, async function (req, res) {
     res.status(200).json({ topics });
   } catch (error) {
     res.status(500).json({ msg: "Something went wrong" });
+  }
+});
+
+// Get videos of a topic
+userrouter.get("/topics/:topic", adminauth, async function (req, res) {
+  const topicid = req.params.topic;
+  const id = req.id;
+
+  try {
+    const topic = await topicModel.findOne({ _id: topicid, userid: id });
+    if (!topic) {
+      res.status(402).json({ msg: "No topic found" });
+      return;
+    }
+
+    const videos = topic.videos;
+
+    res.status(200).json({ videos });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ msg: "something went wrong !" });
   }
 });
 
