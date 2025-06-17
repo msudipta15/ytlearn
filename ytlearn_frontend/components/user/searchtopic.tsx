@@ -32,7 +32,7 @@ export function SearchTopic({ onsearch, onclear }: searchprop) {
         <Input
           type="text"
           placeholder="Enter topic name eg: HTML, CSS"
-          className="px-4 py-5 rounded-lg shadow-xl"
+          className="px-4 py-5 rounded-lg shadow-xl hover:shadow-2xl"
           value={title}
           onChange={(e) => settitle(e.target.value)}
         />

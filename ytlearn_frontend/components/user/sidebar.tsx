@@ -9,16 +9,15 @@ import { IoIosCreate } from "react-icons/io";
 import { FaBars } from "react-icons/fa";
 import { motion } from "framer-motion";
 import { RiLogoutBoxRLine } from "react-icons/ri";
+import Link from "next/link";
+import { Loader2Icon } from "lucide-react";
 
 export function Sidebar() {
   const router = useRouter();
-  const [loading, setloading] = useState(false);
   const [modelclose, setmodelclose] = useState(false);
 
   async function calllogout() {
-    setloading(true);
     const response = await logout();
-    setloading(false);
     router.push("/login");
   }
 
@@ -26,22 +25,22 @@ export function Sidebar() {
     {
       icon: <MdDashboard size={24} />,
       label: "Dashboard",
-      onclick: () => router.push("/dashboard"),
+      href: "/dashboard",
     },
     {
       icon: <IoIosCreate size={24} />,
       label: "Add Topic",
-      onclick: () => router.push("/addtopic"),
+      href: "/addtopic",
     },
     {
       icon: <AiFillYoutube size={24} />,
       label: "Add Video",
-      onclick: () => router.push("/addvideo"),
+      href: "/addvideo",
     },
     {
       icon: <MdAllInbox size={24} />,
       label: "All Topics",
-      onclick: () => router.push("/topics"),
+      href: "/topics",
     },
   ];
 
@@ -70,27 +69,29 @@ export function Sidebar() {
 
           <nav className="flex flex-col  gap-4">
             {menuitems.map((item, index) => (
-              <div
-                key={index}
-                onClick={item.onclick}
-                className="flex  items-center gap-3 cursor-pointer p-2 rounded-md hover:bg-red-500 hover:text-white transition"
-              >
-                <motion.div
-                  animate={{ scale: 1 }}
-                  transition={{ duration: 0.3 }}
-                  className="min-w-[24px] flex justify-center "
+              <Link href={item.href} key={index}>
+                <div
+                  key={index}
+                  //onClick={item.onclick}
+                  className="flex  items-center gap-3 cursor-pointer p-2 rounded-md hover:bg-red-500 hover:text-white transition"
                 >
-                  {item.icon}
-                </motion.div>
-                <motion.span
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.3, delay: 0.1 }}
-                  onClick={item.onclick}
-                >
-                  {item.label}
-                </motion.span>
-              </div>
+                  <motion.div
+                    animate={{ scale: 1 }}
+                    transition={{ duration: 0.3 }}
+                    className="min-w-[24px] flex justify-center "
+                  >
+                    {item.icon}
+                  </motion.div>
+                  <motion.span
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.3, delay: 0.1 }}
+                    //onClick={item.onclick}
+                  >
+                    {item.label}
+                  </motion.span>
+                </div>
+              </Link>
             ))}
             <div
               onClick={() => {
@@ -100,7 +101,7 @@ export function Sidebar() {
               className="flex mt-10  items-center gap-3 cursor-pointer p-2 rounded-md hover:bg-red-600 hover:text-white transition"
             >
               <RiLogoutBoxRLine size={26} />
-              <a href="/login">Logout</a>
+              <Link href={"/login"}>Logout </Link>
             </div>
           </nav>
         </motion.aside>
