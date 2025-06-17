@@ -16,14 +16,22 @@ export function TopiccardAdmin({
 }: TopiccardAdminProps) {
   const router = useRouter();
   return (
-    <div className="bg-white h-[200px] w-[350px] border  shadow rounded-xl p-4">
-      <h2 className="text-2xl font-bold">{title}</h2>
-      <p className="text-sm text-gray-500 mb-0.5">{description}</p>
+    <div className="bg-white border shadow-md rounded-2xl p-5 w-full max-w-sm md:max-w-md flex flex-col justify-between space-y-4 transition hover:shadow-xl">
+      <div className="flex justify-between items-start">
+        <h2 className="text-xl md:text-2xl font-semibold text-gray-800 line-clamp-2">
+          {title}
+        </h2>
+        <button className="text-red-500 text-sm hover:underline">Delete</button>
+      </div>
 
-      <div className="mt-3 flex gap-2">
+      <p className="text-gray-600 text-sm md:text-base line-clamp-3">
+        {description}
+      </p>
+
+      <div className="flex justify-end">
         <Button
-          variant={"default"}
-          className="px-5"
+          variant="default"
+          className="px-5 py-1.5 text-sm"
           onClick={() => router.push(`/topics/${id}`)}
         >
           Open
