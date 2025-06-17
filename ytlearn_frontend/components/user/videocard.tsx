@@ -7,7 +7,7 @@ export function VideoCard() {
         initial={{ opacity: 0, y: 0 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
-        className="bg-white border shadow-md rounded-2xl p-5 w-full max-w-sm md:max-w-md flex flex-col justify-between space-y-4 transition hover:shadow-xl"
+        className="bg-white border shadow-md rounded-md p-5 w-full max-w-sm md:max-w-md flex flex-col justify-between space-y-4 transition hover:shadow-xl"
       >
         <div className="flex justify-center">
           <iframe
@@ -19,6 +19,13 @@ export function VideoCard() {
             referrerPolicy="strict-origin-when-cross-origin"
             allowFullScreen
           ></iframe>
+        </div>
+        <div>
+          <h1 className="text-xl font-medium">Title</h1>
+          <div className="flex justify-between">
+            <span>Channel name</span>
+            <span>2:12</span>
+          </div>
         </div>
       </motion.div>
     </div>
