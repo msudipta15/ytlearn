@@ -65,7 +65,6 @@ export function AddTopicAdmin() {
       }
     } catch (error) {
       seterror("something went wrong !");
-      console.log("failed");
     } finally {
       setloading(false);
     }

@@ -290,9 +290,11 @@ userrouter.delete("/deletevideo/:topic/:video", adminauth_1.adminauth, function 
                 return;
             }
             res.status(200).json({ msg: "Video deleted ! " });
+            return;
         }
         catch (error) {
             res.status(500).json({ msg: "Something went wrong" });
+            return;
         }
     });
 });

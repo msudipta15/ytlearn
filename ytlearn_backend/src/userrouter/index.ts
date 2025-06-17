@@ -306,8 +306,10 @@ userrouter.delete(
       }
 
       res.status(200).json({ msg: "Video deleted ! " });
+      return;
     } catch (error) {
       res.status(500).json({ msg: "Something went wrong" });
+      return;
     }
   }
 );

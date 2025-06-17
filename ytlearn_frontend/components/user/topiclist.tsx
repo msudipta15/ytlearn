@@ -46,7 +46,7 @@ export function TopicList({
         </div>
       ) : (
         <div className="flex justify-center items-center h-64 text-xl text-gray-600">
-          {message}
+          {message || "You do not have any topic added "}
         </div>
       )}
     </div>

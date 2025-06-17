@@ -45,6 +45,10 @@ export default function ManageContent() {
         { withCredentials: true }
       );
       settopics(response.data.topics);
+
+      if (response.data.topics.length === 0) {
+        setmessage("You do not have any topics added");
+      }
     } catch (error: any) {
       const message = error.response?.data?.msg;
       setmessage(message);
@@ -58,11 +62,11 @@ export default function ManageContent() {
   }, []);
 
   async function handleonclear() {
-    gettopics();
+    await gettopics();
   }
 
   async function refresh() {
-    gettopics();
+    await gettopics();
   }
 
   return (

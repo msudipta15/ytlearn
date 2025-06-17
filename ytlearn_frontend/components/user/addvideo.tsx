@@ -59,7 +59,6 @@ export function Addvideo() {
   async function fetchtopics() {
     try {
       const response = await gettopics();
-      console.log(response);
       settopics(response.topics);
     } catch (error) {
       console.log(error);
@@ -90,7 +89,6 @@ export function Addvideo() {
         setsuccess(response.msg);
       }
     } catch (error) {
-      console.log(error);
       seterror("Something went wrong, Please verify the link !");
     } finally {
       setloading(false);

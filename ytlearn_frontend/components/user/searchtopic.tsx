@@ -3,7 +3,6 @@
 import { IoSearchSharp } from "react-icons/io5";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
-import { searchtopic } from "@/actions/user/searchtopic";
 import { useState } from "react";
 
 interface searchprop {
