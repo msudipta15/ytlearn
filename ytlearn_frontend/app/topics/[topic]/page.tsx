@@ -1,4 +1,5 @@
 import { Sidebar } from "@/components/user/sidebar";
+import { VideoList } from "@/components/user/videolist";
 
 interface prop {
   params: {
@@ -6,8 +7,8 @@ interface prop {
   };
 }
 
-export default function TopicPage({ params }: prop) {
-  const topic = params.topic;
+export default async function TopicPage({ params }: prop) {
+  const { topic } = await params;
 
   return (
     <div>
@@ -16,7 +17,9 @@ export default function TopicPage({ params }: prop) {
         <h1 className="text-4xl font-semibold">React</h1>
         <p className="">This is about react</p>
       </div>
-      <div></div>
+      <div>
+        <VideoList topicid={topic} />
+      </div>
     </div>
   );
 }
