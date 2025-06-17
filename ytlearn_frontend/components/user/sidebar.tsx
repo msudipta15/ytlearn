@@ -78,7 +78,7 @@ export function Sidebar() {
                 <motion.div
                   animate={{ scale: 1 }}
                   transition={{ duration: 0.3 }}
-                  className="min-w-[24px] flex justify-center"
+                  className="min-w-[24px] flex justify-center "
                 >
                   {item.icon}
                 </motion.div>

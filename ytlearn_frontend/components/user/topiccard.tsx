@@ -59,7 +59,7 @@ export function TopiccardAdmin({
       <div className="flex justify-end">
         <Button
           variant="default"
-          className="px-5 py-1.5 text-sm"
+          className="px-5 py-1.5 text-sm bg-red-600 hover:bg-red-800 cursor-pointer"
           onClick={() => router.push(`/topics/${id}`)}
         >
           Open
