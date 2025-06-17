@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { Button } from "../ui/button";
 import { deletetopic } from "@/actions/user/deletetopic";
 import toast from "react-hot-toast";
+import { motion } from "framer-motion";
 
 interface TopiccardAdminProps {
   id: string;
@@ -33,7 +34,12 @@ export function TopiccardAdmin({
   }
 
   return (
-    <div className="bg-white border shadow-md rounded-2xl p-5 w-full max-w-sm md:max-w-md flex flex-col justify-between space-y-4 transition hover:shadow-xl">
+    <motion.div
+      initial={{ opacity: 0, y: 0 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4 }}
+      className="bg-white border shadow-md rounded-2xl p-5 w-full max-w-sm md:max-w-md flex flex-col justify-between space-y-4 transition hover:shadow-xl"
+    >
       <div className="flex justify-between items-center ">
         <h2 className="text-xl md:text-2xl font-semibold text-gray-800 line-clamp-2">
           {title}
@@ -59,6 +65,6 @@ export function TopiccardAdmin({
           Open
         </Button>
       </div>
-    </div>
+    </motion.div>
   );
 }
