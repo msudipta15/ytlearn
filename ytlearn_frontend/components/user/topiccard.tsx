@@ -3,17 +3,20 @@
 import { useRouter } from "next/navigation";
 import { Button } from "../ui/button";
 import { deletetopic } from "@/actions/user/deletetopic";
+import toast from "react-hot-toast";
 
 interface TopiccardAdminProps {
   id: string;
   title: string;
   description: string;
+  refresh: () => void;
 }
 
 export function TopiccardAdmin({
   id,
   title,
   description,
+  refresh,
 }: TopiccardAdminProps) {
   const router = useRouter();
 
@@ -21,8 +24,11 @@ export function TopiccardAdmin({
     try {
       const response = await deletetopic(id);
       console.log(response);
+      toast.success("Video deleted successfully !");
+      refresh();
     } catch (error) {
       console.log(error);
+      toast.error("something went wrong");
     }
   }
 

@@ -14,9 +14,15 @@ interface topiclistprops {
   topics: Topic[];
   loading: boolean;
   message: string;
+  refresh: () => void;
 }
 
-export function TopicList({ topics, loading, message }: topiclistprops) {
+export function TopicList({
+  topics,
+  loading,
+  message,
+  refresh,
+}: topiclistprops) {
   console.log(topics);
 
   return (
@@ -34,6 +40,7 @@ export function TopicList({ topics, loading, message }: topiclistprops) {
               id={topic._id}
               title={topic.title}
               description={topic.description}
+              refresh={refresh}
             />
           ))}
         </div>
