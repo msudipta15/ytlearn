@@ -320,6 +320,7 @@ userrouter.get("/topic/:title", adminauth_1.adminauth, function (req, res) {
         }
     });
 });
+// Get videos of a topic
 userrouter.get("/topics/:topic", adminauth_1.adminauth, function (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const topicid = req.params.topic;

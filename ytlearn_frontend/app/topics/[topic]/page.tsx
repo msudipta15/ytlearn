@@ -17,7 +17,7 @@ export default async function TopicPage({ params }: prop) {
         <h1 className="text-4xl font-semibold">React</h1>
         <p className="">This is about react</p>
       </div>
-      <div>
+      <div className="py-4 px-8 w-full flex flex-col">
         <VideoList topicid={topic} />
       </div>
     </div>
