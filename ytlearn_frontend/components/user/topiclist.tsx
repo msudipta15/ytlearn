@@ -1,5 +1,6 @@
 "use client";
 
+import { Button } from "../ui/button";
 import { TopiccardAdmin } from "./topiccard";
 import { Loader2Icon } from "lucide-react";
 
@@ -27,7 +28,15 @@ export function TopicList({
   console.log(topics);
 
   return (
-    <div className="p-4">
+    <div className="p-4 ">
+      <div className="w-full  text-right md:px-60">
+        <a
+          href="/addtopic"
+          className="text-green-600 font-medium hover:text-green-700"
+        >
+          Add Topic
+        </a>
+      </div>
       {loading ? (
         <div className="flex justify-center items-center h-64">
           <Loader2Icon className="animate-spin size-10 text-gray-600" />

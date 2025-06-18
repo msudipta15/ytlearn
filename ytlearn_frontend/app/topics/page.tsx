@@ -12,6 +12,7 @@ type Topic = {
   title: string;
   description: string;
   userid: string;
+  videos: [];
 };
 
 export default function ManageContent() {
