@@ -258,14 +258,15 @@ userrouter.post("/addvideo", adminauth_1.adminauth, function (req, res) {
         try {
             const videoinfo = yield (0, apicall_1.getvideoinfo)(link);
             const newvideo = {
-                channelTitle: videoinfo.channelTitle,
+                channelname: videoinfo.channelTitle,
                 title: videoinfo.title,
-                viewCount: videoinfo.viewCount,
-                likeCount: videoinfo.likeCount,
+                views: videoinfo.viewCount,
+                likes: videoinfo.likeCount,
                 duration: videoinfo.duration,
                 url: link,
                 videoid: videoinfo.video_id,
             };
+            console.log(newvideo);
             (_b = findtopic.videos) === null || _b === void 0 ? void 0 : _b.push(newvideo);
             yield findtopic.save();
             res

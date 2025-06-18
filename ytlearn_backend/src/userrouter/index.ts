@@ -264,14 +264,16 @@ userrouter.post("/addvideo", adminauth, async function (req, res) {
     const videoinfo: any = await getvideoinfo(link);
 
     const newvideo = {
-      channelTitle: videoinfo.channelTitle,
+      channelname: videoinfo.channelTitle,
       title: videoinfo.title,
-      viewCount: videoinfo.viewCount,
-      likeCount: videoinfo.likeCount,
+      views: videoinfo.viewCount,
+      likes: videoinfo.likeCount,
       duration: videoinfo.duration,
       url: link,
       videoid: videoinfo.video_id,
     };
+
+    console.log(newvideo);
 
     findtopic.videos?.push(newvideo);
 
