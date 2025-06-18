@@ -8,6 +8,7 @@ type Topic = {
   title: string;
   description: string;
   userid: string;
+  videos: [];
 };
 
 interface topiclistprops {
@@ -40,6 +41,7 @@ export function TopicList({
               id={topic._id}
               title={topic.title}
               description={topic.description}
+              videocount={topic.videos.length}
               refresh={refresh}
             />
           ))}

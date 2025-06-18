@@ -10,6 +10,7 @@ interface TopiccardAdminProps {
   id: string;
   title: string;
   description: string;
+  videocount: number;
   refresh: () => void;
 }
 
@@ -18,6 +19,7 @@ export function TopiccardAdmin({
   title,
   description,
   refresh,
+  videocount,
 }: TopiccardAdminProps) {
   const router = useRouter();
 
@@ -56,7 +58,11 @@ export function TopiccardAdmin({
         {description}
       </p>
 
-      <div className="flex justify-end">
+      <div className="flex justify-between">
+        <div className="text-gray-600 flex items-center gap-1">
+          <span className="text-xl font-semibold">{videocount}</span>{" "}
+          <span>videos</span>
+        </div>
         <Button
           variant="default"
           className="px-5 py-1.5 text-sm bg-red-600 hover:bg-red-800 cursor-pointer"
