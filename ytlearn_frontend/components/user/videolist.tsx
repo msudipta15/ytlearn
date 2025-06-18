@@ -12,7 +12,6 @@ interface video {
   title: string;
   url: string;
   channelname: string;
-  views: string;
   duration: string;
   videoid: string;
   _id: string;
@@ -67,7 +66,6 @@ export function VideoList({ topicid }: videolistprop) {
                 duration={video.duration}
                 url={video.url}
                 videoid={video.videoid}
-                viewscount={video.views}
               />
             ))}
           </div>

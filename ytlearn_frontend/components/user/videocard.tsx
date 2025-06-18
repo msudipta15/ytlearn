@@ -7,7 +7,6 @@ import Link from "next/link";
 interface videocardprops {
   title: string;
   channelname: string;
-  viewscount: string;
   duration: string;
   url: string;
   videoid: string;
@@ -16,7 +15,6 @@ interface videocardprops {
 export function VideoCard({
   title,
   channelname,
-  viewscount,
   duration,
   url,
   videoid,
@@ -54,17 +52,12 @@ export function VideoCard({
             <span>{duration}</span>
           </div>
 
-          <div className="flex items-center gap-1">
-            <Eye className="w-4 h-4" />
-            <span>{viewscount}</span>
+          <div className="flex justify-end pt-1">
+            <button className="flex items-center gap-1 text-sm text-red-600 hover:text-red-700 hover:underline transition cursor-pointer">
+              <Trash2 className="w-4 h-4" />
+              Delete
+            </button>
           </div>
-        </div>
-
-        <div className="flex justify-end pt-1">
-          <button className="flex items-center gap-1 text-sm text-red-600 hover:text-red-700 hover:underline transition cursor-pointer">
-            <Trash2 className="w-4 h-4" />
-            Delete
-          </button>
         </div>
       </div>
     </motion.div>
