@@ -29,7 +29,7 @@ export function VideoList({ topicid }: videolistprop) {
         `${process.env.NEXT_PUBLIC_BACKEND_URL}user/topics/${topicid}`,
         { withCredentials: true }
       );
-      console.log(response);
+      //console.log(response);
 
       const videolist: video[] = response.data.videos;
       if (videolist.length !== 0) {
@@ -39,7 +39,7 @@ export function VideoList({ topicid }: videolistprop) {
         setmessage("This topic has no videos.");
       }
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     } finally {
       setloading(false);
     }
@@ -57,7 +57,7 @@ export function VideoList({ topicid }: videolistprop) {
             <p className="text-2xl p-2 text-gray-600">Loading...</p>
           </div>
         ) : videos.length !== 0 ? (
-          <div className="grid  grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 gap-y-10 max-h-screen overflow-y-auto p-10 md:px-60">
+          <div className="grid  grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 gap-y-10 max-h-screen overflow-y-auto p-1 md:px-60">
             {videos.map((video) => (
               <VideoCard
                 key={video._id}
