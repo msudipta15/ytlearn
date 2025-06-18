@@ -2,6 +2,7 @@ import mongoose, { Schema } from "mongoose";
 
 const videoSchema = new Schema({
   title: { type: String, required: true },
+  videoid: { type: String },
   channelname: { type: String },
   url: { type: String, required: true },
   duration: { type: String, optional: true },

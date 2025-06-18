@@ -264,6 +264,7 @@ userrouter.post("/addvideo", adminauth_1.adminauth, function (req, res) {
                 likeCount: videoinfo.likeCount,
                 duration: videoinfo.duration,
                 url: link,
+                videoid: videoinfo.video_id,
             };
             (_b = findtopic.videos) === null || _b === void 0 ? void 0 : _b.push(newvideo);
             yield findtopic.save();

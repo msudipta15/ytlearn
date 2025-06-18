@@ -13,7 +13,7 @@ export function VideoCard() {
           <iframe
             width="320"
             height="215"
-            src="https://www.youtube.com/embed/YCrngJCkI8I?si=9zs_c95p5Pe0VRw7"
+            src="https://youtu.be/TxxJcom-wdk?si=z7DhH8G8za-cX-tG"
             title="YouTube video player"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             referrerPolicy="strict-origin-when-cross-origin"

@@ -47,7 +47,7 @@ function getvideoinfo(url) {
             const viewCount = data.items[0].statistics.viewCount;
             const likeCount = data.items[0].statistics.likeCount;
             const duration = data.items[0].contentDetails.duration;
-            return { channelTitle, title, viewCount, likeCount, duration };
+            return { channelTitle, title, viewCount, likeCount, duration, video_id };
         }
         catch (error) {
             return error;

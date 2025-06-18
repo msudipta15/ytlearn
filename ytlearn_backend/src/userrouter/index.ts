@@ -270,6 +270,7 @@ userrouter.post("/addvideo", adminauth, async function (req, res) {
       likeCount: videoinfo.likeCount,
       duration: videoinfo.duration,
       url: link,
+      videoid: videoinfo.video_id,
     };
 
     findtopic.videos?.push(newvideo);

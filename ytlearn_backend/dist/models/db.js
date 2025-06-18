@@ -37,6 +37,7 @@ exports.userModel = exports.topicModel = exports.videoModel = void 0;
 const mongoose_1 = __importStar(require("mongoose"));
 const videoSchema = new mongoose_1.Schema({
     title: { type: String, required: true },
+    videoid: { type: String },
     channelname: { type: String },
     url: { type: String, required: true },
     duration: { type: String, optional: true },
