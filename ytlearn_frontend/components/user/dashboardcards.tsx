@@ -18,7 +18,7 @@ const cardinfo = [
   },
   {
     title: "All Topics",
-    description: "See all of the topics you created.",
+    description: "See all the topics you created.",
     buttonText: "Open",
     route: "/topics",
   },
