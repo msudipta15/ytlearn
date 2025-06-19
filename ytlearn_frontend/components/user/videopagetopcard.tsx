@@ -33,7 +33,7 @@ export function VideoPageTopCard({ topic }: { topic: string }) {
       initial={{ opacity: 0, y: 0 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.2, ease: "easeOut" }}
-      className="p-6 flex flex-col items-center gap-2 mt-10 justify-center"
+      className="p-6 flex flex-col items-center gap-2 mt-2 justify-center"
     >
       <h1 className="text-4xl font-semibold">{title}</h1>
       <p className="text-gray-700">{description}</p>

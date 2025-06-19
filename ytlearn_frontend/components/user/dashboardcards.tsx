@@ -3,55 +3,51 @@
 import { useRouter } from "next/navigation";
 import { Button } from "../ui/button";
 
+const cardinfo = [
+  {
+    title: "Create Topic",
+    description: "Create new topics to add videos.",
+    buttonText: "Add Topic",
+    route: "/addtopic",
+  },
+  {
+    title: "Add Video",
+    description: "Add your favorite YouTube videos to your topics.",
+    buttonText: "Add Video",
+    route: "/addvideo",
+  },
+  {
+    title: "All Topics",
+    description: "See all of the topics you created.",
+    buttonText: "Open",
+    route: "/topics",
+  },
+];
+
 export function DashboardCards() {
   const router = useRouter();
   return (
-    <div className="flex flex-col">
-      <div className="p-4 px-8 mb-3 border gap-2 flex justify-between rounded-lg shadow-lg  sm:w-[300px] md:w-[800px] md:h-[170px]   items-center  mx-auto">
-        <div className="flex flex-col  justify-center h-full">
-          <h1 className="sm:text-5xl font-bold mb-2">Topics</h1>
-          <p>Create new topics to add videos.</p>
-        </div>
-        <div>
+    <div className="flex flex-col gap-6 items-center px-4">
+      {cardinfo.map((card, idx) => (
+        <div
+          key={idx}
+          className="w-full max-w-3xl p-6 md:h-44 flex justify-between items-center bg-white border rounded-2xl shadow-md transition hover:shadow-xl"
+        >
+          <div className="flex flex-col justify-center h-full">
+            <h1 className="text-2xl md:text-4xl font-semibold text-gray-800 mb-2">
+              {card.title}
+            </h1>
+            <p className="text-gray-600">{card.description}</p>
+          </div>
           <Button
-            size={"lg"}
-            className="bg-white px-5 text-black shadow-xl border hover:bg-red-600 hover:text-white cursor-pointer"
-            onClick={() => router.push("/addtopic")}
+            size="lg"
+            className="bg-black text-white px-6 py-2 rounded-md hover:bg-red-600 transition cursor-pointer"
+            onClick={() => router.push(card.route)}
           >
-            Add Topic
+            {card.buttonText}
           </Button>
         </div>
-      </div>
-      <div className="p-4 px-8 mb-3 border gap-2 flex justify-between rounded-lg shadow-lg  sm:w-[300px] md:w-[800px] md:h-[170px]   items-center  mx-auto">
-        <div className="flex flex-col  justify-center h-full">
-          <h1 className="sm:text-5xl font-bold mb-2">Add Video</h1>
-          <p>Add your favorite youtube videos to your topics.</p>
-        </div>
-        <div>
-          <Button
-            size={"lg"}
-            onClick={() => router.push("/addvideo")}
-            className="bg-white text-black shadow-xl px-7 border hover:bg-red-600 hover:text-white cursor-pointer"
-          >
-            Add video
-          </Button>
-        </div>
-      </div>
-      <div className="p-4 border px-8 gap-2 mb-3 flex justify-between rounded-lg shadow-lg  sm:w-[300px] md:w-[800px] md:h-[170px]   items-center  mx-auto">
-        <div className="flex flex-col  justify-center h-full">
-          <h1 className="sm:text-5xl font-bold mb-2">Topics</h1>
-          <p>See all of the topics you created. </p>
-        </div>
-        <div>
-          <Button
-            size={"lg"}
-            onClick={() => router.push("/topics")}
-            className="bg-white text-black px-11 shadow-xl border hover:bg-red-600 hover:text-white cursor-pointer"
-          >
-            Open
-          </Button>
-        </div>
-      </div>
+      ))}
     </div>
   );
 }

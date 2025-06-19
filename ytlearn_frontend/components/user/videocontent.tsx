@@ -69,6 +69,10 @@ export function VideoPageContent({ topic }: { topic: string }) {
     }
   }
 
+  async function refresh() {
+    getvideos(topic);
+  }
+
   useEffect(() => {
     getvideos(topic);
   }, []);
@@ -93,7 +97,13 @@ export function VideoPageContent({ topic }: { topic: string }) {
         </div>
       </div>
       <div className="py-4 px-8 w-full flex flex-col">
-        <VideoList loading={loading} message={message} videos={videos} />
+        <VideoList
+          refresh={refresh}
+          loading={loading}
+          message={message}
+          videos={videos}
+          topic={topic}
+        />
       </div>
     </div>
   );
