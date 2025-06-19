@@ -1,4 +1,5 @@
 import { Sidebar } from "@/components/user/sidebar";
+import { VideoPageContent } from "@/components/user/videocontent";
 import { VideoList } from "@/components/user/videolist";
 import { VideoPageTopCard } from "@/components/user/videopagetopcard";
 
@@ -16,10 +17,7 @@ export default async function TopicPage({ params }: prop) {
       <Sidebar />
 
       <VideoPageTopCard topic={topic} />
-
-      <div className="py-4 px-8 w-full flex flex-col">
-        <VideoList topicid={topic} />
-      </div>
+      <VideoPageContent topic={topic} />
     </div>
   );
 }

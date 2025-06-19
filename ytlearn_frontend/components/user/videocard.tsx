@@ -21,9 +21,6 @@ export function VideoCard({
   videoid,
 }: videocardprops) {
   const time = formattime(duration);
-  console.log(duration);
-
-  console.log(time);
 
   return (
     <motion.div

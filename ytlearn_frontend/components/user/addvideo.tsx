@@ -32,8 +32,8 @@ import { useRouter } from "next/navigation";
 const formSchema = z.object({
   link: z
     .string()
-    .min(2, {
-      message: "Username must be at least 2 characters.",
+    .min(8, {
+      message: "Valid youtube link required",
     })
     .refine((val) => val.includes("youtube.com") || val.includes("youtu.be"), {
       message: "Please provide a valid youtube link",

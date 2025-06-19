@@ -281,7 +281,9 @@ userrouter.post("/addvideo", adminauth, async function (req, res) {
 
     res
       .status(200)
-      .json({ msg: `${videoinfo.title} video added to topic : ${topic}` });
+      .json({
+        msg: `${videoinfo.title} video added to topic : ${findtopic.title}`,
+      });
   } catch (error) {
     console.log(error);
     res.status(500).json({ msg: "something went wrong" });

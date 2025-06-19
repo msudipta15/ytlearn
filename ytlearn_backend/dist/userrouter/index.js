@@ -271,7 +271,9 @@ userrouter.post("/addvideo", adminauth_1.adminauth, function (req, res) {
             yield findtopic.save();
             res
                 .status(200)
-                .json({ msg: `${videoinfo.title} video added to topic : ${topic}` });
+                .json({
+                msg: `${videoinfo.title} video added to topic : ${findtopic.title}`,
+            });
         }
         catch (error) {
             console.log(error);
