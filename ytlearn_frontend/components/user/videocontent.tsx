@@ -57,8 +57,10 @@ export function VideoPageContent({ topic }: { topic: string }) {
         toast.error(
           response.error.response.data.msg || "something went wrong !"
         );
+        setinputlink("");
       } else {
         toast.success(response.msg);
+        setinputlink("");
         getvideos(topic);
       }
     } catch (error) {
@@ -82,6 +84,7 @@ export function VideoPageContent({ topic }: { topic: string }) {
       <div className="flex justify-center">
         <div className="w-1/2 md:px-30 flex gap-2 items-center">
           <Input
+            value={inputlink}
             placeholder="Paste youtube link of the video."
             onChange={(e) => setinputlink(e.target.value)}
             className="hover:shadow-2xl rounded-xl "
