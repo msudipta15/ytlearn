@@ -96,12 +96,12 @@ export function Sidebar() {
             <div
               onClick={() => {
                 logout();
-                router.push("/login");
+                router.push("/");
               }}
               className="flex mt-10  items-center gap-3 cursor-pointer p-2 rounded-md hover:bg-red-600 hover:text-white transition"
             >
               <RiLogoutBoxRLine size={26} />
-              <Link href={"/login"}>Logout </Link>
+              <Link href={"/"}>Logout </Link>
             </div>
           </nav>
         </motion.aside>

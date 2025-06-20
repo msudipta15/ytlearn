@@ -1,54 +1,23 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { FaDotCircle } from "react-icons/fa";
 import { BsPersonCircle } from "react-icons/bs";
 
 export default function WelcomeSection({ name }: { name: string }) {
   return (
     <motion.div
-      className="p-4 rounded-lg shadow-lg  sm:w-[300px] md:w-[800px] md:h-[350px] flex flex-col justify-center bg-gradient-to-r from-red-600 to-red-400 text-white items-center  mx-auto"
+      className="p-4 rounded-lg   sm:w-[300px] md:w-[800px] md:h-[350px] flex flex-col justify-center  items-center  mx-auto"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
+      transition={{ duration: 0.9 }}
     >
       <div>
-        <BsPersonCircle size={36} />
+        <BsPersonCircle size={96} className="text-red-600" />
       </div>
-      <h1 className="text-2xl mt-2   font-bold mb-4">Hello, {name}</h1>
+      <h1 className="text-2xl md:text-4xl mt-5   font-bold mb-4">
+        Hello, {name}
+      </h1>
       <h2 className="text-xl font-semibold mb-2">Welcome to YT Learn!</h2>
-      <ul className="space-y-2 text-md ">
-        <li className="flex items-center mb-2 mt-2">
-          <span className="mr-2">
-            <FaDotCircle />
-          </span>{" "}
-          Curate and organize topics to shape your personalized learning
-          journey.
-        </li>
-        <li className="flex items-center mb-2">
-          <span className="mr-2">
-            {" "}
-            <FaDotCircle />
-          </span>{" "}
-          Collect and categorize your favorite YouTube videos by topic for easy
-          access.
-        </li>
-        <li className="flex items-center mb-2">
-          <span className="mr-2">
-            {" "}
-            <FaDotCircle />
-          </span>{" "}
-          Turn unstructured YouTube learning into a structured, focused
-          experience.
-        </li>
-        <li className="flex items-center mb-2">
-          <span className="mr-2">
-            {" "}
-            <FaDotCircle />
-          </span>{" "}
-          Bookmark must-watch videos and build your ultimate learning playlist.
-        </li>
-      </ul>
     </motion.div>
   );
 }
