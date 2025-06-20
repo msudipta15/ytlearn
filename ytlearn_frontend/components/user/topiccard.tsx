@@ -5,6 +5,17 @@ import { Button } from "../ui/button";
 import { deletetopic } from "@/actions/user/deletetopic";
 import toast from "react-hot-toast";
 import { motion } from "framer-motion";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 interface TopiccardAdminProps {
   id: string;
@@ -46,12 +57,32 @@ export function TopiccardAdmin({
         <h2 className="text-xl md:text-2xl font-semibold text-gray-800 line-clamp-2">
           {title}
         </h2>
-        <button
-          onClick={() => handledelete()}
-          className="text-red-500 text-sm hover:underline cursor-pointer"
-        >
-          Delete
-        </button>
+
+        <AlertDialog>
+          <AlertDialogTrigger asChild>
+            <button className="text-red-500 text-sm hover:underline cursor-pointer">
+              Delete
+            </button>
+          </AlertDialogTrigger>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+              <AlertDialogDescription>
+                This action cannot be undone. This will permanently delete your
+                topic and remove it from our servers.
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel>Cancel</AlertDialogCancel>
+              <AlertDialogAction
+                onClick={handledelete}
+                className="bg-red-600 hover:bg-red-700"
+              >
+                Delete
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
       </div>
 
       <p className="text-gray-600 text-sm md:text-base line-clamp-3">
