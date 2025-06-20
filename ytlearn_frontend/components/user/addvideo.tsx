@@ -38,7 +38,7 @@ const formSchema = z.object({
     .refine((val) => val.includes("youtube.com") || val.includes("youtu.be"), {
       message: "Please provide a valid youtube link",
     }),
-  topic: z.string().min(1),
+  topic: z.string().min(1, { message: "Please select a topic" }),
 });
 
 interface Topic {
@@ -178,6 +178,12 @@ export function Addvideo() {
                     >
                       {success}
                     </motion.span>
+                  </div>
+                )}
+
+                {topics.length === 0 && (
+                  <div className="text-center bg-red-300 text-white rounded-lg p-1">
+                    Create a topic first to start adding videos to it.
                   </div>
                 )}
 

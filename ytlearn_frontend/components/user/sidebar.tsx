@@ -29,7 +29,7 @@ export function Sidebar() {
     },
     {
       icon: <IoIosCreate size={24} />,
-      label: "Add Topic",
+      label: "Create Topic",
       href: "/addtopic",
     },
     {

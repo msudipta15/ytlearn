@@ -8,13 +8,13 @@ const cardinfo = [
   {
     title: "Create Topic",
     description: "Create new topics to add videos.",
-    buttonText: "Add Topic",
+    buttonText: "Create",
     route: "/addtopic",
   },
   {
     title: "Add Video",
     description: "Add your favorite YouTube videos to your topics.",
-    buttonText: "Add Video",
+    buttonText: "Add ",
     route: "/addvideo",
   },
   {

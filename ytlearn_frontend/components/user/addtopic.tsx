@@ -74,7 +74,7 @@ export function AddTopicAdmin() {
     <div className="py-6 px-10 w-full   ">
       <div className="p-4  mt-20 rounded-lg gap-3 shadow-lg border   md:w-[800px] md:h-[500px] flex flex-col justify-center  items-center  mx-auto">
         <div className="">
-          <h1 className="text-3xl text-center font-bold">Add Topic</h1>
+          <h1 className="text-3xl text-center font-bold">Create Topic</h1>
         </div>
         <div className="w-full sm:w-[400px]">
           <div className=" p-3  w-full items-center">
