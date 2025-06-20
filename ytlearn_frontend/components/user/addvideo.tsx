@@ -53,6 +53,7 @@ export function Addvideo() {
   const [loading, setloading] = useState(false);
   const [error, seterror] = useState("");
   const [success, setsuccess] = useState("");
+  const [message, setmessage] = useState("");
 
   const router = useRouter();
 
@@ -60,6 +61,9 @@ export function Addvideo() {
     try {
       const response = await gettopics();
       settopics(response.topics);
+      if (topics.length === 0) {
+        setmessage("Create a topic first to start adding videos to it.");
+      }
     } catch (error) {
       console.log(error);
     }
@@ -182,8 +186,8 @@ export function Addvideo() {
                 )}
 
                 {topics.length === 0 && (
-                  <div className="text-center bg-red-300 text-white rounded-lg p-1">
-                    Create a topic first to start adding videos to it.
+                  <div className="text-center font-medium text-red-700">
+                    {message}
                   </div>
                 )}
 
