@@ -7,7 +7,9 @@ export default function LandingPage() {
       <div className="absolute inset-0 z-0 w-full min-h-screen overflow-auto flex flex-col  items-center ">
         {/*Top Bar */}
         <div className="text-center p-12">
-          <h1 className="text-2xl md:text-4xl font-bold ">YT Learn</h1>
+          <h1 className="text-3xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-red-700 to-red-900 animate-text drop-shadow-lg">
+            YT Learn
+          </h1>
         </div>
 
         {/* Hero Section */}
@@ -24,7 +26,7 @@ export default function LandingPage() {
               <Button
                 variant={"outline"}
                 size={"lg"}
-                className="bg-red-600 text-white font-semibold mt-4 px-10 py-5 rounded-3xl hover:shadow-2xl cursor-pointer "
+                className="bg-red-600 text-white font-semibold mt-4 px-10 py-6 rounded-3xl hover:shadow-2xl cursor-pointer "
               >
                 Get Started
               </Button>
