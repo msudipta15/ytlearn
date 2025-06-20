@@ -150,6 +150,7 @@ userrouter.get("/topics", adminauth, async function (req, res) {
     const topics = await topicModel.find({ userid });
     if (topics.length === 0) {
       res.status(405).json({ msg: "You do not have any topic added" });
+      return;
     }
     res.status(200).json({ topics: topics });
   } catch (error) {
@@ -279,11 +280,9 @@ userrouter.post("/addvideo", adminauth, async function (req, res) {
 
     await findtopic.save();
 
-    res
-      .status(200)
-      .json({
-        msg: `${videoinfo.title} video added to topic : ${findtopic.title}`,
-      });
+    res.status(200).json({
+      msg: `${videoinfo.title} video added to topic : ${findtopic.title}`,
+    });
   } catch (error) {
     console.log(error);
     res.status(500).json({ msg: "something went wrong" });

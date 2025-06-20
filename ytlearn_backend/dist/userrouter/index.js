@@ -149,6 +149,7 @@ userrouter.get("/topics", adminauth_1.adminauth, function (req, res) {
             const topics = yield db_1.topicModel.find({ userid });
             if (topics.length === 0) {
                 res.status(405).json({ msg: "You do not have any topic added" });
+                return;
             }
             res.status(200).json({ topics: topics });
         }
@@ -269,9 +270,7 @@ userrouter.post("/addvideo", adminauth_1.adminauth, function (req, res) {
             console.log(newvideo);
             (_b = findtopic.videos) === null || _b === void 0 ? void 0 : _b.push(newvideo);
             yield findtopic.save();
-            res
-                .status(200)
-                .json({
+            res.status(200).json({
                 msg: `${videoinfo.title} video added to topic : ${findtopic.title}`,
             });
         }
