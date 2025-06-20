@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { Button } from "../ui/button";
+import { motion } from "framer-motion";
 
 const cardinfo = [
   {
@@ -28,9 +29,9 @@ export function DashboardCards() {
   const router = useRouter();
   return (
     <div className="flex flex-col gap-6 items-center px-4">
-      {cardinfo.map((card, idx) => (
+      {cardinfo.map((card, id) => (
         <div
-          key={idx}
+          key={id}
           className="w-full max-w-3xl p-6 md:h-44 flex justify-between items-center bg-white border rounded-2xl shadow-md transition hover:shadow-xl"
         >
           <div className="flex flex-col justify-center h-full">
@@ -41,7 +42,7 @@ export function DashboardCards() {
           </div>
           <Button
             size="lg"
-            className="bg-black text-white px-6 py-2 rounded-md hover:bg-red-600 transition cursor-pointer"
+            className="bg-red-600 text-white px-6 py-2 rounded-md hover:bg-red-800 transition cursor-pointer"
             onClick={() => router.push(card.route)}
           >
             {card.buttonText}

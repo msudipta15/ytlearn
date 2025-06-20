@@ -17,7 +17,7 @@ export default function LandingPage() {
               Curate. Learn. Grow.
             </h2>
             <p className="text-xl md:text-2xl max-w-2xl mb-8 text-center">
-              Discover top-quality YouTube videos, organized topic-wise to
+              Create custom playlists, Add top-quality YouTube videos to
               accelerate your learning journey.
             </p>
             <Link href={"/login"}>

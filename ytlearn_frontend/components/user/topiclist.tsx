@@ -29,7 +29,7 @@ export function TopicList({
 
   return (
     <div className="p-4 ">
-      <div className="w-full  text-right md:px-60">
+      <div className="w-full   text-right pr-10  md:px-60">
         <a
           href="/addtopic"
           className="text-green-600 font-medium hover:text-green-700"

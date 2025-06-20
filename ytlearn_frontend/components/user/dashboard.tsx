@@ -25,7 +25,7 @@ export function DashboardAdmin() {
       <div>
         <WelcomeSection name={name} />
       </div>
-      <div className="mt-4 ">
+      <div className="mt-8 md:mt-0 ">
         <DashboardCards />
       </div>
     </div>
