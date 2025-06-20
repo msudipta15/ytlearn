@@ -21,7 +21,7 @@ export function DashboardAdmin() {
   }, []);
 
   return (
-    <div className="p-6 w-full flex flex-col  max-h-full min-h-screen ">
+    <div className=" w-full flex flex-col  max-h-full min-h-screen ">
       <div>
         <WelcomeSection name={name} />
       </div>
