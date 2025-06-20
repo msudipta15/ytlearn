@@ -108,13 +108,17 @@ export function SigninForm() {
             </div>
           )}
 
-          <Button className="w-full" type="submit" disabled={issubmit}>
+          <Button
+            className="w-full bg-red-600 text-white font-medium hover:bg-red-700 "
+            type="submit"
+            disabled={issubmit}
+          >
             {issubmit && <Loader2Icon className="animate-spin" />}
-            Submit
+            Sign in
           </Button>
         </form>
       </Form>
-      <p className="py-2 text-center">
+      <p className="py-2 mt-2 text-center">
         Don't have an account?{" "}
         <a className="hover:text-blue-600" href="/signup">
           Sign up

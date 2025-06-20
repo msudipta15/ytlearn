@@ -31,7 +31,7 @@ export function DashboardCards() {
       {cardinfo.map((card, idx) => (
         <div
           key={idx}
-          className="w-full max-w-3xl p-6 md:h-44 flex justify-between items-center bg-white border rounded-2xl shadow-md transition hover:shadow-xl"
+          className="w-full max-w-[800px] p-6 md:h-44 flex justify-between items-center bg-white border rounded-2xl shadow-md transition hover:shadow-xl"
         >
           <div className="flex flex-col justify-center h-full">
             <h1 className="text-2xl md:text-4xl font-semibold text-gray-800 mb-2">

@@ -82,17 +82,17 @@ export function VideoPageContent({ topic }: { topic: string }) {
   return (
     <div>
       <div className="flex justify-center">
-        <div className="w-1/2 md:px-30 flex gap-2 items-center">
+        <div className="sm:w-[900px] md:px-30 flex gap-2 items-center">
           <Input
             value={inputlink}
             placeholder="Paste youtube link of the video."
             onChange={(e) => setinputlink(e.target.value)}
-            className="hover:shadow-2xl rounded-xl "
+            className="hover:shadow-2xl rounded-xl  "
           />
           <Button
             variant={"default"}
             disabled={buttonloading}
-            className="bg-red-600 rounded-sm text-white cursor-pointer hover:bg-red-700"
+            className="bg-red-600 rounded-3xl text-white cursor-pointer hover:bg-red-700"
             onClick={() => handleaddvideo()}
           >
             Add Video
