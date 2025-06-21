@@ -56,9 +56,17 @@ YouTube is a great platform for learning, but it’s crowded and unstructured. L
 
 ## 📸 Screenshots
 
-- **Home Page**
-- **Create Topic UI**
+- **Landing Page**
+  ![Home Page](./screenshots/landingpage.png)
+- **Dahsboard**
+  ![Home Page](./screenshots/dashboard.png)
+- **Create Topic Form**
+  ![Home Page](./screenshots/createtopic.png)
 - **Add Video Form**
+  ![Home Page](./screenshots/addvideo.png)
+- **Topics Page**
+  ![Home Page](./screenshots/topicspage.png)
 - **Embedded Video Viewer**
+  ![Home Page](./screenshots/videopage.png)
 
 ---
