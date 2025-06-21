@@ -70,3 +70,25 @@ YouTube is a great platform for learning, but it’s crowded and unstructured. L
   ![Home Page](./screenshots/videopage.png)
 
 ---
+
+## 📦 Installation & Setup
+
+```bash
+# Clone the repo
+git clone https://github.com/msudipta15/ytlearn.git
+cd yt-learn
+
+# Install frontend dependencies
+cd client
+npm install
+
+# Install backend dependencies
+cd ../server
+npm install
+
+# Start the backend
+npm start
+
+# Start the frontend (in a separate terminal)
+npm run dev
+```
