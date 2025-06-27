@@ -1,13 +1,8 @@
 import { Sidebar } from "@/components/user/sidebar";
 import { VideoPageContent } from "@/components/user/videocontent";
 import { VideoPageTopCard } from "@/components/user/videopagetopcard";
-import { type NextPage } from "next";
 
-interface TopicPageProps {
-  params: { topic: string };
-}
-
-const TopicPage: NextPage<TopicPageProps> = ({ params }) => {
+export default function TopicPage({ params }: { params: { topic: string } }) {
   const { topic } = params;
 
   return (
@@ -17,6 +12,4 @@ const TopicPage: NextPage<TopicPageProps> = ({ params }) => {
       <VideoPageContent topic={topic} />
     </div>
   );
-};
-
-export default TopicPage;
+}
