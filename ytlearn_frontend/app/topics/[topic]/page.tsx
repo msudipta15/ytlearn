@@ -8,7 +8,7 @@ type Props = {
   };
 };
 
-export default async function TopicPage({ params }: Props) {
+export default function TopicPage({ params }: Props) {
   const { topic } = params;
 
   return (
