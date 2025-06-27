@@ -10,7 +10,7 @@ interface prop {
 }
 
 export default async function TopicPage({ params }: prop) {
-  const { topic } = await params;
+  const { topic } = params;
 
   return (
     <div>
