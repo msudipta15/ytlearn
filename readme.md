@@ -6,7 +6,7 @@
 
 ## 🚀 Live Demo
 
-👉 Not yet deployed
+👉 https://ytlearn-gamma.vercel.app/
 
 ---
 
