@@ -14,7 +14,7 @@ import { Loader2Icon } from "lucide-react";
 
 export function Sidebar() {
   const router = useRouter();
-  const [modelclose, setmodelclose] = useState(false);
+  const [modelclose, setmodelclose] = useState(true);
 
   async function calllogout() {
     const response = await logout();
