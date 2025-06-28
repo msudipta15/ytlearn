@@ -93,7 +93,12 @@ userrouter.post("/signin", function (req, res) {
 userrouter.post("/logout", function (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            res.clearCookie("token", { path: "/", httpOnly: true, sameSite: "lax" });
+            res.clearCookie("token", {
+                path: "/",
+                httpOnly: true,
+                secure: true,
+                sameSite: "none",
+            });
             res.status(200).json({ msg: "Logout Successfull" });
         }
         catch (error) {
