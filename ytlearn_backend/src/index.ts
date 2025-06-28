@@ -11,7 +11,7 @@ const app = express();
 
 const allowedOrigins = [
   "http://localhost:3000",
-  "https://ytlearn-8ufw.vercel.app",
+  "https://ytlearn-gamma.vercel.app",
 ];
 
 app.use(
