@@ -3,13 +3,11 @@ import { VideoPageContent } from "@/components/user/videocontent";
 import { VideoPageTopCard } from "@/components/user/videopagetopcard";
 
 interface TopicPageProps {
-  params: {
-    topic: string;
-  };
+  params: Promise<{ topic: string }>;
 }
 
-export default function TopicPage({ params }: TopicPageProps) {
-  const { topic } = params;
+export default async function TopicPage({ params }: TopicPageProps) {
+  const { topic } = await params;
 
   return (
     <div>
