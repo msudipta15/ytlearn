@@ -76,10 +76,10 @@ userrouter.post("/signin", function (req, res) {
             res
                 .cookie("token", token, {
                 httpOnly: true,
-                maxAge: 60 * 60 * 24 * 1000,
+                maxAge: 60 * 60 * 24 * 1000, // 1 day
                 path: "/",
-                sameSite: "lax",
-                secure: false,
+                sameSite: "none", // REQUIRED for cross-site cookies
+                secure: true, // REQUIRED on HTTPS (Vercel uses HTTPS)
             })
                 .status(200)
                 .json({ success: true });
